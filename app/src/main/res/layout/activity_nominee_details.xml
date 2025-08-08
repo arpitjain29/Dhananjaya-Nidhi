@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.NomineeDetailsActivity">
+
+    <include layout="@layout/app_bar_layout"
+        android:id="@+id/appLayout"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="Name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNameNomineeEntry"
+                    style="@style/Edittext"
+                    android:hint="Enter name"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="Relation">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRelationNomineeEntry"
+                    style="@style/Edittext"
+                    android:hint="Enter relation"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="DOB">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDobNomineeEntry"
+                    style="@style/Edittext"
+                    android:hint="Enter dob"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="Addhar number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddharNumberNomineeEntry"
+                    style="@style/Edittext"
+                    android:hint="Enter addhar number"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="Addhar copy">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddharCopyNomineeEntry"
+                    style="@style/Edittext"
+                    android:hint="Enter addhar copy"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmitNomineeEntry"
+                style="@style/MaterialButton"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="Submit" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

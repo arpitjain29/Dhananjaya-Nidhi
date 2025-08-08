@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.TransactionScreenActivity">
+
+    <include layout="@layout/app_bar_layout"
+        android:id="@+id/appLayout"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tvSearchList"
+        android:layout_below="@+id/appLayout"
+        style="@style/TextInputLayoutAppearance"
+        android:layout_margin="@dimen/_10sdp"
+        android:hint="@string/search">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTransactionList"
+            style="@style/Edittext"
+            android:hint="@string/search"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSearchList"
+        android:id="@+id/rvTransactionList"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvNoFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_found"
+        android:textSize="@dimen/_14ssp"
+        android:textColor="@color/black"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+</RelativeLayout>

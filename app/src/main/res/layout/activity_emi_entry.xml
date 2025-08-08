@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.EmiEntryActivity">
+    <include layout="@layout/app_bar_layout"
+        android:id="@+id/appLayout"/>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutAppearance"
+        android:layout_margin="@dimen/_10sdp"
+        android:hint="Emi Amount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etMobileNumber"
+            style="@style/Edittext"
+            android:hint="Enter Emi Amount"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCollect"
+        style="@style/MaterialButton"
+        android:layout_margin="@dimen/_10sdp"
+        android:text="Collect" />
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <declare-styleable name="SimpleArcLoader">
+
+        <attr name="arc_style" format="enum">
+            <enum name="simple_arc" value="0" />
+            <enum name="complete_arc" value="1" />
+        </attr>
+
+        <attr name="arc_margin" format="dimension"/>
+        <attr name="arc_thickness" format="dimension"/>
+
+        <attr name="arc_speed" format="enum">
+            <enum name="slow" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="fast" value="2" />
+        </attr>
+
+        <attr name="arc_colors" format="reference" />
+
+    </declare-styleable>
+
+    <declare-styleable name="SwipeLayout">
+        <attr name="drag_edge">
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+        <attr name="leftEdgeSwipeOffset" format="dimension" />
+        <attr name="rightEdgeSwipeOffset" format="dimension" />
+        <attr name="topEdgeSwipeOffset" format="dimension" />
+        <attr name="bottomEdgeSwipeOffset" format="dimension" />
+        <attr name="show_mode" format="enum">
+            <enum name="lay_down" value="0" />
+            <enum name="pull_out" value="1" />
+        </attr>
+        <attr name="clickToClose" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TemplateView">
+        <attr name="gnt_template_type" format="reference"/>
+    </declare-styleable>
+
+</resources>

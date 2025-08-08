@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_5sdp">
+
+    <LinearLayout
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_5sdp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayoutAppearance"
+            android:layout_margin="@dimen/_10sdp"
+            android:hint="Account number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAccountNumberFilter"
+                style="@style/Edittext"
+                android:hint="Enter Account number"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayoutAppearance"
+            android:layout_margin="@dimen/_10sdp"
+            android:hint="Date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDateFilter"
+                style="@style/Edittext"
+                android:focusable="false"
+                android:editable="false"
+                android:hint="Enter Date"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubmitFilter"
+            style="@style/MaterialButton"
+            android:layout_margin="@dimen/_10sdp"
+            android:text="Submit" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

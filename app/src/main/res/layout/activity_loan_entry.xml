@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.LoanEntryActivity">
+    <include layout="@layout/app_bar_layout"
+        android:id="@+id/appLayout"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="@string/name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNameLoanEntry"
+                    style="@style/Edittext"
+                    android:hint="@string/enter_name"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="@string/address">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddressLoanEntry"
+                    style="@style/Edittext"
+                    android:hint="@string/enter_address"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="@string/loan_amount">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLoanAmountLoanEntry"
+                    style="@style/Edittext"
+                    android:hint="@string/enter_loan_amount"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="@string/duration">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDurationLoanEntry"
+                    style="@style/Edittext"
+                    android:hint="@string/enter_duration"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="@string/mobile_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMobileNumber"
+                    style="@style/Edittext"
+                    android:hint="@string/enter_mobile_number"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCollect"
+                style="@style/MaterialButton"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="@string/submit" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

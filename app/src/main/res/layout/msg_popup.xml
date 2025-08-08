@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_5sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/tvMessageTextPopup"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:gravity="center"
+            android:textColor="@color/Color9a003e"
+            android:textSize="@dimen/_14ssp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tvYesTextPopup"
+                style="@style/MaterialButton"
+                android:layout_width="0dp"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:text="Ok"
+                android:textSize="@dimen/_12ssp" />
+
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/tvNoTextPopup"-->
+<!--                style="@style/MaterialButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_margin="@dimen/_5sdp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/cancel"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/_12ssp"-->
+<!--                app:backgroundTint="@color/black" />-->
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

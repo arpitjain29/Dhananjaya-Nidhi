@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <string-array name="text_array_list">-->
+<!--        <item>@string/mobile_recharge</item>-->
+<!--        <item>@string/tv_recharge</item>-->
+<!--        <item>@string/my_profile</item>-->
+<!--&lt;!&ndash;        <item>@string/recharge_history</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item>@string/load_wallet</item>&ndash;&gt;-->
+<!--        <item>@string/wallet</item>-->
+<!--&lt;!&ndash;        <item>@string/change_password</item>&ndash;&gt;-->
+<!--        <item>@string/complaints</item>-->
+<!--        <item>@string/supports</item>-->
+<!--    </string-array>-->
+
+<!--    <string-array name="recharge_plan">-->
+<!--        <item>Unlimited</item>-->
+<!--        <item>Data</item>-->
+<!--        <item>TalkTime</item>-->
+<!--        <item>IR</item>-->
+<!--        <item>ISD</item>-->
+<!--        <item>Inflight Roaming Plan</item>-->
+<!--    </string-array>-->
+
+<!--    <integer-array name="drawer_icons">-->
+<!--        <item>@drawable/ic_mobile_recharge</item>-->
+<!--        <item>@drawable/ic_tv_recharge</item>-->
+<!--        <item>@drawable/ic_my_profile</item>-->
+<!--        <item>@drawable/ic_recharge_history</item>-->
+<!--        <item>@drawable/ic_load_wallet</item>-->
+<!--        <item>@drawable/ic_wallet</item>-->
+<!--        <item>@drawable/ic_change_password</item>-->
+<!--        <item>@drawable/ic_complaints</item>-->
+<!--        <item>@drawable/ic_supports</item>-->
+<!--    </integer-array>-->
+</resources>

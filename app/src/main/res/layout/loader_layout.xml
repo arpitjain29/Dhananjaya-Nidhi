@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/window"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <com.dhananjayanidhi.utils.loader.SimpleArcLoader
+            android:id="@+id/loader"
+            android:layout_width="@dimen/_55sdp"
+            android:layout_height="@dimen/_55sdp"
+            app:arc_style="complete_arc" />
+
+        <TextView
+            android:id="@+id/loadertext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Loading"
+            android:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_regular"
+            android:visibility="gone"
+            android:textColor="@color/ColorEBEBEB"
+            android:textSize="15sp" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AccountOpenActivity">
+
+    <include layout="@layout/app_bar_layout"
+        android:id="@+id/appLayout"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/bg_edit">
+        <Spinner
+            android:id="@+id/spAccountOpen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutAppearance"
+        android:layout_margin="@dimen/_10sdp"
+        android:hint="@string/account_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAccountNumberOpen"
+            style="@style/Edittext"
+            android:hint="@string/enter_account_number"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutAppearance"
+        android:layout_margin="@dimen/_10sdp"
+        android:hint="@string/member_fees">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etMemberFeesOpen"
+            style="@style/Edittext"
+            android:focusable="false"
+            android:clickable="false"
+            android:hint="@string/enter_member_fees"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutAppearance"
+        android:layout_margin="@dimen/_10sdp"
+        android:hint="@string/deposit_amount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDepositAmountOpen"
+            style="@style/Edittext"
+            android:hint="@string/enter_deposit_amount"
+            android:inputType="number"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutAppearance"
+        android:layout_margin="@dimen/_10sdp"
+        android:hint="@string/dds_amount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDdsAmountOpen"
+            style="@style/Edittext"
+            android:hint="@string/enter_dds_amount"
+            android:inputType="number"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmitAccountOpen"
+        style="@style/MaterialButton"
+        android:layout_margin="@dimen/_10sdp"
+        android:text="@string/submit" />
+
+</LinearLayout>
