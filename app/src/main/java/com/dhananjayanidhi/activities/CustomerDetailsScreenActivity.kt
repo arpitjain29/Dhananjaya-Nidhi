@@ -37,7 +37,6 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 import androidx.core.graphics.drawable.toDrawable
-import com.dhananjayanidhi.databinding.LogoutPopupBinding
 import com.dhananjayanidhi.databinding.MsgPopupBinding
 
 class CustomerDetailsScreenActivity : BaseActivity() {
@@ -46,7 +45,6 @@ class CustomerDetailsScreenActivity : BaseActivity() {
     private var customerId: String? = null
     private var accountId: String? = null
     private var searching: String? = null
-//    private var todayCollectStatus: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +69,6 @@ class CustomerDetailsScreenActivity : BaseActivity() {
         searching = intent.getStringExtra(Constants.searchText)
         customerId = intent.getStringExtra(Constants.customerListId)
         accountId = intent.getStringExtra(Constants.accountListId)
-//        todayCollectStatus = intent.getStringExtra(Constants.todayCollection)
 
         customerDetailsScreenBinding!!.appLayout.ivMenu.visibility = View.GONE
         customerDetailsScreenBinding!!.appLayout.tvTitle.visibility = View.VISIBLE
@@ -82,12 +79,6 @@ class CustomerDetailsScreenActivity : BaseActivity() {
         customerDetailsScreenBinding!!.appLayout.ivBackArrow.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-
-//        if (todayCollectStatus == "yes") {
-//            customerDetailsScreenBinding?.fabViewClick?.visibility = View.GONE
-//        } else {
-//            customerDetailsScreenBinding?.fabViewClick?.visibility = View.VISIBLE
-//        }
 
         if (customerId == "" && accountId == "") {
             val customerSearchParams = CustomerSearchParams()
@@ -278,6 +269,7 @@ class CustomerDetailsScreenActivity : BaseActivity() {
                                 customerDetailsApi(customerDetailsParams)
                                 customerDetailsAdapter?.notifyDataSetChanged()
                                 startActivity(Intent(mContext,HomeActivity::class.java))
+                                finish()
                             } else if (paymentCollectionModel.status == 202) {
                                 showDialog(paymentCollectionModel.message)
                             } else {
@@ -480,11 +472,7 @@ class CustomerDetailsScreenActivity : BaseActivity() {
         binding.tvYesTextPopup.setOnClickListener {
             dialog.dismiss()
             startActivity(Intent(mContext,HomeActivity::class.java))
-//            val customerDetailsParams = CustomerDetailsParams()
-//            customerDetailsParams.customerId = customerId
-//            customerDetailsParams.accountId = accountId
-//            customerDetailsApi(customerDetailsParams)
-//            customerDetailsAdapter?.notifyDataSetChanged()
+            finish()
         }
         dialog.show()
     }
