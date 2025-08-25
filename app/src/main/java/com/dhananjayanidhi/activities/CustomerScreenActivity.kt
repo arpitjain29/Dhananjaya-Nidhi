@@ -11,7 +11,7 @@ import com.dhananjayanidhi.R
 import com.dhananjayanidhi.adapter.CustomerAdapter
 import com.dhananjayanidhi.apiUtils.ApiClient
 import com.dhananjayanidhi.databinding.ActivityCustomerScreenBinding
-import com.dhananjayanidhi.models.customerlist.CustomerListModel
+import com.dhananjayanidhi.models.customerlistv1.CustomerListV1Model
 import com.dhananjayanidhi.utils.AppController
 import com.dhananjayanidhi.utils.BaseActivity
 import com.dhananjayanidhi.utils.CommonFunction
@@ -67,20 +67,20 @@ class CustomerScreenActivity : BaseActivity() {
     private fun customerListApi() {
         if (isConnectingToInternet(mContext!!)) {
             showProgressDialog()
-            val call1 = ApiClient.buildService(mContext).customerListApi()
-            call1?.enqueue(object : Callback<CustomerListModel?> {
+            val call1 = ApiClient.buildService(mContext).customerListV1Api()
+            call1?.enqueue(object : Callback<CustomerListV1Model?> {
                 override fun onResponse(
-                    call: Call<CustomerListModel?>,
-                    response: Response<CustomerListModel?>
+                    call: Call<CustomerListV1Model?>,
+                    response: Response<CustomerListV1Model?>
                 ) {
                     hideProgressDialog()
                     if (response.isSuccessful) {
-                        val customerListModel: CustomerListModel? = response.body()
-                        if (customerListModel != null) {
-                            CommonFunction.showToastSingle(mContext, customerListModel.message, 0)
-                            if (customerListModel.status == 200) {
+                        val customerListV1Model: CustomerListV1Model? = response.body()
+                        if (customerListV1Model != null) {
+                            CommonFunction.showToastSingle(mContext, customerListV1Model.message, 0)
+                            if (customerListV1Model.status == 200) {
                                 customerAdapter = mContext?.let {
-                                    customerListModel.data?.let { it1 ->
+                                    customerListV1Model.data?.data?.let { it1 ->
                                         CustomerAdapter(
                                             it1, it,
                                             object : CustomerClickInterface {
@@ -90,10 +90,9 @@ class CustomerScreenActivity : BaseActivity() {
                                                             mContext,
                                                             CustomerDetailsScreenActivity::class.java
                                                         ).putExtra(Constants.customerListId,
-                                                            customerListModel.data!![position].customerId
+                                                            customerListV1Model.data?.data!![position].customerId
                                                         ).putExtra(Constants.searchText, "")
-                                                            .putExtra(Constants.accountListId,customerListModel.data!![position].accountId)
-//                                                            .putExtra(Constants.todayCollection,customerListModel.data!![position].todayCollectionStatus)
+                                                            .putExtra(Constants.accountListId,customerListV1Model.data?.data!![position].accountId)
                                                     )
                                                 }
                                             })
@@ -124,7 +123,7 @@ class CustomerScreenActivity : BaseActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<CustomerListModel?>, throwable: Throwable) {
+                override fun onFailure(call: Call<CustomerListV1Model?>, throwable: Throwable) {
                     hideProgressDialog()
                     throwable.printStackTrace()
                     if (throwable is HttpException) {

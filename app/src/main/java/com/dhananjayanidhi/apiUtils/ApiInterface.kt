@@ -6,9 +6,12 @@ import com.dhananjayanidhi.models.addressentry.AddressEntryModel
 import com.dhananjayanidhi.models.customeradd.CustomerAddModel
 import com.dhananjayanidhi.models.customerdetail.CustomerDetailModel
 import com.dhananjayanidhi.models.customerlist.CustomerListModel
+import com.dhananjayanidhi.models.customerlistv1.CustomerListV1Model
 import com.dhananjayanidhi.models.dashboard.DashboardModel
 import com.dhananjayanidhi.models.depositscheme.DepositSchemeModel
 import com.dhananjayanidhi.models.kycentry.KycEntryModel
+import com.dhananjayanidhi.models.loandetails.LoanDetailsModel
+import com.dhananjayanidhi.models.loanlist.LoanListModel
 import com.dhananjayanidhi.models.paymentcollection.PaymentCollectionModel
 import com.dhananjayanidhi.models.search.SearchModel
 import com.dhananjayanidhi.models.transaction.TransactionModel
@@ -44,6 +47,15 @@ interface ApiInterface {
 
     @GET(ApiUrlEndpoint.CUSTOMER_LIST_API)
     fun customerListApi(): Call<CustomerListModel?>?
+
+    @GET(ApiUrlEndpoint.CUSTOMER_LIST_API_V1)
+    fun customerListV1Api(): Call<CustomerListV1Model?>?
+
+    @GET(ApiUrlEndpoint.LOAN_LIST_API)
+    fun loanListApi(): Call<LoanListModel?>?
+
+    @POST(ApiUrlEndpoint.LOAN_DETAILS_API)
+    fun loanListDetailsApi(@Body customerDetailsParams: CustomerDetailsParams): Call<LoanDetailsModel?>?
 
     @POST(ApiUrlEndpoint.CUSTOMER_DETAILS_API)
     fun customerDetailsApi(@Body customerDetailsParams: CustomerDetailsParams): Call<CustomerDetailModel?>?

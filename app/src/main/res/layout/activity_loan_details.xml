@@ -35,9 +35,10 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_customer"/>
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvNameLoanDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="name"
+                    android:text=""
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_bold"
                     app:fontFamily="@font/poppins_bold"
@@ -46,33 +47,46 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvLoanAmountLoanDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="L.A. = ₹ 600"
+                android:text=""
                 android:fontFamily="@font/poppins_semibold"
                 app:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"/>
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEmiLoanDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="EMI = ₹ 600"
+                android:text=""
                 android:fontFamily="@font/poppins_semibold"
                 app:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/Color008000"
                 android:textSize="@dimen/_14ssp"/>
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDueDateLoanDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Due date:  15 Jan 2025"
+                android:text=""
                 android:fontFamily="@font/poppins_medium"
                 app:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"/>
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPaidAmountLoanDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="O.A. = ₹ 60"
+                android:text=""
+                android:fontFamily="@font/poppins_regular"
+                app:fontFamily="@font/poppins_regular"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPendingOutstandingAmountLoanDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
                 android:fontFamily="@font/poppins_regular"
                 app:fontFamily="@font/poppins_regular"
                 android:textColor="@color/black"

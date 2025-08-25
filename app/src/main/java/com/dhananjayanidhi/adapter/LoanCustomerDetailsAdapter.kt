@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dhananjayanidhi.databinding.LoanCustomerDetailsLayoutBinding
 import com.dhananjayanidhi.utils.interfacef.LoanClickInterface
 
-class LoanCustomerDetailsAdapter(private val mList: List<String>, private val context: Activity,
+class LoanCustomerDetailsAdapter(private val mList: List<Any>, private val context: Activity,
                                  private val loanClickInterface: LoanClickInterface,
 ): RecyclerView.Adapter<LoanCustomerDetailsAdapter.ViewHolder>() {
 
@@ -26,7 +26,7 @@ class LoanCustomerDetailsAdapter(private val mList: List<String>, private val co
     }
 
     override fun getItemCount(): Int {
-        return 6
+        return mList.size
     }
 
     class ViewHolder(val layoutBinding: LoanCustomerDetailsLayoutBinding) :

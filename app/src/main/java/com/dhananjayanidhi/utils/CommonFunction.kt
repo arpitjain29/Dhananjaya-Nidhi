@@ -26,7 +26,9 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.OutputStream
+import java.text.DateFormat
 import java.text.DecimalFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -68,6 +70,22 @@ object CommonFunction {
         val imm =
             (context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun changeDateFormatFromAnother(date: String?): String {
+        @SuppressLint("SimpleDateFormat")
+        val inputFormat: DateFormat =
+            SimpleDateFormat("yyyy-MM-dd")
+        @SuppressLint("SimpleDateFormat")
+        val outputFormat: DateFormat =
+            SimpleDateFormat("dd MMM yyyy")
+        var resultDate = ""
+        try {
+            resultDate = outputFormat.format(inputFormat.parse(date))
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return resultDate
     }
 
     /**

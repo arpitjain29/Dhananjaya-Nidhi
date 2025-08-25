@@ -24,6 +24,7 @@
                 android:src="@drawable/ic_customer"
                 android:layout_gravity="center"/>
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvNameCustomerNameLoan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="name"
@@ -35,6 +36,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLoanAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="L.A. = ₹ 600"
@@ -43,6 +45,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"/>
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvEmiAmountLoan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="EMI = ₹ 600"
@@ -51,9 +54,28 @@
             android:textColor="@color/Color008000"
             android:textSize="@dimen/_14ssp"/>
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLoanDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Date : 15 Jan 2025"
+            android:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPaidAmountLoan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paid Amount : 2000.00"
+            android:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPendingOutstandingAmountLoan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pending/outstanding amount : 22"
             android:fontFamily="@font/poppins_regular"
             app:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"
