@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 class AccountLoanDetailsModel {
     @SerializedName("id")
     @Expose
-    var id: Int? = null
+    var id: String? = null
 
     @SerializedName("agent_id")
     @Expose
@@ -14,7 +14,7 @@ class AccountLoanDetailsModel {
 
     @SerializedName("customer_id")
     @Expose
-    var customerId: Int? = null
+    var customerId: String? = null
 
     @SerializedName("loan_type")
     @Expose

@@ -269,6 +269,17 @@
                                 app:fontFamily="@font/poppins_regular"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_16sdp" />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvLoanAccountCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text=""
+                                android:fontFamily="@font/poppins_regular"
+                                app:fontFamily="@font/poppins_regular"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_16sdp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 

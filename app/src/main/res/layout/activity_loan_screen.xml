@@ -11,9 +11,25 @@
     <include layout="@layout/app_bar_layout"
         android:id="@+id/appLayout"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rvLoanCustomer"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvLoanCustomer"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoRecordFound"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_record_found"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/black"
+            app:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
 </LinearLayout>

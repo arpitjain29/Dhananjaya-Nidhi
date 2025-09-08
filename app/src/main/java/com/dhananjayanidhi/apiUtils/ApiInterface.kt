@@ -10,6 +10,7 @@ import com.dhananjayanidhi.models.customerlistv1.CustomerListV1Model
 import com.dhananjayanidhi.models.dashboard.DashboardModel
 import com.dhananjayanidhi.models.depositscheme.DepositSchemeModel
 import com.dhananjayanidhi.models.kycentry.KycEntryModel
+import com.dhananjayanidhi.models.loanamount.LoanAmountModel
 import com.dhananjayanidhi.models.loandetails.LoanDetailsModel
 import com.dhananjayanidhi.models.loanlist.LoanListModel
 import com.dhananjayanidhi.models.paymentcollection.PaymentCollectionModel
@@ -34,6 +35,7 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface ApiInterface {
     @POST(ApiUrlEndpoint.SIGNUP_API)
@@ -51,8 +53,14 @@ interface ApiInterface {
     @GET(ApiUrlEndpoint.CUSTOMER_LIST_API_V1)
     fun customerListV1Api(): Call<CustomerListV1Model?>?
 
+    @GET
+    fun getCustomerList(@Url url: String): Call<CustomerListV1Model>
+
     @GET(ApiUrlEndpoint.LOAN_LIST_API)
     fun loanListApi(): Call<LoanListModel?>?
+
+    @GET
+    fun loanListNextPageApi(@Url url: String): Call<LoanListModel?>?
 
     @POST(ApiUrlEndpoint.LOAN_DETAILS_API)
     fun loanListDetailsApi(@Body customerDetailsParams: CustomerDetailsParams): Call<LoanDetailsModel?>?
@@ -66,6 +74,9 @@ interface ApiInterface {
 
     @POST(ApiUrlEndpoint.PAYMENT_COLLECTION_API)
     fun addCustomerAmountApi(@Body paymentCollectionParams: PaymentCollectionParams): Call<PaymentCollectionModel?>?
+
+    @POST(ApiUrlEndpoint.LOAN_AMOUNT_COLLECTION_API)
+    fun loanAmountAddApi(@Body paymentCollectionParams: PaymentCollectionParams): Call<LoanAmountModel?>?
 
     @GET(ApiUrlEndpoint.DASHBOARD_API)
     fun dashboardApi():Call<DashboardModel?>?

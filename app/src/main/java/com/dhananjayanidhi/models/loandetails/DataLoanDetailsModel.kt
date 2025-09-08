@@ -10,5 +10,5 @@ class DataLoanDetailsModel {
 
     @SerializedName("transactions")
     @Expose
-    var transactions: List<Any>? = null
+    var transactions: List<TransactionLoanDetailsModel>? = null
 }

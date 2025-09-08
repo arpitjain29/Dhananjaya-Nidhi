@@ -27,16 +27,24 @@
                 android:id="@+id/tvNameCustomerNameLoan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="name"
+                android:text="@string/name"
+                android:layout_weight="1"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_bold"
                 app:fontFamily="@font/poppins_bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"/>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivCheckCustomerLoan"
+                android:visibility="gone"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/ic_check_circle"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvLoanAmount"
+            android:id="@+id/tvLoanAccountNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="L.A. = ₹ 600"
@@ -48,37 +56,37 @@
             android:id="@+id/tvEmiAmountLoan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EMI = ₹ 600"
+            android:text=""
             android:fontFamily="@font/poppins_medium"
             app:fontFamily="@font/poppins_medium"
             android:textColor="@color/Color008000"
             android:textSize="@dimen/_14ssp"/>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvLoanDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date : 15 Jan 2025"
-            android:fontFamily="@font/poppins_regular"
-            app:fontFamily="@font/poppins_regular"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"/>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvPaidAmountLoan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Paid Amount : 2000.00"
-            android:fontFamily="@font/poppins_regular"
-            app:fontFamily="@font/poppins_regular"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"/>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvPendingOutstandingAmountLoan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pending/outstanding amount : 22"
-            android:fontFamily="@font/poppins_regular"
-            app:fontFamily="@font/poppins_regular"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"/>
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/tvLoanDate"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Date : 15 Jan 2025"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            app:fontFamily="@font/poppins_regular"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="@dimen/_14ssp"/>-->
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/tvPaidAmountLoan"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Paid Amount : 2000.00"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            app:fontFamily="@font/poppins_regular"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="@dimen/_14ssp"/>-->
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/tvPendingOutstandingAmountLoan"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Pending/outstanding amount : 22"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            app:fontFamily="@font/poppins_regular"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="@dimen/_14ssp"/>-->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

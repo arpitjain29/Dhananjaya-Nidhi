@@ -13,4 +13,6 @@ class DataDashboardModel {
     var customerCount: String? = null
     @SerializedName("pendingCollections")
     var pendingCollections: String? = null
+    @SerializedName("loanAccounts")
+    var loanAccounts: String? = null
 }

@@ -1,18 +1,30 @@
 package com.dhananjayanidhi.activities
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dhananjayanidhi.R
 import com.dhananjayanidhi.adapter.LoanCustomerDetailsAdapter
 import com.dhananjayanidhi.apiUtils.ApiClient
 import com.dhananjayanidhi.databinding.ActivityLoanDetailsBinding
+import com.dhananjayanidhi.databinding.EnterAmountLayoutBinding
+import com.dhananjayanidhi.databinding.MsgPopupBinding
+import com.dhananjayanidhi.models.loanamount.LoanAmountModel
 import com.dhananjayanidhi.models.loandetails.LoanDetailsModel
 import com.dhananjayanidhi.parameters.CustomerDetailsParams
+import com.dhananjayanidhi.parameters.PaymentCollectionParams
 import com.dhananjayanidhi.utils.AppController
 import com.dhananjayanidhi.utils.BaseActivity
 import com.dhananjayanidhi.utils.CommonFunction
@@ -105,40 +117,87 @@ class LoanDetailsActivity : BaseActivity() {
                                     "Emi: ",getString(R.string.rs),
                                     loanDetailsModel.data?.account?.emi
                                 )
-                                loanDetailsActivity?.tvLoanAmountLoanDetails?.text = String.format(
-                                    "%s %s %s",
-                                    "Loan Amount: ",getString(R.string.rs),
-                                    loanDetailsModel.data?.account?.loanAmount
-                                )
-                                loanDetailsActivity?.tvPaidAmountLoanDetails?.text = String.format(
-                                    "%s %s %s",
-                                    "Paid Amount: ",getString(R.string.rs),
-                                    loanDetailsModel.data?.account?.paidAmount
-                                )
-                                loanDetailsActivity?.tvDueDateLoanDetails?.text = String.format(
+                                loanDetailsActivity?.tvAccountNoLoanDetails?.text = String.format(
                                     "%s %s",
-                                    "Due Date: ",
-                                    CommonFunction.changeDateFormatFromAnother(loanDetailsModel.data?.account?.loanStartDate)
+                                    "A/C : ",
+                                    loanDetailsModel.data?.account?.accountNumber
                                 )
-                                loanDetailsActivity?.tvPendingOutstandingAmountLoanDetails?.text =
-                                    String.format(
-                                        "%s %s %s",
-                                        "O.A.: ",getString(R.string.rs),
-                                        loanDetailsModel.data?.account?.outstandingAmount
-                                    )
+                                if (loanDetailsModel.data?.account?.todayCollectionStatus == "yes") {
+                                    loanDetailsActivity?.ivCheckCustomerLoanDetails?.visibility =
+                                        View.VISIBLE
+                                } else {
+                                    loanDetailsActivity?.ivCheckCustomerLoanDetails?.visibility =
+                                        View.GONE
+                                }
+//                                loanDetailsActivity?.tvPaidAmountLoanDetails?.text = String.format(
+//                                    "%s %s %s",
+//                                    "Paid Amount: ",getString(R.string.rs),
+//                                    loanDetailsModel.data?.account?.paidAmount
+//                                )
+//                                loanDetailsActivity?.tvDueDateLoanDetails?.text = String.format(
+//                                    "%s %s",
+//                                    "Due Date: ",
+//                                    CommonFunction.changeDateFormatFromAnother(loanDetailsModel.data?.account?.loanStartDate)
+//                                )
+//                                loanDetailsActivity?.tvPendingOutstandingAmountLoanDetails?.text =
+//                                    String.format(
+//                                        "%s %s %s",
+//                                        "O.A.: ",getString(R.string.rs),
+//                                        loanDetailsModel.data?.account?.outstandingAmount
+//                                    )
+                                loanDetailsActivity!!.fabViewClickLoanDetails.setOnClickListener {
+
+                                    val dialog =
+                                        Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
+                                    if (dialog.window != null) {
+                                        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+                                        dialog.window!!.setGravity(Gravity.CENTER)
+                                    }
+                                    if (dialog.window != null) {
+                                        dialog.window!!.setLayout(
+                                            LinearLayout.LayoutParams.MATCH_PARENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                        )
+                                        dialog.window!!.setBackgroundDrawable(
+                                            Color.TRANSPARENT.toDrawable()
+                                        )
+                                    }
+                                    dialog.setCancelable(true)
+                                    val binding: EnterAmountLayoutBinding =
+                                        EnterAmountLayoutBinding.inflate(
+                                            LayoutInflater.from(
+                                                mContext
+                                            ), null, false
+                                        )
+                                    dialog.setContentView(binding.root)
+                                    binding.btnCollect.setOnClickListener {
+                                        if (TextUtils.isEmpty(
+                                                binding.etAmountCustomer.text.toString().trim()
+                                            )
+                                        ) {
+                                            binding.etAmountCustomer.error =
+                                                getString(R.string.please_enter_amount)
+                                        } else {
+                                            dialog.dismiss()
+                                            val paymentCollectionParams =
+                                                PaymentCollectionParams()
+                                            paymentCollectionParams.customerId =
+                                                loanDetailsModel.data?.account?.customerId
+                                            paymentCollectionParams.accountId =
+                                                loanDetailsModel.data?.account?.id
+                                            paymentCollectionParams.amount =
+                                                binding.etAmountCustomer.text.toString().trim()
+                                            customerLoanAddAmountApi(paymentCollectionParams)
+                                        }
+                                    }
+                                    dialog.show()
+                                }
                                 loanCustomerDetailsAdapter = mContext?.let {
                                     loanDetailsModel.data?.transactions?.let { it1 ->
                                         LoanCustomerDetailsAdapter(
                                             it1, it,
                                             object : LoanClickInterface {
-                                                override fun onLoanClick(position: Int) {
-                                                    startActivity(
-                                                        Intent(
-                                                            mContext,
-                                                            LoanDetailsActivity::class.java
-                                                        )
-                                                    )
-                                                }
+                                                override fun onLoanClick(position: Int) {}
                                             })
                                     }
                                 }
@@ -182,5 +241,108 @@ class LoanDetailsActivity : BaseActivity() {
                 resources.getString(R.string.net_connection), 0
             )
         }
+    }
+
+    private fun customerLoanAddAmountApi(paymentCollectionParams: PaymentCollectionParams) {
+        if (isConnectingToInternet(mContext!!)) {
+            showProgressDialog()
+            val call1 =
+                ApiClient.buildService(mContext).loanAmountAddApi(paymentCollectionParams)
+            call1?.enqueue(object : Callback<LoanAmountModel?> {
+                override fun onResponse(
+                    call: Call<LoanAmountModel?>,
+                    response: Response<LoanAmountModel?>
+                ) {
+                    hideProgressDialog()
+                    if (response.isSuccessful) {
+                        val loanAmountModel: LoanAmountModel? = response.body()
+                        if (loanAmountModel != null) {
+                            if (loanAmountModel.status == 200) {
+                                CommonFunction.showToastSingle(
+                                    mContext,
+                                    loanAmountModel.message,
+                                    0
+                                )
+                                val customerDetailsParams = CustomerDetailsParams()
+                                customerDetailsParams.customerId = customerId
+                                customerDetailsParams.accountId = accountId
+                                loanListDetailsApi(customerDetailsParams)
+                                loanCustomerDetailsAdapter?.notifyDataSetChanged()
+                                startActivity(Intent(mContext,HomeActivity::class.java))
+                                finish()
+                            } else if (loanAmountModel.status == 202) {
+                                showDialog(loanAmountModel.message)
+                            } else {
+                                showDialog(loanAmountModel.message)
+                            }
+                        }
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        if (errorBody != null) {
+                            try {
+                                val errorJson = JSONObject(errorBody)
+                                val errorArray = errorJson.getJSONArray("error")
+                                val errorMessage = errorArray.getJSONObject(0).getString("message")
+                                CommonFunction.showToastSingle(mContext, errorMessage, 0)
+                                AppController.instance?.sessionManager?.logoutUser()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                AppController.instance?.sessionManager?.logoutUser()
+                                CommonFunction.showToastSingle(
+                                    mContext,
+                                    "An error occurred. Please try again.",
+                                    0
+                                )
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<LoanAmountModel?>, throwable: Throwable) {
+                    hideProgressDialog()
+                    throwable.printStackTrace()
+                    if (throwable is HttpException) {
+                        throwable.printStackTrace()
+                    }
+                }
+            })
+        } else {
+            CommonFunction.showToastSingle(
+                mContext,
+                resources.getString(R.string.net_connection), 0
+            )
+        }
+    }
+
+    fun showDialog(msg: String?) {
+        val dialog = Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
+        if (dialog.window != null) {
+            dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+            dialog.window!!.setGravity(Gravity.CENTER)
+        }
+        if (dialog.window != null) {
+            dialog.window!!.setLayout(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            dialog.window!!.setBackgroundDrawable(
+                Color.TRANSPARENT.toDrawable()
+            )
+        }
+        dialog.setCancelable(true)
+        val binding: MsgPopupBinding = MsgPopupBinding.inflate(
+            LayoutInflater.from(
+                mContext
+            ), null, false
+        )
+        dialog.setContentView(binding.root)
+        binding.tvMessageTextPopup.text = msg
+
+        binding.tvYesTextPopup.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(mContext,HomeActivity::class.java))
+            finish()
+        }
+        dialog.show()
     }
 }

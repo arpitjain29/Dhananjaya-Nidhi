@@ -56,6 +56,10 @@ class DatumLoanListModel {
     @Expose
     var todayCollectionStatus: String? = null
 
+    @SerializedName("today_collection")
+    @Expose
+    var todayCollection: String? = null
+
     @SerializedName("customer_name")
     @Expose
     var customerName: String? = null

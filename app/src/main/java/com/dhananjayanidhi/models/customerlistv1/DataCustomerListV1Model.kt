@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 class DataCustomerListV1Model {
     @SerializedName("current_page")
     @Expose
-    var currentPage: Int? = null
+    var currentPage: String? = null
 
     @SerializedName("data")
     @Expose
@@ -22,7 +22,7 @@ class DataCustomerListV1Model {
 
     @SerializedName("last_page")
     @Expose
-    var lastPage: Int? = null
+    var lastPage: String? = null
 
     @SerializedName("last_page_url")
     @Expose
@@ -34,7 +34,7 @@ class DataCustomerListV1Model {
 
     @SerializedName("next_page_url")
     @Expose
-    var nextPageUrl: Any? = null
+    var nextPageUrl: String? = null
 
     @SerializedName("path")
     @Expose
@@ -42,7 +42,7 @@ class DataCustomerListV1Model {
 
     @SerializedName("per_page")
     @Expose
-    var perPage: Int? = null
+    var perPage: String? = null
 
     @SerializedName("prev_page_url")
     @Expose
@@ -54,5 +54,5 @@ class DataCustomerListV1Model {
 
     @SerializedName("total")
     @Expose
-    var total: Int? = null
+    var total: String? = null
 }

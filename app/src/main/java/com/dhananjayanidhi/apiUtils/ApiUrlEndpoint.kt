@@ -12,6 +12,7 @@ object ApiUrlEndpoint {
     const val LOAN_DETAILS_API = "api/loan_details"
     const val CUSTOMER_DETAILS_V1_API = "api/customer/details/v1"
     const val PAYMENT_COLLECTION_API = "api/payment_collection"
+    const val LOAN_AMOUNT_COLLECTION_API = "api/loan_amount_collection"
     const val DASHBOARD_API = "api/dashboard"
     const val TRANSACTIONS_API = "api/transactions"
     const val SEARCH_CUSTOMER_API = "api/search-customer"

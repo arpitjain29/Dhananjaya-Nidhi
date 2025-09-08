@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dhananjayanidhi.R
 import com.dhananjayanidhi.databinding.CustomerLayoutBinding
+import com.dhananjayanidhi.models.customerlist.DatumCustomerListModel
 import com.dhananjayanidhi.models.customerlistv1.DatumCustomerListV1Model
 import com.dhananjayanidhi.utils.interfacef.CustomerClickInterface
 

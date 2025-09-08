@@ -20,6 +20,7 @@
             android:orientation="vertical"
             android:padding="@dimen/_5sdp">
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvLoanAmountDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="EMI = ₹ 600"
@@ -28,6 +29,7 @@
                 android:textColor="@color/Color008000"
                 android:textSize="@dimen/_14ssp"/>
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvLoanDateDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Date : 15 Jan 2025"

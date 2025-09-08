@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dhananjayanidhi.databinding.LoanCustomerDetailsLayoutBinding
+import com.dhananjayanidhi.models.loandetails.TransactionLoanDetailsModel
+import com.dhananjayanidhi.utils.CommonFunction
 import com.dhananjayanidhi.utils.interfacef.LoanClickInterface
 
-class LoanCustomerDetailsAdapter(private val mList: List<Any>, private val context: Activity,
+class LoanCustomerDetailsAdapter(private val mList: List<TransactionLoanDetailsModel>, private val context: Activity,
                                  private val loanClickInterface: LoanClickInterface,
 ): RecyclerView.Adapter<LoanCustomerDetailsAdapter.ViewHolder>() {
 
@@ -20,6 +22,8 @@ class LoanCustomerDetailsAdapter(private val mList: List<Any>, private val conte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.layoutBinding.tvLoanAmountDetails.text = mList[position].amount
+        holder.layoutBinding.tvLoanDateDetails.text = CommonFunction.changeDateFormatFromAnother(mList[position].depositeDate)
         holder.layoutBinding.llLoanCustomer.setOnClickListener {
             loanClickInterface.onLoanClick(position)
         }

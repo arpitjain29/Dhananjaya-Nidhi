@@ -242,7 +242,7 @@ class HomeActivity : BaseActivity() {
                                 )
                                 homeBinding?.tvCustomerDdsCounts?.text =
                                     " " + dashboardModel.data?.customerCount + ")"
-                                if (dashboardModel.data?.pendingCollections == "0"){
+                                if (dashboardModel.data?.pendingCollections == "0") {
                                     homeBinding?.tvPendingAmount?.visibility = View.GONE
                                 }
                                 homeBinding?.tvPendingAmount?.text = String.format(
@@ -251,6 +251,8 @@ class HomeActivity : BaseActivity() {
                                     getString(R.string.rs),
                                     dashboardModel.data?.pendingCollections
                                 )
+                                homeBinding?.tvLoanAccountCount?.text =
+                                    dashboardModel.data?.loanAccounts
                             } else {
                                 AppController.instance?.sessionManager?.logoutUser()
                             }

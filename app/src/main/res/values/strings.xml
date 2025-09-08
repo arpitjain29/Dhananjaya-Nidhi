@@ -140,4 +140,5 @@
     <string name="please_click_aadhar_customer_image">Please click aadhar customer image</string>
     <string name="please_click_signature_image">Please click signature image</string>
     <string name="pending_amount">Pending Amount:</string>
+    <string name="no_record_found">No Record Found</string>
 </resources>

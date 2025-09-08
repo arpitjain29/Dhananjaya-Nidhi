@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 class DataLoanListModel {
     @SerializedName("current_page")
     @Expose
-    var currentPage: Int? = null
+    var currentPage: String? = null
 
     @SerializedName("data")
     @Expose
@@ -22,7 +22,7 @@ class DataLoanListModel {
 
     @SerializedName("last_page")
     @Expose
-    var lastPage: Int? = null
+    var lastPage: String? = null
 
     @SerializedName("last_page_url")
     @Expose
@@ -34,7 +34,7 @@ class DataLoanListModel {
 
     @SerializedName("next_page_url")
     @Expose
-    var nextPageUrl: Any? = null
+    var nextPageUrl: String? = null
 
     @SerializedName("path")
     @Expose
