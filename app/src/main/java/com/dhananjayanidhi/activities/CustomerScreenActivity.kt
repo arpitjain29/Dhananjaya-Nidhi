@@ -13,7 +13,6 @@ import com.dhananjayanidhi.R
 import com.dhananjayanidhi.adapter.CustomerAdapter
 import com.dhananjayanidhi.apiUtils.ApiClient
 import com.dhananjayanidhi.databinding.ActivityCustomerScreenBinding
-import com.dhananjayanidhi.models.customerlist.CustomerListModel
 import com.dhananjayanidhi.models.customerlistv1.CustomerListV1Model
 import com.dhananjayanidhi.models.customerlistv1.DatumCustomerListV1Model
 import com.dhananjayanidhi.utils.AppController
