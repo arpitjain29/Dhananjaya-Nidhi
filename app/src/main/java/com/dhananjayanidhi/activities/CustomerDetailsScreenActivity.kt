@@ -17,13 +17,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dhananjayanidhi.R
 import com.dhananjayanidhi.adapter.CustomerDetailsAdapter
-import com.dhananjayanidhi.adapter.CustomerDetailsSearchAdapter
 import com.dhananjayanidhi.apiUtils.ApiClient
 import com.dhananjayanidhi.databinding.ActivityCustomerDetailsScreenBinding
 import com.dhananjayanidhi.databinding.EnterAmountLayoutBinding
 import com.dhananjayanidhi.models.customerdetail.CustomerDetailModel
 import com.dhananjayanidhi.models.paymentcollection.PaymentCollectionModel
-import com.dhananjayanidhi.models.search.SearchModel
 import com.dhananjayanidhi.parameters.CustomerDetailsParams
 import com.dhananjayanidhi.parameters.CustomerSearchParams
 import com.dhananjayanidhi.parameters.PaymentCollectionParams
@@ -80,16 +78,16 @@ class CustomerDetailsScreenActivity : BaseActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        if (customerId == "" && accountId == "") {
-            val customerSearchParams = CustomerSearchParams()
-            customerSearchParams.accountNumber = searching
-            customerSearchApi(customerSearchParams)
-        } else {
+//        if (customerId == "" && accountId == "") {
+//            val customerSearchParams = CustomerSearchParams()
+//            customerSearchParams.accountNumber = searching
+//            customerSearchApi(customerSearchParams)
+//        } else {
             val customerDetailsParams = CustomerDetailsParams()
             customerDetailsParams.customerId = customerId
             customerDetailsParams.accountId = accountId
             customerDetailsApi(customerDetailsParams)
-        }
+//        }
 
         val layoutManager = GridLayoutManager(this, 2)
         customerDetailsScreenBinding!!.rvCustomerDetail.setLayoutManager(layoutManager)
@@ -114,95 +112,97 @@ class CustomerDetailsScreenActivity : BaseActivity() {
                                 0
                             )
                             if (customerDetailsModel.status == 200) {
-                                println("details list ====== " + customerDetailsModel.data?.customerName)
-                                customerDetailsScreenBinding!!.tvNameCustomerDetail.text =
-                                    customerDetailsModel.data?.customerName
-                                if (customerDetailsModel.data?.todayCollectionStatus == "yes") {
-                                    customerDetailsScreenBinding?.ivCheckCustomer?.visibility =
-                                        View.VISIBLE
-                                } else {
-                                    customerDetailsScreenBinding?.ivCheckCustomer?.visibility =
-                                        View.GONE
-                                }
-                                customerDetailsScreenBinding!!.tvAmountCustomerDetails.text =
-                                    String.format(
-                                        "%s %s",
-                                        getString(R.string.rs),
-                                        customerDetailsModel.data?.collectionAmount
-                                    )
-                                customerDetailsScreenBinding!!.tvAddressCustomerDetails.text =
-                                    customerDetailsModel.data?.cutomerAddress?.fullAddress
-                                customerDetailsScreenBinding!!.tvMobileNumberCustomerDetails.text =
-                                    customerDetailsModel.data?.mobileNumber
-                                customerDetailsScreenBinding!!.tvAccountNumberDetail.text =
-                                    String.format(
-                                        "%s %s", "A/C: ",
-                                        customerDetailsModel.data?.account?.accountNumber
-                                    )
-                                customerDetailsScreenBinding?.tvAccountDetails?.text =
-                                    String.format(
-                                        "%s %s", "A/C Balance: ",
-                                        customerDetailsModel.data?.account?.accountBalence
-                                    )
-
-                                customerDetailsScreenBinding!!.fabViewClick.setOnClickListener {
-
-                                    val dialog =
-                                        Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
-                                    if (dialog.window != null) {
-                                        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-                                        dialog.window!!.setGravity(Gravity.CENTER)
+                                if(customerDetailsModel.data != null){
+                                    println("details list ====== " + customerDetailsModel.data?.customerName)
+                                    customerDetailsScreenBinding!!.tvNameCustomerDetail.text =
+                                        customerDetailsModel.data?.customerName
+                                    if (customerDetailsModel.data?.todayCollectionStatus == "yes") {
+                                        customerDetailsScreenBinding?.ivCheckCustomer?.visibility =
+                                            View.VISIBLE
+                                    } else {
+                                        customerDetailsScreenBinding?.ivCheckCustomer?.visibility =
+                                            View.GONE
                                     }
-                                    if (dialog.window != null) {
-                                        dialog.window!!.setLayout(
-                                            LinearLayout.LayoutParams.MATCH_PARENT,
-                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                    customerDetailsScreenBinding!!.tvAmountCustomerDetails.text =
+                                        String.format(
+                                            "%s %s",
+                                            getString(R.string.rs),
+                                            customerDetailsModel.data?.collectionAmount
                                         )
-                                        dialog.window!!.setBackgroundDrawable(
-                                            Color.TRANSPARENT.toDrawable()
+                                    customerDetailsScreenBinding!!.tvAddressCustomerDetails.text =
+                                        customerDetailsModel.data?.cutomerAddress?.fullAddress
+                                    customerDetailsScreenBinding!!.tvMobileNumberCustomerDetails.text =
+                                        customerDetailsModel.data?.mobileNumber
+                                    customerDetailsScreenBinding!!.tvAccountNumberDetail.text =
+                                        String.format(
+                                            "%s %s", "A/C: ",
+                                            customerDetailsModel.data?.account?.accountNumber
                                         )
-                                    }
-                                    dialog.setCancelable(true)
-                                    val binding: EnterAmountLayoutBinding =
-                                        EnterAmountLayoutBinding.inflate(
-                                            LayoutInflater.from(
-                                                mContext
-                                            ), null, false
+                                    customerDetailsScreenBinding?.tvAccountDetails?.text =
+                                        String.format(
+                                            "%s %s", "A/C Balance: ",
+                                            customerDetailsModel.data?.account?.accountBalence
                                         )
-                                    dialog.setContentView(binding.root)
-                                    binding.btnCollect.setOnClickListener {
-                                        if (TextUtils.isEmpty(
-                                                binding.etAmountCustomer.text.toString().trim()
-                                            )
-                                        ) {
-                                            binding.etAmountCustomer.error =
-                                                getString(R.string.please_enter_amount)
-                                        } else {
-                                            dialog.dismiss()
-                                            val paymentCollectionParams =
-                                                PaymentCollectionParams()
-                                            paymentCollectionParams.customerId =
-                                                customerDetailsModel.data?.customerId
-                                            paymentCollectionParams.accountId =
-                                                customerDetailsModel.data?.accountId
-                                            paymentCollectionParams.amount =
-                                                binding.etAmountCustomer.text.toString().trim()
-                                            customerAddAmountApi(paymentCollectionParams)
+
+                                    customerDetailsScreenBinding!!.fabViewClick.setOnClickListener {
+
+                                        val dialog =
+                                            Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
+                                        if (dialog.window != null) {
+                                            dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+                                            dialog.window!!.setGravity(Gravity.CENTER)
                                         }
-                                    }
-                                    dialog.show()
-                                }
-
-                                customerDetailsAdapter = mContext?.let {
-                                    customerDetailsModel.data!!
-                                        .ddsAccountTransactions?.let { it1 ->
-                                            CustomerDetailsAdapter(
-                                                it1, it
+                                        if (dialog.window != null) {
+                                            dialog.window!!.setLayout(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                            )
+                                            dialog.window!!.setBackgroundDrawable(
+                                                Color.TRANSPARENT.toDrawable()
                                             )
                                         }
+                                        dialog.setCancelable(true)
+                                        val binding: EnterAmountLayoutBinding =
+                                            EnterAmountLayoutBinding.inflate(
+                                                LayoutInflater.from(
+                                                    mContext
+                                                ), null, false
+                                            )
+                                        dialog.setContentView(binding.root)
+                                        binding.btnCollect.setOnClickListener {
+                                            if (TextUtils.isEmpty(
+                                                    binding.etAmountCustomer.text.toString().trim()
+                                                )
+                                            ) {
+                                                binding.etAmountCustomer.error =
+                                                    getString(R.string.please_enter_amount)
+                                            } else {
+                                                dialog.dismiss()
+                                                val paymentCollectionParams =
+                                                    PaymentCollectionParams()
+                                                paymentCollectionParams.customerId =
+                                                    customerDetailsModel.data?.customerId
+                                                paymentCollectionParams.accountId =
+                                                    customerDetailsModel.data?.accountId
+                                                paymentCollectionParams.amount =
+                                                    binding.etAmountCustomer.text.toString().trim()
+                                                customerAddAmountApi(paymentCollectionParams)
+                                            }
+                                        }
+                                        dialog.show()
+                                    }
+
+                                    customerDetailsAdapter = mContext?.let {
+                                        customerDetailsModel.data!!
+                                            .ddsAccountTransactions?.let { it1 ->
+                                                CustomerDetailsAdapter(
+                                                    it1, it
+                                                )
+                                            }
+                                    }
+                                    customerDetailsScreenBinding!!.rvCustomerDetail.adapter =
+                                        customerDetailsAdapter
                                 }
-                                customerDetailsScreenBinding!!.rvCustomerDetail.adapter =
-                                    customerDetailsAdapter
                             }
                         }
                     } else {
@@ -314,136 +314,136 @@ class CustomerDetailsScreenActivity : BaseActivity() {
         }
     }
 
-    private fun customerSearchApi(customerSearchParams: CustomerSearchParams) {
-        if (isConnectingToInternet(mContext!!)) {
-            showProgressDialog()
-            val call1 = ApiClient.buildService(mContext).searchCustomerApi(customerSearchParams)
-            call1?.enqueue(object : Callback<SearchModel?> {
-                override fun onResponse(
-                    call: Call<SearchModel?>,
-                    response: Response<SearchModel?>
-                ) {
-                    hideProgressDialog()
-                    if (response.isSuccessful) {
-                        val searchAccountModel: SearchModel? = response.body()
-                        if (searchAccountModel != null) {
-                            if (searchAccountModel.success == true) {
-                                println("details list ====== " + searchAccountModel.data!!.customerName)
-                                customerDetailsScreenBinding!!.tvNameCustomerDetail.text =
-                                    searchAccountModel.data?.customerName
-                                customerDetailsScreenBinding!!.tvAmountCustomerDetails.text =
-                                    String.format(
-                                        "%s %s",
-                                        getString(R.string.rs),
-                                        searchAccountModel.data?.collectionAmount
-                                    )
-                                customerDetailsScreenBinding!!.tvAddressCustomerDetails.text =
-                                    searchAccountModel.data?.cutomerAddress?.fullAddress
-                                customerDetailsScreenBinding!!.tvMobileNumberCustomerDetails.text =
-                                    searchAccountModel.data?.mobileNumber
-                                customerDetailsScreenBinding!!.tvAccountNumberDetail.text =
-                                    String.format(
-                                        "%s %s", "A/C = ",
-                                        searchAccountModel.data?.account?.accountNumber
-                                    )
-
-                                customerDetailsScreenBinding!!.fabViewClick.setOnClickListener {
-                                    val dialog =
-                                        Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
-                                    if (dialog.window != null) {
-                                        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-                                        dialog.window!!.setGravity(Gravity.CENTER)
-                                    }
-                                    if (dialog.window != null) {
-                                        dialog.window!!.setLayout(
-                                            LinearLayout.LayoutParams.MATCH_PARENT,
-                                            LinearLayout.LayoutParams.WRAP_CONTENT
-                                        )
-                                        dialog.window!!.setBackgroundDrawable(
-                                            Color.TRANSPARENT.toDrawable()
-                                        )
-                                    }
-                                    dialog.setCancelable(true)
-                                    val binding: EnterAmountLayoutBinding =
-                                        EnterAmountLayoutBinding.inflate(
-                                            LayoutInflater.from(
-                                                mContext
-                                            ), null, false
-                                        )
-                                    dialog.setContentView(binding.root)
-                                    binding.btnCollect.setOnClickListener {
-                                        if (TextUtils.isEmpty(
-                                                binding.etAmountCustomer.text.toString().trim()
-                                            )
-                                        ) {
-                                            binding.etAmountCustomer.error =
-                                                getString(R.string.please_enter_amount)
-                                        } else {
-                                            dialog.dismiss()
-                                            val paymentCollectionParams =
-                                                PaymentCollectionParams()
-                                            paymentCollectionParams.customerId =
-                                                searchAccountModel.data?.customerId
-                                            paymentCollectionParams.accountId =
-                                                searchAccountModel.data?.accountId
-                                            paymentCollectionParams.amount =
-                                                binding.etAmountCustomer.text.toString().trim()
-                                            customerAddAmountApi(paymentCollectionParams)
-                                        }
-                                    }
-                                    dialog.show()
-                                }
-                                val customerDetailsSearchAdapter = mContext?.let {
-                                    searchAccountModel.data!!
-                                        .ddsAccountTransactions?.let { it1 ->
-                                            CustomerDetailsSearchAdapter(
-                                                it1, it
-                                            )
-                                        }
-                                }
-                                customerDetailsScreenBinding!!.rvCustomerDetail.adapter =
-                                    customerDetailsSearchAdapter
-                            } else {
-                                showDialog(searchAccountModel.message)
-                            }
-                        }
-                    } else {
-                        val errorBody = response.errorBody()?.string()
-                        if (errorBody != null) {
-                            try {
-                                val errorJson = JSONObject(errorBody)
-                                val errorArray = errorJson.getJSONArray("error")
-                                val errorMessage = errorArray.getJSONObject(0).getString("message")
-                                CommonFunction.showToastSingle(mContext, errorMessage, 0)
-                                AppController.instance?.sessionManager?.logoutUser()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                                AppController.instance?.sessionManager?.logoutUser()
-                                CommonFunction.showToastSingle(
-                                    mContext,
-                                    "An error occurred. Please try again.",
-                                    0
-                                )
-                            }
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<SearchModel?>, throwable: Throwable) {
-                    hideProgressDialog()
-                    throwable.printStackTrace()
-                    if (throwable is HttpException) {
-                        throwable.printStackTrace()
-                    }
-                }
-            })
-        } else {
-            CommonFunction.showToastSingle(
-                mContext,
-                resources.getString(R.string.net_connection), 0
-            )
-        }
-    }
+//    private fun customerSearchApi(customerSearchParams: CustomerSearchParams) {
+//        if (isConnectingToInternet(mContext!!)) {
+//            showProgressDialog()
+//            val call1 = ApiClient.buildService(mContext).searchCustomerApi(customerSearchParams)
+//            call1?.enqueue(object : Callback<SearchModel?> {
+//                override fun onResponse(
+//                    call: Call<SearchModel?>,
+//                    response: Response<SearchModel?>
+//                ) {
+//                    hideProgressDialog()
+//                    if (response.isSuccessful) {
+//                        val searchAccountModel: SearchModel? = response.body()
+//                        if (searchAccountModel != null) {
+//                            if (searchAccountModel.success == true) {
+//                                println("details list ====== " + searchAccountModel.data!!.customerName)
+//                                customerDetailsScreenBinding!!.tvNameCustomerDetail.text =
+//                                    searchAccountModel.data?.customerName
+//                                customerDetailsScreenBinding!!.tvAmountCustomerDetails.text =
+//                                    String.format(
+//                                        "%s %s",
+//                                        getString(R.string.rs),
+//                                        searchAccountModel.data?.collectionAmount
+//                                    )
+//                                customerDetailsScreenBinding!!.tvAddressCustomerDetails.text =
+//                                    searchAccountModel.data?.cutomerAddress?.fullAddress
+//                                customerDetailsScreenBinding!!.tvMobileNumberCustomerDetails.text =
+//                                    searchAccountModel.data?.mobileNumber
+//                                customerDetailsScreenBinding!!.tvAccountNumberDetail.text =
+//                                    String.format(
+//                                        "%s %s", "A/C = ",
+//                                        searchAccountModel.data?.account?.accountNumber
+//                                    )
+//
+//                                customerDetailsScreenBinding!!.fabViewClick.setOnClickListener {
+//                                    val dialog =
+//                                        Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
+//                                    if (dialog.window != null) {
+//                                        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+//                                        dialog.window!!.setGravity(Gravity.CENTER)
+//                                    }
+//                                    if (dialog.window != null) {
+//                                        dialog.window!!.setLayout(
+//                                            LinearLayout.LayoutParams.MATCH_PARENT,
+//                                            LinearLayout.LayoutParams.WRAP_CONTENT
+//                                        )
+//                                        dialog.window!!.setBackgroundDrawable(
+//                                            Color.TRANSPARENT.toDrawable()
+//                                        )
+//                                    }
+//                                    dialog.setCancelable(true)
+//                                    val binding: EnterAmountLayoutBinding =
+//                                        EnterAmountLayoutBinding.inflate(
+//                                            LayoutInflater.from(
+//                                                mContext
+//                                            ), null, false
+//                                        )
+//                                    dialog.setContentView(binding.root)
+//                                    binding.btnCollect.setOnClickListener {
+//                                        if (TextUtils.isEmpty(
+//                                                binding.etAmountCustomer.text.toString().trim()
+//                                            )
+//                                        ) {
+//                                            binding.etAmountCustomer.error =
+//                                                getString(R.string.please_enter_amount)
+//                                        } else {
+//                                            dialog.dismiss()
+//                                            val paymentCollectionParams =
+//                                                PaymentCollectionParams()
+//                                            paymentCollectionParams.customerId =
+//                                                searchAccountModel.data?.customerId
+//                                            paymentCollectionParams.accountId =
+//                                                searchAccountModel.data?.accountId
+//                                            paymentCollectionParams.amount =
+//                                                binding.etAmountCustomer.text.toString().trim()
+//                                            customerAddAmountApi(paymentCollectionParams)
+//                                        }
+//                                    }
+//                                    dialog.show()
+//                                }
+//                                val customerDetailsSearchAdapter = mContext?.let {
+//                                    searchAccountModel.data!!
+//                                        .ddsAccountTransactions?.let { it1 ->
+//                                            CustomerDetailsSearchAdapter(
+//                                                it1, it
+//                                            )
+//                                        }
+//                                }
+//                                customerDetailsScreenBinding!!.rvCustomerDetail.adapter =
+//                                    customerDetailsSearchAdapter
+//                            } else {
+//                                showDialog(searchAccountModel.message)
+//                            }
+//                        }
+//                    } else {
+//                        val errorBody = response.errorBody()?.string()
+//                        if (errorBody != null) {
+//                            try {
+//                                val errorJson = JSONObject(errorBody)
+//                                val errorArray = errorJson.getJSONArray("error")
+//                                val errorMessage = errorArray.getJSONObject(0).getString("message")
+//                                CommonFunction.showToastSingle(mContext, errorMessage, 0)
+//                                AppController.instance?.sessionManager?.logoutUser()
+//                            } catch (e: Exception) {
+//                                e.printStackTrace()
+//                                AppController.instance?.sessionManager?.logoutUser()
+//                                CommonFunction.showToastSingle(
+//                                    mContext,
+//                                    "An error occurred. Please try again.",
+//                                    0
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<SearchModel?>, throwable: Throwable) {
+//                    hideProgressDialog()
+//                    throwable.printStackTrace()
+//                    if (throwable is HttpException) {
+//                        throwable.printStackTrace()
+//                    }
+//                }
+//            })
+//        } else {
+//            CommonFunction.showToastSingle(
+//                mContext,
+//                resources.getString(R.string.net_connection), 0
+//            )
+//        }
+//    }
 
     fun showDialog(msg: String?) {
         val dialog = Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)

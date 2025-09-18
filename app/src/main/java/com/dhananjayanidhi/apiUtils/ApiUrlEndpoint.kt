@@ -16,6 +16,7 @@ object ApiUrlEndpoint {
     const val DASHBOARD_API = "api/dashboard"
     const val TRANSACTIONS_API = "api/transactions"
     const val SEARCH_CUSTOMER_API = "api/search-customer"
+    const val SEARCH_CUSTOMER_V1_API = "api/search-customer/v1"
     const val DEPOSIT_SCHEME_API = "api/deposit-scheme"
     const val MEMBER_PERSONAL_INFO_API = "api/member/personal-info"
     const val ADDRESS_INFO_API = "api/member/address-info"

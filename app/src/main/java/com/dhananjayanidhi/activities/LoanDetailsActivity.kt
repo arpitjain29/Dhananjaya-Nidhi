@@ -68,15 +68,6 @@ class LoanDetailsActivity : BaseActivity() {
         loanDetailsActivity!!.appLayout.ivBackArrow.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-//        loanCustomerDetailsAdapter =
-//            mContext?.let {
-//                LoanCustomerDetailsAdapter(ArrayList(), it,object :LoanClickInterface{
-//                    override fun onLoanClick(position: Int) {
-//                        startActivity(Intent(mContext,EmiEntryActivity::class.java))
-//                    }
-//                })
-//            }
-//        loanDetailsActivity!!.rvLoanDetails.adapter = loanCustomerDetailsAdapter
 
         customerId = intent.getStringExtra(Constants.customerListId)
         accountId = intent.getStringExtra(Constants.accountListId)
@@ -87,13 +78,13 @@ class LoanDetailsActivity : BaseActivity() {
         loanListDetailsApi(customerDetailsParams)
     }
 
-    override fun onResume() {
-        super.onResume()
-        val customerDetailsParams = CustomerDetailsParams()
-        customerDetailsParams.customerId = customerId
-        customerDetailsParams.accountId = accountId
-        loanListDetailsApi(customerDetailsParams)
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        val customerDetailsParams = CustomerDetailsParams()
+//        customerDetailsParams.customerId = customerId
+//        customerDetailsParams.accountId = accountId
+//        loanListDetailsApi(customerDetailsParams)
+//    }
 
     private fun loanListDetailsApi(customerDetailsParams: CustomerDetailsParams) {
         if (isConnectingToInternet(mContext!!)) {
@@ -129,22 +120,6 @@ class LoanDetailsActivity : BaseActivity() {
                                     loanDetailsActivity?.ivCheckCustomerLoanDetails?.visibility =
                                         View.GONE
                                 }
-//                                loanDetailsActivity?.tvPaidAmountLoanDetails?.text = String.format(
-//                                    "%s %s %s",
-//                                    "Paid Amount: ",getString(R.string.rs),
-//                                    loanDetailsModel.data?.account?.paidAmount
-//                                )
-//                                loanDetailsActivity?.tvDueDateLoanDetails?.text = String.format(
-//                                    "%s %s",
-//                                    "Due Date: ",
-//                                    CommonFunction.changeDateFormatFromAnother(loanDetailsModel.data?.account?.loanStartDate)
-//                                )
-//                                loanDetailsActivity?.tvPendingOutstandingAmountLoanDetails?.text =
-//                                    String.format(
-//                                        "%s %s %s",
-//                                        "O.A.: ",getString(R.string.rs),
-//                                        loanDetailsModel.data?.account?.outstandingAmount
-//                                    )
                                 loanDetailsActivity!!.fabViewClickLoanDetails.setOnClickListener {
 
                                     val dialog =
@@ -268,7 +243,10 @@ class LoanDetailsActivity : BaseActivity() {
                                 customerDetailsParams.accountId = accountId
                                 loanListDetailsApi(customerDetailsParams)
                                 loanCustomerDetailsAdapter?.notifyDataSetChanged()
-                                startActivity(Intent(mContext,HomeActivity::class.java))
+                                val intent1 = Intent(Intent(mContext,HomeActivity::class.java))
+                                intent1.flags =
+                                    (Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent1)
                                 finish()
                             } else if (loanAmountModel.status == 202) {
                                 showDialog(loanAmountModel.message)
@@ -340,7 +318,10 @@ class LoanDetailsActivity : BaseActivity() {
 
         binding.tvYesTextPopup.setOnClickListener {
             dialog.dismiss()
-            startActivity(Intent(mContext,HomeActivity::class.java))
+            val intent1 = Intent(Intent(mContext,HomeActivity::class.java))
+            intent1.flags =
+                (Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent1)
             finish()
         }
         dialog.show()

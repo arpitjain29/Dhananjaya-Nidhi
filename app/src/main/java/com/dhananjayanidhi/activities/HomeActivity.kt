@@ -35,6 +35,11 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 import androidx.core.graphics.drawable.toDrawable
+import com.dhananjayanidhi.models.loansearch.LoanSearchModel
+import com.dhananjayanidhi.models.search.SearchModel
+import com.dhananjayanidhi.parameters.CustomerSearchParams
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 
 class HomeActivity : BaseActivity() {
     private var homeBinding: ActivityHomeBinding? = null
@@ -157,20 +162,9 @@ class HomeActivity : BaseActivity() {
                 homeBinding!!.etCustomerAccount.error =
                     getString(R.string.please_enter_account_number)
             } else {
-                startActivity(
-                    Intent(
-                        mContext,
-                        CustomerDetailsScreenActivity::class.java
-                    ).putExtra(
-                        Constants.searchText,
-                        homeBinding!!.etCustomerAccount.text.toString().trim()
-                    )
-                        .putExtra(
-                            Constants.customerListId,
-                            ""
-                        ).putExtra(Constants.accountListId, "")
-//                        .putExtra(Constants.todayCollection,"")
-                )
+                val customerSearchParams = CustomerSearchParams()
+                customerSearchParams.accountNumber = homeBinding!!.etCustomerAccount.text.toString()
+                searchApi(customerSearchParams)
             }
         }
 
@@ -281,6 +275,106 @@ class HomeActivity : BaseActivity() {
                 }
 
                 override fun onFailure(call: Call<DashboardModel?>, throwable: Throwable) {
+                    hideProgressDialog()
+                    throwable.printStackTrace()
+                    if (throwable is HttpException) {
+                        throwable.printStackTrace()
+                    }
+                }
+            })
+        } else {
+            CommonFunction.showToastSingle(
+                mContext,
+                resources.getString(R.string.net_connection), 0
+            )
+        }
+    }
+
+    private fun searchApi(customerSearchParams: CustomerSearchParams) {
+        if (isConnectingToInternet(mContext!!)) {
+            showProgressDialog()
+            val call1 = ApiClient.buildService(mContext).searchCustomerV1Api(customerSearchParams)
+            call1.enqueue(object : Callback<JsonObject> {
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: Response<JsonObject>
+                ) {
+                    hideProgressDialog()
+                    if (response.isSuccessful) {
+                        val jsonObj: JsonObject? = response.body()
+                        try {
+                            val status = jsonObj?.get("status")?.asInt ?: 0
+                            val message = jsonObj?.get("message")?.asString ?: ""
+                            if (status == 200) {
+                                val accountType = jsonObj?.get("account_type")?.asString ?: ""
+                                if (accountType == "loan") {
+                                    // abhi safe hai Gson se parse karna
+                                    val loanSearchModel =
+                                        Gson().fromJson(jsonObj, LoanSearchModel::class.java)
+
+                                    println("details list ====== " + loanSearchModel.data?.customerName)
+                                    startActivity(
+                                        Intent(mContext, LoanDetailsActivity::class.java)
+                                            .putExtra(
+                                                Constants.customerListId,
+                                                loanSearchModel.data?.customerId ?: ""
+                                            )
+                                            .putExtra(
+                                                Constants.accountListId,
+                                                loanSearchModel.data?.id ?: ""
+                                            )
+                                    )
+                                } else if (accountType == "dds") {
+                                    println("⚠ account_type loan nahi hai, value = $accountType")
+                                    // yahan aap dusra activity ya action le sakte ho
+                                    val loanSearchModel =
+                                        Gson().fromJson(jsonObj, SearchModel::class.java)
+
+                                    println("details list ====== " + loanSearchModel.data?.customerName)
+                                    startActivity(
+                                        Intent(mContext, CustomerDetailsScreenActivity::class.java)
+                                            .putExtra(
+                                                Constants.customerListId,
+                                                loanSearchModel.data?.customerId ?: ""
+                                            )
+                                            .putExtra(
+                                                Constants.accountListId,
+                                                loanSearchModel.data?.accountId ?: ""
+                                            )
+                                    )
+                                }
+                            } else {
+                                CommonFunction.showToastSingle(
+                                    mContext,
+                                    message, 0
+                                )
+                            }
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        if (errorBody != null) {
+                            try {
+                                val errorJson = JSONObject(errorBody)
+                                val errorArray = errorJson.getJSONArray("error")
+                                val errorMessage = errorArray.getJSONObject(0).getString("message")
+                                CommonFunction.showToastSingle(mContext, errorMessage, 0)
+                                AppController.instance?.sessionManager?.logoutUser()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                AppController.instance?.sessionManager?.logoutUser()
+                                CommonFunction.showToastSingle(
+                                    mContext,
+                                    "An error occurred. Please try again.",
+                                    0
+                                )
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, throwable: Throwable) {
                     hideProgressDialog()
                     throwable.printStackTrace()
                     if (throwable is HttpException) {

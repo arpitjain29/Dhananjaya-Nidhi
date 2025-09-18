@@ -13,6 +13,7 @@ import com.dhananjayanidhi.models.kycentry.KycEntryModel
 import com.dhananjayanidhi.models.loanamount.LoanAmountModel
 import com.dhananjayanidhi.models.loandetails.LoanDetailsModel
 import com.dhananjayanidhi.models.loanlist.LoanListModel
+import com.dhananjayanidhi.models.loansearch.LoanSearchModel
 import com.dhananjayanidhi.models.paymentcollection.PaymentCollectionModel
 import com.dhananjayanidhi.models.search.SearchModel
 import com.dhananjayanidhi.models.transaction.TransactionModel
@@ -25,6 +26,7 @@ import com.dhananjayanidhi.parameters.CustomerSearchParams
 import com.dhananjayanidhi.parameters.OtpParams
 import com.dhananjayanidhi.parameters.PaymentCollectionParams
 import com.dhananjayanidhi.parameters.SignupParams
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -87,6 +89,9 @@ interface ApiInterface {
 
     @POST(ApiUrlEndpoint.SEARCH_CUSTOMER_API)
     fun searchCustomerApi(@Body customerSearchParams: CustomerSearchParams):Call<SearchModel?>?
+
+    @POST(ApiUrlEndpoint.SEARCH_CUSTOMER_V1_API)
+    fun searchCustomerV1Api(@Body customerSearchParams: CustomerSearchParams):Call<JsonObject>
 
     @POST(ApiUrlEndpoint.MEMBER_PERSONAL_INFO_API)
     fun addCustomerApi(@Body customerAddParams: CustomerAddParams):Call<CustomerAddModel?>?
