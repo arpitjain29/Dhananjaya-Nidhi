@@ -38,11 +38,11 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"/>
         </LinearLayout>
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/ic_arrow"
-            android:padding="@dimen/_4sdp"
-            android:layout_gravity="center"/>
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:layout_width="@dimen/_20sdp"-->
+<!--            android:layout_height="@dimen/_20sdp"-->
+<!--            android:src="@drawable/ic_arrow"-->
+<!--            android:padding="@dimen/_4sdp"-->
+<!--            android:layout_gravity="center"/>-->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

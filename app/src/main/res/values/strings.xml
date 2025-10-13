@@ -63,6 +63,7 @@
     <string name="caste">Caste</string>
     <string name="enter_caste">Enter Caste</string>
     <string name="customer_account">Customer account</string>
+    <string name="customer">Customer</string>
     <string name="enter_customer_account">Enter customer account</string>
     <string name="today_target">Today Target</string>
     <string name="today_collection">Today Collection</string>

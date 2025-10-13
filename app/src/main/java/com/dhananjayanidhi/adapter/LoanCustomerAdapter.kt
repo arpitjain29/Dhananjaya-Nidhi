@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dhananjayanidhi.R
 import com.dhananjayanidhi.databinding.LoanCustomerLayoutBinding
 import com.dhananjayanidhi.models.loanlist.DatumLoanListModel
+import com.dhananjayanidhi.models.loansearch1.DatumLoanSearch1Model
 import com.dhananjayanidhi.utils.interfacef.LoanClickInterface
 
 class LoanCustomerAdapter(
-    private val datumLoanListModel: List<DatumLoanListModel>, private val context: Activity,
+    private val datumLoanListModel: List<DatumLoanSearch1Model>, private val context: Activity,
     private val loanClickInterface: LoanClickInterface,
 ) : RecyclerView.Adapter<LoanCustomerAdapter.ViewHolder>() {
 

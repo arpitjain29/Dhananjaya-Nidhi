@@ -7,6 +7,7 @@ import com.dhananjayanidhi.models.customeradd.CustomerAddModel
 import com.dhananjayanidhi.models.customerdetail.CustomerDetailModel
 import com.dhananjayanidhi.models.customerlist.CustomerListModel
 import com.dhananjayanidhi.models.customerlistv1.CustomerListV1Model
+import com.dhananjayanidhi.models.customersearch.CustomerSearchModel
 import com.dhananjayanidhi.models.dashboard.DashboardModel
 import com.dhananjayanidhi.models.depositscheme.DepositSchemeModel
 import com.dhananjayanidhi.models.kycentry.KycEntryModel
@@ -14,6 +15,7 @@ import com.dhananjayanidhi.models.loanamount.LoanAmountModel
 import com.dhananjayanidhi.models.loandetails.LoanDetailsModel
 import com.dhananjayanidhi.models.loanlist.LoanListModel
 import com.dhananjayanidhi.models.loansearch.LoanSearchModel
+import com.dhananjayanidhi.models.loansearch1.LoanSearch1Model
 import com.dhananjayanidhi.models.paymentcollection.PaymentCollectionModel
 import com.dhananjayanidhi.models.search.SearchModel
 import com.dhananjayanidhi.models.transaction.TransactionModel
@@ -25,6 +27,7 @@ import com.dhananjayanidhi.parameters.CustomerDetailsParams
 import com.dhananjayanidhi.parameters.CustomerSearchParams
 import com.dhananjayanidhi.parameters.OtpParams
 import com.dhananjayanidhi.parameters.PaymentCollectionParams
+import com.dhananjayanidhi.parameters.SearchParams
 import com.dhananjayanidhi.parameters.SignupParams
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
@@ -92,6 +95,12 @@ interface ApiInterface {
 
     @POST(ApiUrlEndpoint.SEARCH_CUSTOMER_V1_API)
     fun searchCustomerV1Api(@Body customerSearchParams: CustomerSearchParams):Call<JsonObject>
+
+    @POST(ApiUrlEndpoint.CUSTOMER_SEARCH_API)
+    fun searchCustomerNameApi(@Body searchParams: SearchParams):Call<CustomerSearchModel>
+
+    @POST(ApiUrlEndpoint.LOAN_SEARCH_API)
+    fun searchLoanNameApi(@Body searchParams: SearchParams):Call<LoanSearch1Model>
 
     @POST(ApiUrlEndpoint.MEMBER_PERSONAL_INFO_API)
     fun addCustomerApi(@Body customerAddParams: CustomerAddParams):Call<CustomerAddModel?>?

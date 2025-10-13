@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:orientation="vertical"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content">-->
+    <androidx.appcompat.widget.AppCompatTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tvSearchName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:padding="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_medium"
+        app:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp" />
+<!--</LinearLayout>-->

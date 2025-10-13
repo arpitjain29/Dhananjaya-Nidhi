@@ -15,6 +15,8 @@ class DataCustomerDetailModel {
 
     @SerializedName("agent_name")
     var agentName: String? = null
+    @SerializedName("current_month_collection")
+    var currentMonthCollection: String? = null
 
     @SerializedName("collection_amount")
     var collectionAmount: String? = null

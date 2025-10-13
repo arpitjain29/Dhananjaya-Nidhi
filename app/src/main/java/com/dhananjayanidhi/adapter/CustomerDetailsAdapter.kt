@@ -23,7 +23,12 @@ class CustomerDetailsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.layoutBinding.tvDateCustomerDetails.text =
-            ddsAccountTransactionCustomerDetailsModel[position].depositDate
+            ddsAccountTransactionCustomerDetailsModel[position].transactionDate
+        holder.layoutBinding.tvClosingBalanceCustomerDetails.text = String.format(
+            "%s %s",
+            context.getString(R.string.rs),
+            ddsAccountTransactionCustomerDetailsModel[position].closingBalence
+        )
         holder.layoutBinding.tvAmountCustomerDetails.text = String.format(
             "%s %s",
             context.getString(R.string.rs),

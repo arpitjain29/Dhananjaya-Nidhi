@@ -24,6 +24,10 @@ class DdsAccountTransactionCustomerDetailModel {
 
     @SerializedName("deposit_date")
     var depositDate: String? = null
+    @SerializedName("closing_balence")
+    var closingBalence: String? = null
+    @SerializedName("transaction_date")
+    var transactionDate: String? = null
 
     @SerializedName("id")
     var id: Long? = null

@@ -89,8 +89,8 @@ class CustomerDetailsScreenActivity : BaseActivity() {
             customerDetailsApi(customerDetailsParams)
 //        }
 
-        val layoutManager = GridLayoutManager(this, 2)
-        customerDetailsScreenBinding!!.rvCustomerDetail.setLayoutManager(layoutManager)
+//        val layoutManager = GridLayoutManager(this, 2)
+//        customerDetailsScreenBinding!!.rvCustomerDetail.setLayoutManager(layoutManager)
     }
 
     private fun customerDetailsApi(customerDetailsParams: CustomerDetailsParams) {
@@ -127,7 +127,7 @@ class CustomerDetailsScreenActivity : BaseActivity() {
                                         String.format(
                                             "%s %s",
                                             getString(R.string.rs),
-                                            customerDetailsModel.data?.collectionAmount
+                                            customerDetailsModel.data?.currentMonthCollection
                                         )
                                     customerDetailsScreenBinding!!.tvAddressCustomerDetails.text =
                                         customerDetailsModel.data?.cutomerAddress?.fullAddress

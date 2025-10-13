@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -139,6 +140,7 @@ class HomeActivity : BaseActivity() {
 
         homeBinding!!.llCustomer.setOnClickListener {
             startActivity(Intent(mContext, CustomerScreenActivity::class.java))
+//            startActivity(Intent(mContext, CustomerSearchActivity::class.java))
         }
 
         homeBinding!!.llLoan.setOnClickListener {
@@ -306,6 +308,7 @@ class HomeActivity : BaseActivity() {
                             val status = jsonObj?.get("status")?.asInt ?: 0
                             val message = jsonObj?.get("message")?.asString ?: ""
                             if (status == 200) {
+                                homeBinding?.etCustomerAccount?.text = Editable.Factory.getInstance().newEditable("")
                                 val accountType = jsonObj?.get("account_type")?.asString ?: ""
                                 if (accountType == "loan") {
                                     // abhi safe hai Gson se parse karna

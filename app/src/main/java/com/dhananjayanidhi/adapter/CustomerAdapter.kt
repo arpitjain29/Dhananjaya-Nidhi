@@ -9,10 +9,11 @@ import com.dhananjayanidhi.R
 import com.dhananjayanidhi.databinding.CustomerLayoutBinding
 import com.dhananjayanidhi.models.customerlist.DatumCustomerListModel
 import com.dhananjayanidhi.models.customerlistv1.DatumCustomerListV1Model
+import com.dhananjayanidhi.models.customersearch.DatumCustomerSearchModel
 import com.dhananjayanidhi.utils.interfacef.CustomerClickInterface
 
 class CustomerAdapter(
-    private val datumCustomerList: List<DatumCustomerListV1Model>,
+    private val datumCustomerList: List<DatumCustomerSearchModel>,
     private val context: Activity,
     private val customerClickInterface: CustomerClickInterface,
 ) : RecyclerView.Adapter<CustomerAdapter.ViewHolder>() {
