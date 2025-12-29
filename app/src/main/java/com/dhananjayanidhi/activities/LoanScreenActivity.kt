@@ -51,7 +51,7 @@ class LoanScreenActivity : BaseActivity() {
         }
         loanScreenBinding!!.appLayout.ivMenu.visibility = View.GONE
         loanScreenBinding!!.appLayout.ivBackArrow.visibility = View.VISIBLE
-        loanScreenBinding!!.appLayout.ivSearch.visibility = View.VISIBLE
+        loanScreenBinding!!.appLayout.ivSearch.visibility = View.GONE
         loanScreenBinding!!.appLayout.tvTitle.visibility = View.VISIBLE
         loanScreenBinding!!.appLayout.tvTitle.text = getString(R.string.loan)
         loanScreenBinding!!.appLayout.ivBackArrow.setOnClickListener {

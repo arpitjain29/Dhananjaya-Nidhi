@@ -1,22 +1,47 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.DhananjayaNidhi" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">@color/Color9a003e</item>
-        <item name="colorPrimaryVariant">@color/Color9a003e</item>
-        <item name="colorOnPrimary">@color/Color9a003e</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/Color9a003e</item>
-        <item name="colorSecondaryVariant">@color/Color9a003e</item>
-        <item name="colorOnSecondary">@color/Color9a003e</item>
-        <item name="android:statusBarColor">@color/Color9a003e</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
-        <item name="android:windowBackground">@color/white</item>
-        <!-- Customize your theme here. -->
+    <style name="Theme.DhananjayaNidhi" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary</item>
+        
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorSecondaryContainer">@color/secondary</item>
+        <item name="colorOnSecondaryContainer">@color/on_secondary</item>
+
+        <!-- Surface Colors -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+        
+        <!-- Background Colors -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/on_background</item>
+        
+        <!-- Error Colors -->
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+        <item name="colorErrorContainer">@color/error_light</item>
+        <item name="colorOnErrorContainer">@color/error</item>
+
+
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <!-- Window Settings -->
         <item name="android:windowActionBar">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
 <!--    <style name="Theme.DhananjayaNidhi" parent="Base.Theme.DhananjayaNidhi" />-->
@@ -32,11 +57,12 @@
         <item name="android:windowExitAnimation">@anim/slide_out_down</item>
     </style>
 
-    <style name="NavDrawerTextStyle" parent="Base.TextAppearance.AppCompat">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">@dimen/_24ssp</item>
-        <item name="fontFamily">@font/poppins_bold</item>
-        <item name="android:fontFamily">@font/poppins_bold</item>
+    <style name="NavDrawerTextStyle" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="CustomAlertDialogStyle_space" parent="android:Theme.Holo.Light.Dialog">
@@ -50,12 +76,13 @@
         <item name="android:layout_marginBottom">@dimen/_10sdp</item>
     </style>
 
-    <style name="TextInputLayoutAppearance" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+    <style name="TextInputLayoutAppearance" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="boxStrokeWidth">@dimen/_1sdp</item>
-        <item name="boxBackgroundColor">@color/white</item>
-        <item name="backgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/primary</item>
+        <item name="boxBackgroundColor">@color/surface</item>
+        <item name="hintTextColor">@color/text_secondary</item>
         <item name="expandedHintEnabled">false</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/_8sdp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/_8sdp</item>
@@ -65,28 +92,34 @@
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 
-    <style name="Edittext" parent="Widget.Design.TextInputLayout">
+    <style name="Edittext" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/Color1A1C1E</item>
-        <item name="android:background">@null</item>
-        <item name="android:drawablePadding">@dimen/_12sdp</item>
-        <item name="android:textSize">@dimen/_14ssp</item>
-        <item name="android:padding">@dimen/_15sdp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:minHeight">@dimen/_40sdp</item>
+        <item name="android:paddingStart">@dimen/_10sdp</item>
+        <item name="android:paddingEnd">@dimen/_10sdp</item>
+        <item name="android:paddingTop">@dimen/_10sdp</item>
+        <item name="android:paddingBottom">@dimen/_10sdp</item>
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 
-    <style name="MaterialButton" parent="Widget.MaterialComponents.Button">
+    <style name="MaterialButton" parent="Widget.Material3.Button">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:padding">@dimen/_8sdp</item>
+        <item name="android:layout_height">@dimen/_40sdp</item>
+        <item name="android:textColor">@color/on_primary</item>
         <item name="android:textAllCaps">false</item>
-        <item name="cornerRadius">@dimen/_10sdp</item>
-        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="cornerRadius">@dimen/_8sdp</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:paddingStart">@dimen/_16sdp</item>
+        <item name="android:paddingEnd">@dimen/_16sdp</item>
         <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:minHeight">@dimen/_48sdp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
     </style>
 
     <style name="CornerCut" parent="">
@@ -102,5 +135,84 @@
     <style name="circleImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Reusable TextView Styles -->
+    <style name="TextAppearanceBodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextAppearanceBodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextAppearanceBodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextAppearanceTitleMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="TextAppearanceTitleLarge">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="TextAppearanceLabelMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="TextAppearanceLabelSmall">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="CardStyle">
+        <item name="cardCornerRadius">@dimen/_12sdp</item>
+        <item name="cardElevation">@dimen/_4sdp</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="CardStyleClickable" parent="CardStyle">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Navigation Drawer Style -->
+    <style name="NavigationViewStyle" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemTextColor">@color/nav_text_color</item>
+        <item name="itemIconTint">@color/nav_icon_tint</item>
+        <item name="itemTextAppearance">@style/NavDrawerTextStyle</item>
+        <item name="itemIconSize">@dimen/_24sdp</item>
+        <item name="itemIconPadding">@dimen/_12sdp</item>
+        <item name="itemVerticalPadding">@dimen/_16sdp</item>
+        <item name="itemHorizontalPadding">@dimen/_16sdp</item>
+        <item name="itemMaxLines">1</item>
+        <item name="dividerInsetStart">@dimen/_16sdp</item>
+        <item name="dividerInsetEnd">0dp</item>
+        <item name="android:background">@color/white</item>
     </style>
 </resources>

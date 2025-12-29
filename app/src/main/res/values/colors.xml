@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Material Design 3 Base Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
 
+    <!-- Primary Colors -->
+    <color name="primary">#9a003e</color>
+    <color name="primary_variant">#7a002e</color>
+    <color name="primary_light">#E8D4E1</color>
+    <color name="on_primary">#FFFFFF</color>
+    
+    <!-- Secondary Colors -->
+    <color name="secondary">#3F51B5</color>
+    <color name="secondary_variant">#303F9F</color>
+    <color name="on_secondary">#FFFFFF</color>
+
+    <!-- Surface Colors -->
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F5F5F5</color>
+    <color name="on_surface">#1A1C1E</color>
+    <color name="on_surface_variant">#757575</color>
+
+    <!-- Background Colors -->
+    <color name="background">#FFFFFF</color>
+    <color name="on_background">#1A1C1E</color>
+
+    <!-- Error Colors -->
+    <color name="error">#F44336</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="error_light">#FFEBEE</color>
+
+    <!-- Success Colors -->
+    <color name="success">#008000</color>
+    <color name="success_light">#E8F5E9</color>
+    <color name="on_success">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1A1C1E</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="text_disabled">#E0E0E0</color>
+
+    <!-- Divider and Border Colors -->
+    <color name="divider">#E3E3E3</color>
+    <color name="border">#EBEBEB</color>
+
+    <!-- Legacy Colors (keeping for backward compatibility) -->
     <color name="Color1A1C1E">#1A1C1E</color>
     <color name="Color_E3E3E3">#E3E3E3</color>
     <color name="errorColor">#F44336</color>
     <color name="Color1D1B20">#1D1B20</color>
     <color name="ColorEBEBEB">#FFEBEBEB</color>
-
     <color name="Color9a003e">#9a003e</color>
     <color name="Color008000">#008000</color>
     <color name="ColorFFC107">#3F51B5</color>

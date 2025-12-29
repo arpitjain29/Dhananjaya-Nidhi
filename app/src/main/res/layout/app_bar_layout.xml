@@ -1,63 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/surface">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
-            <RelativeLayout
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/surface"
+            android:minHeight="?attr/actionBarSize"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp">
+
+                <!-- Menu Icon -->
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivMenu"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:src="@drawable/ic_menu"
-                    android:padding="@dimen/_5sdp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/text_primary"
+                    android:visibility="gone"/>
+
+                <!-- Back Arrow -->
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:visibility="gone"
                     android:id="@+id/ivBackArrow"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
+                    android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_back_arrow"
-                    android:padding="@dimen/_5sdp"/>
+                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/text_primary" />
+
+                <!-- Title -->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
+                    style="@style/TextAppearanceTitleMedium"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="name"
-                    android:fontFamily="@font/poppins_semibold"
-                    app:fontFamily="@font/poppins_semibold"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14ssp"/>
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    app:layout_constraintEnd_toStartOf="@id/ivSearch"
+                    app:layout_constraintStart_toEndOf="@id/ivBackArrow"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <!-- Search Icon -->
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivSearch"
+                    android:visibility="gone"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:src="@drawable/ic_search"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/_5sdp"/>
-                <androidx.appcompat.widget.AppCompatImageView
+                    app:layout_constraintEnd_toStartOf="@id/clFilterIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/text_primary"
+                    android:padding="@dimen/_5sdp"/>
+
+                <!-- Filter Icon -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clFilterIcon"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/filter_icon_background"
                     android:visibility="gone"
-                    android:id="@+id/ivFilterIcon"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/ic_filter"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/_5sdp"/>
-            </RelativeLayout>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivFilterIcon"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:contentDescription="@string/search"
+                        android:src="@drawable/ic_filter"
+                        app:tint="@color/filter_icon_tint"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

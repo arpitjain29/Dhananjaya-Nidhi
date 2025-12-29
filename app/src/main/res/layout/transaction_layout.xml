@@ -1,76 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardStyleClickable"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/_10sdp"
-    android:background="@color/white"
-    app:cardElevation="@dimen/_5sdp"
-    android:layout_margin="@dimen/_10sdp">
-    <LinearLayout
+    android:layout_marginStart="@dimen/_5sdp"
+     android:layout_marginEnd="@dimen/_5sdp" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llCustomerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/llCustomerLayout"
-        android:padding="@dimen/_10sdp">
+        android:padding="@dimen/_16sdp">
+
+        <!-- Transaction Name -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvNameTransaction"
-            android:layout_width="match_parent"
+            style="@style/TextAppearanceTitleMedium"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
-            android:fontFamily="@font/poppins_bold"
-            app:fontFamily="@font/poppins_bold"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDateTransaction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:fontFamily="@font/poppins_medium"
-                app:fontFamily="@font/poppins_medium"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/black"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAmountTransaction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:fontFamily="@font/poppins_bold"
-                app:fontFamily="@font/poppins_bold"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/Color008000"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAccountNumberTransaction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:fontFamily="@font/poppins_medium"
-                app:fontFamily="@font/poppins_medium"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/black"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvStatusTransaction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:fontFamily="@font/poppins_medium"
-                app:fontFamily="@font/poppins_medium"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/black"/>
-        </LinearLayout>
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <!-- Date -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDateTransaction"
+            style="@style/TextAppearanceBodyMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintEnd_toStartOf="@id/tvAmountTransaction"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNameTransaction" />
+
+        <!-- Amount -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAmountTransaction"
+            style="@style/TextAppearanceTitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/success"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvDateTransaction" />
+
+        <!-- Account Number -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAccountNumberTransaction"
+            style="@style/TextAppearanceBodySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toStartOf="@id/tvStatusTransaction"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDateTransaction" />
+
+        <!-- Status -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatusTransaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold"
+            android:background="@drawable/status_badge_default"
+            android:textColor="@color/text_secondary"
+            app:fontFamily="@font/poppins_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvAccountNumberTransaction" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

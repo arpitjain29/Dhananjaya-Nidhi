@@ -5,401 +5,490 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activities.HomeActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="end">
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayoutHome"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:background="@color/background"
+                android:paddingBottom="@dimen/_24sdp">
+
+                <!-- User Profile Section -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clUserProfile"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:orientation="horizontal">
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                     android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Drawer Menu Icon -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivDrawerMenu"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:contentDescription="@string/nav_open"
+                         android:src="@drawable/ic_menu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:tint="@color/text_primary" />
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/ivUserProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:contentDescription="@string/customer"
+                       android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/circleImageView"
-                        app:srcCompat="@drawable/ic_user_image"
-                        android:src="@drawable/ic_user_image"
-                        android:layout_marginStart="@dimen/_10sdp"/>
+                        app:layout_constraintStart_toEndOf="@id/ivDrawerMenu"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/_12sdp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvUserName"
-                        android:layout_width="match_parent"
+                        style="@style/TextAppearanceTitleLarge"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:text=""
-                        android:fontFamily="@font/poppins_regular"
-                        app:fontFamily="@font/poppins_regular"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_16sdp" />
-                </LinearLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivUserProfile"
+                        app:layout_constraintTop_toTopOf="@id/ivUserProfile"
+                        app:layout_constraintBottom_toBottomOf="@id/ivUserProfile" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Search Section -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clSearch"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_10sdp">
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clUserProfile">
+
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilCustomerAccount"
                         style="@style/TextInputLayoutAppearance"
-                        android:hint="@string/customer_account">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/customer_account"
+                        app:layout_constraintEnd_toStartOf="@id/ivSearchList"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etCustomerAccount"
                             style="@style/Edittext"
                             android:hint="@string/enter_customer_account"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:importantForAutofill="yes" />
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivSearchList"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:padding="@dimen/_5sdp"
-                        android:src="@drawable/ic_search"
-                        app:srcCompat="@drawable/ic_search"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/_10sdp"/>
-                </RelativeLayout>
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:src="@drawable/ic_app_image"/>
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:contentDescription="@string/search"
+                         android:src="@drawable/ic_search"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:tint="@color/primary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Banner Image -->
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
+<!--                    android:id="@+id/ivBanner"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="@dimen/_120sdp"-->
+<!--                    android:layout_marginTop="@dimen/_16sdp"-->
+<!--                    android:layout_marginStart="@dimen/_12sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_12sdp"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:contentDescription="@string/app_name"-->
+<!--                    android:scaleType="fitCenter"-->
+<!--                    android:src="@drawable/ic_app_image"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/clSearch" />-->
+
+                <!-- Pending Amount -->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPendingAmount"
-                    android:layout_width="match_parent"
+                    style="@style/TextAppearanceLabelMedium"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:gravity="center"
-                    android:text="@string/pending_amount"
-                    android:padding="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_medium"
-                    app:fontFamily="@font/poppins_medium"
-                    android:textColor="@color/Color9a003e"
-                    android:textSize="@dimen/_16sdp" />
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:padding="@dimen/_12sdp"
+                    android:textColor="@color/error"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clSearch" />
+
+                <!-- Stats Cards Row 1 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clStatsRow1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPendingAmount">
 
+                    <!-- Today Target Card -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:id="@+id/cvTodayTarget"
+                        style="@style/CardStyleClickable"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/_10sdp"
-                        app:cardElevation="@dimen/_5sdp">
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:minHeight="96dp"
+                        app:layout_constraintEnd_toStartOf="@id/cvTodayCollection"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintWidth_default="percent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/llTodayTarget"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_80sdp"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_16sdp"
+                            android:gravity="center">
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
+                                android:id="@+id/tvTodayTargetLabel"
+                                style="@style/TextAppearanceLabelMedium"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:gravity="center"
+                                android:lines="2"
                                 android:text="@string/today_target"
-                                android:fontFamily="@font/poppins_medium"
-                                app:fontFamily="@font/poppins_medium"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_16sdp" />
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvTotalTarget"
-                                android:layout_width="match_parent"
+                                style="@style/TextAppearanceTitleLarge"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_8sdp"
                                 android:gravity="center"
-                                android:text=""
-                                android:fontFamily="@font/poppins_bold"
-                                app:fontFamily="@font/poppins_bold"
-                                android:textColor="@color/Color008000"
-                                android:textSize="@dimen/_16sdp" />
-                        </LinearLayout>
+                                android:textColor="@color/success"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvTodayTargetLabel" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
+                    <!-- Today Collection Card -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:id="@+id/cvTodayCollection"
+                        style="@style/CardStyleClickable"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/_10sdp"
-                        app:cardElevation="@dimen/_5sdp">
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:minHeight="96dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cvTodayTarget"
+                        app:layout_constraintTop_toTopOf="@id/cvTodayTarget"
+                        app:layout_constraintWidth_default="percent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/llTodayCollection"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_80sdp"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_16sdp"
+                            android:gravity="center">
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
+                                android:id="@+id/tvTodayCollectionLabel"
+                                style="@style/TextAppearanceLabelMedium"
+                                android:layout_width="0dp"
+                                android:lines="2"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="@string/today_collection"
-                                android:fontFamily="@font/poppins_medium"
-                                app:fontFamily="@font/poppins_medium"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_16sdp" />
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvTotalCollection"
-                                android:layout_width="match_parent"
+                                style="@style/TextAppearanceTitleLarge"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_8sdp"
                                 android:gravity="center"
-                                android:text=""
-                                android:fontFamily="@font/poppins_bold"
-                                app:fontFamily="@font/poppins_bold"
-                                android:textColor="@color/Color008000"
-                                android:textSize="@dimen/_16sdp" />
-                        </LinearLayout>
+                                android:textColor="@color/success"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvTodayCollectionLabel" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <!-- Stats Cards Row 2 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clStatsRow2"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clStatsRow1">
 
+                    <!-- Customer Card -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:id="@+id/cvCustomer"
+                        style="@style/CardStyleClickable"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/_10sdp"
-                        app:cardElevation="@dimen/_5sdp">
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:minHeight="96dp"
+                        app:layout_constraintEnd_toStartOf="@id/cvLoan"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintWidth_default="percent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/llCustomer"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_80sdp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_16sdp"
+                            android:gravity="center">
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
+                                android:id="@+id/tvCustomerLabel"
+                                style="@style/TextAppearanceLabelMedium"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:lines="2"
                                 android:gravity="center"
                                 android:text="@string/customer_"
-                                android:fontFamily="@font/poppins_regular"
-                                app:fontFamily="@font/poppins_regular"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_16sdp" />
-                            <LinearLayout
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvCustomerDdsCounts"
+                                style="@style/TextAppearanceTitleMedium"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:text="@string/dds"
-                                    android:fontFamily="@font/poppins_regular"
-                                    app:fontFamily="@font/poppins_regular"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/_16sdp" />
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvCustomerDdsCounts"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:text="0)"
-                                    android:fontFamily="@font/poppins_regular"
-                                    app:fontFamily="@font/poppins_regular"
-                                    android:textColor="@color/Color008000"
-                                    android:textSize="@dimen/_16sdp" />
-                            </LinearLayout>
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:gravity="center"
+                                android:textColor="@color/success"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvCustomerLabel" />
 
-                        </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
+                    <!-- Loan Card -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:id="@+id/cvLoan"
+                        style="@style/CardStyleClickable"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/_10sdp"
-                        app:cardElevation="@dimen/_5sdp">
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:minHeight="96dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cvCustomer"
+                        app:layout_constraintTop_toTopOf="@id/cvCustomer"
+                        app:layout_constraintWidth_default="percent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/llLoan"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_80sdp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_16sdp"
+                            android:gravity="center">
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
+                                android:id="@+id/tvLoanLabel"
+                                style="@style/TextAppearanceLabelMedium"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="@string/loan"
-                                android:fontFamily="@font/poppins_regular"
-                                app:fontFamily="@font/poppins_regular"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_16sdp" />
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:lines="2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvLoanAccountCount"
-                                android:layout_width="match_parent"
+                                style="@style/TextAppearanceTitleMedium"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_4sdp"
                                 android:gravity="center"
-                                android:text=""
-                                android:fontFamily="@font/poppins_regular"
-                                app:fontFamily="@font/poppins_regular"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_16sdp" />
-                        </LinearLayout>
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvLoanLabel" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Stats Cards Row 3 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clStatsRow3"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clStatsRow2">
 
+                    <!-- Loan Enquiry Card -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:id="@+id/cvLoanEnquiry"
+                        style="@style/CardStyleClickable"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/_10sdp"
-                        app:cardElevation="@dimen/_5sdp">
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:minHeight="96dp"
+                        app:layout_constraintEnd_toStartOf="@id/cvComplaint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintWidth_default="percent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/llLoanEnquiry"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_80sdp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_16sdp"
+                            android:gravity="center">
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
+                                style="@style/TextAppearanceLabelMedium"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:gravity="center"
-                                android:fontFamily="@font/poppins_regular"
-                                app:fontFamily="@font/poppins_regular"
                                 android:text="@string/loan_enquiry"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_16sdp" />
-                        </LinearLayout>
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:lines="2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
+                    <!-- Complaint Card -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:id="@+id/cvComplaint"
+                        style="@style/CardStyleClickable"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/_10sdp"
-                        app:cardElevation="@dimen/_5sdp">
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:minHeight="96dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cvLoanEnquiry"
+                        app:layout_constraintTop_toTopOf="@id/cvLoanEnquiry"
+                        app:layout_constraintWidth_default="percent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/llComplaint"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_80sdp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_16sdp"
+                            android:gravity="center">
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
+                                style="@style/TextAppearanceLabelMedium"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="@string/complaint"
-                                android:fontFamily="@font/poppins_regular"
-                                app:fontFamily="@font/poppins_regular"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_16sdp" />
-                        </LinearLayout>
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:lines="2"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
-                <!--            <androidx.cardview.widget.CardView-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_margin="@dimen/_10sdp"-->
-                <!--                app:cardBackgroundColor="@color/white"-->
-                <!--                app:cardCornerRadius="@dimen/_10sdp"-->
-                <!--                app:cardElevation="@dimen/_5sdp">-->
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <!--                <LinearLayout-->
-                <!--                    android:id="@+id/llNotification"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_gravity="center"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:orientation="vertical"-->
-                <!--                    android:padding="@dimen/_10sdp">-->
-
-                <!--                    <androidx.appcompat.widget.AppCompatTextView-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_gravity="center"-->
-                <!--                        android:gravity="center"-->
-                <!--                        android:text="@string/notification"-->
-                <!--                        android:fontFamily="@font/poppins_regular"-->
-                <!--                        app:fontFamily="@font/poppins_regular"-->
-                <!--                        android:textColor="@color/black"-->
-                <!--                        android:textSize="@dimen/_16sdp" />-->
-                <!--                </LinearLayout>-->
-                <!--            </androidx.cardview.widget.CardView>-->
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
+        android:id="@+id/nav_view"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:id="@+id/nav_view"
-        app:itemTextColor="@color/black"
-        app:itemIconTint="@color/black"
         android:fitsSystemWindows="true"
-        app:itemTextAppearance="?android:attr/textAppearanceLarge"
-        android:itemTextAppearance="@style/NavDrawerTextStyle"
-        app:itemIconSize="@dimen/_26sdp"
-        app:itemVerticalPadding="@dimen/_10sdp"
+        android:background="@color/white"
+        android:elevation="16dp"
         app:headerLayout="@layout/header_layout"
-        app:menu="@menu/side_menu"/>
+        app:itemIconSize="@dimen/_24sdp"
+        app:itemIconTint="@color/nav_icon_tint"
+        app:itemIconPadding="@dimen/_12sdp"
+        app:itemTextAppearance="@style/NavDrawerTextStyle"
+        app:itemTextColor="@color/nav_text_color"
+        app:itemRippleColor="@color/surface_variant"
+        app:itemVerticalPadding="@dimen/_16sdp"
+        app:itemHorizontalPadding="@dimen/_16sdp"
+        app:itemMaxLines="1"
+        app:divider="@color/divider"
+        app:dividerInsetStart="@dimen/_16sdp"
+        app:dividerInsetEnd="0dp"
+        app:menu="@menu/side_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

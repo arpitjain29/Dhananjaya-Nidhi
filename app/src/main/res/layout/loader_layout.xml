@@ -7,13 +7,13 @@
 
     <LinearLayout
         android:id="@+id/window"
-        android:layout_width="180dp"
+        android:layout_width="@dimen/_180sdp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/_10sdp">
 
         <com.dhananjayanidhi.utils.loader.SimpleArcLoader
             android:id="@+id/loader"
@@ -25,12 +25,12 @@
             android:id="@+id/loadertext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Loading"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/loading"
             android:fontFamily="@font/poppins_regular"
             app:fontFamily="@font/poppins_regular"
             android:visibility="gone"
             android:textColor="@color/ColorEBEBEB"
-            android:textSize="15sp" />
+            android:textSize="@dimen/_15ssp" />
     </LinearLayout>
 </RelativeLayout>

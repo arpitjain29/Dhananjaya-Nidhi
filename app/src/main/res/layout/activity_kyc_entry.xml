@@ -57,7 +57,7 @@
                         android:id="@+id/ivUploadAadharCardFront"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_user_image"
+                        android:src="@drawable/app_icon_logo"
                         app:shapeAppearance="@style/CornerCut"/>
                 </RelativeLayout>
                 <RelativeLayout
@@ -84,7 +84,7 @@
                         android:id="@+id/ivUploadAadharCardBack"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_user_image"
+                        android:src="@drawable/app_icon_logo"
                         app:shapeAppearance="@style/CornerCut"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -124,7 +124,7 @@
                     android:id="@+id/ivPanCardImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_user_image"
+                    android:src="@drawable/app_icon_logo"
                     app:shapeAppearance="@style/CornerCut"/>
             </RelativeLayout>
             <RelativeLayout
@@ -150,7 +150,7 @@
                     android:id="@+id/ivCustomerImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_user_image"
+                    android:src="@drawable/app_icon_logo"
                     app:shapeAppearance="@style/CornerCut"/>
             </RelativeLayout>
             <RelativeLayout
@@ -176,7 +176,7 @@
                     android:id="@+id/ivSignatureImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_user_image"
+                    android:src="@drawable/app_icon_logo"
                     app:shapeAppearance="@style/CornerCut"/>
             </RelativeLayout>
             <com.google.android.material.button.MaterialButton

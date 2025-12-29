@@ -27,26 +27,30 @@ class CustomerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.layoutBinding.tvCustomerName.text = datumCustomerList[position].customerName
+        if (position < 0 || position >= datumCustomerList.size) return
+        
+        val customer = datumCustomerList[position]
+        
+        holder.layoutBinding.tvCustomerName.text = customer.customerName ?: ""
         holder.layoutBinding.tvCustomerAccount.text = String.format(
             "%s %s",
             context.getString(R.string.rs),
-            datumCustomerList[position].collectionAmount
+            customer.collectionAmount ?: "0"
         )
-        holder.layoutBinding.tvCustomerAddress.text =
-            datumCustomerList[position].cutomerAddress?.fullAddress
-        holder.layoutBinding.tvCustomerMobileNumber.text = datumCustomerList[position].mobileNumber
-        holder.layoutBinding.tvAccountNumber.text =String.format(
-            "%s %s", "A/C : ",
-            datumCustomerList[position].account?.accountNumber)
+        holder.layoutBinding.tvCustomerAddress.text = customer.cutomerAddress?.fullAddress ?: ""
+        holder.layoutBinding.tvCustomerMobileNumber.text = customer.mobileNumber ?: ""
+        holder.layoutBinding.tvAccountNumber.text = String.format(
+            "%s %s",
+            context.getString(R.string.account_prefix),
+            customer.account?.accountNumber ?: ""
+        )
         holder.layoutBinding.llCustomerLayout.setOnClickListener {
-            customerClickInterface.onCustomerClick(position)
+            if (position < datumCustomerList.size) {
+                customerClickInterface.onCustomerClick(position)
+            }
         }
-        if (datumCustomerList[position].todayCollectionStatus == "yes"){
-            holder.layoutBinding.ivCheckCustomer.visibility = View.VISIBLE
-        }else{
-            holder.layoutBinding.ivCheckCustomer.visibility = View.GONE
-        }
+        holder.layoutBinding.ivCheckCustomer.visibility = 
+            if (customer.todayCollectionStatus == "yes") View.VISIBLE else View.GONE
     }
 
     override fun getItemCount(): Int {

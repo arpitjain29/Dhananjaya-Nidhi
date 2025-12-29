@@ -15,19 +15,24 @@ import com.dhananjayanidhi.parameters.SignupParams
 import com.dhananjayanidhi.utils.BaseActivity
 import com.dhananjayanidhi.utils.CommonFunction
 import com.dhananjayanidhi.utils.Constants
-import org.json.JSONObject
+import com.dhananjayanidhi.utils.ErrorHandler
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.HttpException
 import retrofit2.Response
 
 class LoginActivity : BaseActivity() {
     private var viewBindingLogin: ActivityLoginBinding? = null
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         viewBindingLogin = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(viewBindingLogin!!.root)
+        setContentView(viewBindingLogin?.root ?: return)
+        
+        // Configure status bar after content is set
+        window?.decorView?.post {
+            configureStatusBar()
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 
@@ -43,81 +48,75 @@ class LoginActivity : BaseActivity() {
 
             insets
         }
-        viewBindingLogin!!.btnLogin.setOnClickListener {
-            val signupParams = SignupParams()
-            signupParams.countryCode = Constants.phoneCode
-            signupParams.mobile = viewBindingLogin!!.etMobileNumber.text.toString().trim()
-
-            if (TextUtils.isEmpty(signupParams.mobile) ||
-                signupParams.mobile!!.length != 10
-            ) {
-                viewBindingLogin!!.etMobileNumber.error =
+        viewBindingLogin?.btnLogin?.setOnClickListener {
+            val mobileNumber = viewBindingLogin?.etMobileNumber?.text?.toString()?.trim() ?: ""
+            
+            if (TextUtils.isEmpty(mobileNumber) || mobileNumber.length != 10) {
+                viewBindingLogin?.etMobileNumber?.error =
                     getString(R.string.please_enter_your_mobile_number)
             } else {
+                val signupParams = SignupParams().apply {
+                    countryCode = Constants.phoneCode
+                    this.mobile = mobileNumber
+                }
                 loginApi(signupParams)
             }
         }
     }
 
     private fun loginApi(signupParams: SignupParams) {
-        if (isConnectingToInternet(mContext!!)) {
-            showProgressDialog()
-            val call1 = ApiClient.buildService(mContext).signupUserApi(signupParams)
-            call1?.enqueue(object : Callback<CommonModel?> {
-                override fun onResponse(
-                    call: Call<CommonModel?>,
-                    response: Response<CommonModel?>
-                ) {
-                    hideProgressDialog()
-                    if (response.isSuccessful) {
-                        val loginUser: CommonModel? = response.body()
-                        if (loginUser != null) {
-                            CommonFunction.showToastSingle(mContext, loginUser.message, 0)
-                            if (loginUser.status == 200) {
-                                startActivity(
-                                    Intent(
-                                        mContext,
-                                        OtpActivity::class.java
-                                    ).putExtra(
-                                        Constants.mobileNumber,
-                                        viewBindingLogin!!.etMobileNumber.text.toString().trim()
-                                    )
-                                )
-                            }
-                        }
-                    } else {
-                        val errorBody = response.errorBody()?.string()
-                        if (errorBody != null) {
-                            try {
-                                val errorJson = JSONObject(errorBody)
-                                val errorArray = errorJson.getJSONArray("error")
-                                val errorMessage = errorArray.getJSONObject(0).getString("message")
-                                CommonFunction.showToastSingle(mContext, errorMessage, 0)
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                                CommonFunction.showToastSingle(
-                                    mContext,
-                                    "An error occurred. Please try again.",
-                                    0
-                                )
-                            }
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<CommonModel?>, throwable: Throwable) {
-                    hideProgressDialog()
-                    throwable.printStackTrace()
-                    if (throwable is HttpException) {
-                        throwable.printStackTrace()
-                    }
-                }
-            })
-        } else {
+        val context = mContext ?: return
+        
+        if (!isConnectingToInternet(context)) {
             CommonFunction.showToastSingle(
-                mContext,
-                resources.getString(R.string.net_connection), 0
+                context,
+                getString(R.string.net_connection),
+                0
             )
+            return
         }
+
+        showProgressDialog()
+        val call1 = ApiClient.buildService(context).signupUserApi(signupParams)
+        call1?.enqueue(object : Callback<CommonModel?> {
+            override fun onResponse(
+                call: Call<CommonModel?>,
+                response: Response<CommonModel?>
+            ) {
+                hideProgressDialog()
+                
+                if (response.isSuccessful) {
+                    val loginUser = response.body()
+                    loginUser?.let { user ->
+                        CommonFunction.showToastSingle(context, user.message, 0)
+                        if (user.status == 200) {
+                            val mobileNumber = viewBindingLogin?.etMobileNumber?.text?.toString()?.trim() ?: ""
+                            startActivity(
+                                Intent(context, OtpActivity::class.java).putExtra(
+                                    Constants.mobileNumber,
+                                    mobileNumber
+                                )
+                            )
+                        }
+                    }
+                } else {
+                    ErrorHandler.handleErrorResponse(
+                        context,
+                        response,
+                        getString(R.string.error_occurred)
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<CommonModel?>, throwable: Throwable) {
+                hideProgressDialog()
+                ErrorHandler.handleFailure(context, throwable)
+            }
+        })
+    }
+    
+    override fun onDestroy() {
+        viewBindingLogin = null
+        super.onDestroy()
     }
 }

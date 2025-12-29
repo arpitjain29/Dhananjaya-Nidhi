@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 
 class AppController : Application() , Application.ActivityLifecycleCallbacks {
 
@@ -12,6 +13,10 @@ class AppController : Application() , Application.ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
+        
+        // Force light mode - disable dark mode for entire app
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        
         instance = this
         context = this
     }

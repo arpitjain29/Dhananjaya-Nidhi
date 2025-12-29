@@ -38,6 +38,9 @@ class TransactionScreenActivity : BaseActivity() {
     private var transactionScreenBinding : ActivityTransactionScreenBinding? = null
     private var transactionAdapter: TransactionAdapter? = null
     private var selectedDate: String? = null
+    private var storedAccountNumber: String = ""
+    private var storedDate: String = ""
+    private var isFilterActive: Boolean = false
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,14 +65,19 @@ class TransactionScreenActivity : BaseActivity() {
         }
         transactionScreenBinding!!.appLayout.ivMenu.visibility = View.GONE
         transactionScreenBinding!!.appLayout.ivBackArrow.visibility = View.VISIBLE
-        transactionScreenBinding!!.appLayout.ivFilterIcon.visibility = View.VISIBLE
+        transactionScreenBinding!!.appLayout.clFilterIcon.visibility = View.VISIBLE
         transactionScreenBinding!!.appLayout.ivSearch.visibility = View.GONE
         transactionScreenBinding!!.appLayout.tvTitle.text = getString(R.string.transaction)
         transactionScreenBinding!!.appLayout.ivBackArrow.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        transactionScreenBinding!!.appLayout.ivFilterIcon.setOnClickListener {
+        // Restore filter state on activity creation
+        if (isFilterActive) {
+            updateFilterIconState(true)
+        }
+
+        transactionScreenBinding!!.appLayout.clFilterIcon.setOnClickListener {
             val dialog = Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
             if (dialog.window != null) {
                 dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
@@ -93,12 +101,27 @@ class TransactionScreenActivity : BaseActivity() {
                 )
             dialog.setContentView(binding.root)
 
+            // Restore stored filter values
+            if (isFilterActive) {
+                binding.etAccountNumberFilter.setText(storedAccountNumber)
+                if (storedDate.isNotEmpty()) {
+                    // Parse stored date format (yyyy/MM/dd) to display format (dd-MM-yyyy)
+                    val dateParts = storedDate.split("/")
+                    if (dateParts.size == 3) {
+                        binding.etDateFilter.setText("${dateParts[2]}-${dateParts[1]}-${dateParts[0]}")
+                        selectedDate = storedDate
+                    }
+                }
+                binding.btnClearFilter.visibility = View.VISIBLE
+            } else {
+                binding.btnClearFilter.visibility = View.GONE
+            }
+
             binding.etDateFilter.setOnClickListener {
                 val c = Calendar.getInstance()
                 val mYear = c[Calendar.YEAR]
                 val mMonth = c[Calendar.MONTH]
                 val mDay = c[Calendar.DAY_OF_MONTH]
-
 
                 val datePickerDialog = DatePickerDialog(
                     this, { _, year, monthOfYear, dayOfMonth ->
@@ -106,8 +129,6 @@ class TransactionScreenActivity : BaseActivity() {
                             dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
                         )
                         selectedDate = year.toString() + "/" + (monthOfYear + 1) + "/" + dayOfMonth.toString()
-                        println("date ---==="+dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
-                        println("date selectedDate ---==="+selectedDate)
                     },
                     mYear,
                     mMonth,
@@ -117,13 +138,41 @@ class TransactionScreenActivity : BaseActivity() {
             }
 
             binding.btnSubmitFilter.setOnClickListener {
+                val accountNumber = binding.etAccountNumberFilter.text.toString().trim()
+                val date = selectedDate ?: ""
+                
+                // Store filter values
+                storedAccountNumber = accountNumber
+                storedDate = date
+                isFilterActive = accountNumber.isNotEmpty() || date.isNotEmpty()
+                
+                // Update filter icon state
+                updateFilterIconState(isFilterActive)
+                
                 dialog.dismiss()
-                selectedDate?.let { it1 ->
-                    transactionListApi(binding.etAccountNumberFilter.text.toString(),
-                        it1
-                    )
-                }
+                transactionListApi(accountNumber, date)
             }
+
+            binding.btnClearFilter.setOnClickListener {
+                // Clear stored filter values
+                storedAccountNumber = ""
+                storedDate = ""
+                selectedDate = null
+                isFilterActive = false
+                
+                // Update filter icon state
+                updateFilterIconState(false)
+                
+                // Clear dialog fields
+                binding.etAccountNumberFilter.setText("")
+                binding.etDateFilter.setText("")
+                binding.btnClearFilter.visibility = View.GONE
+                
+                // Reload data without filter
+                dialog.dismiss()
+                transactionListApi("", "")
+            }
+            
             dialog.show()
         }
 
@@ -138,6 +187,11 @@ class TransactionScreenActivity : BaseActivity() {
         })
 
         transactionListApi("","")
+    }
+
+    private fun updateFilterIconState(isActive: Boolean) {
+        transactionScreenBinding?.appLayout?.clFilterIcon?.isSelected = isActive
+        transactionScreenBinding?.appLayout?.ivFilterIcon?.isSelected = isActive
     }
 
     private fun transactionListApi(accountNumber:String,date:String) {

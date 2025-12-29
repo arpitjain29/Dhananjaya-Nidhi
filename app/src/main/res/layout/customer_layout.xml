@@ -1,110 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardStyleClickable"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/_10sdp"
-    android:background="@color/white"
-    app:cardElevation="@dimen/_5sdp"
-    android:layout_margin="@dimen/_10sdp">
-    <LinearLayout
+    android:layout_marginStart="@dimen/_12sdp"
+    android:layout_marginEnd="@dimen/_12sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginBottom="@dimen/_8sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llCustomerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/llCustomerLayout"
-        android:padding="@dimen/_10sdp">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:padding="@dimen/_16sdp"
+        android:minHeight="72dp">
+
+        <!-- Customer Icon -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivCustomerIcon"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:contentDescription="@string/customer"
+            android:src="@drawable/ic_customer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
+
+        <!-- Customer Name -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCustomerName"
+            style="@style/TextAppearanceTitleMedium"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_customer"
-                android:layout_gravity="center"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvCustomerName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:layout_marginStart="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_bold"
-                app:fontFamily="@font/poppins_bold"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/black"/>
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivCheckCustomer"
-                android:visibility="gone"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:src="@drawable/ic_check_circle"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toStartOf="@id/ivCheckCustomer"
+            app:layout_constraintStart_toEndOf="@id/ivCustomerIcon"
+            app:layout_constraintTop_toTopOf="@id/ivCustomerIcon" />
+
+        <!-- Check Icon -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivCheckCustomer"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:contentDescription="@string/customer"
+            android:src="@drawable/ic_check_circle"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/success" />
+
+        <!-- Phone Icon -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivPhoneIcon"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:contentDescription="@string/mobile_number"
+            android:src="@drawable/ic_call"
+            app:layout_constraintStart_toStartOf="@id/ivCustomerIcon"
+            app:layout_constraintTop_toBottomOf="@id/ivCustomerIcon"
+            app:tint="@color/text_secondary" />
+
+        <!-- Mobile Number -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCustomerMobileNumber"
+            style="@style/TextAppearanceBodyMedium"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_call"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvCustomerMobileNumber"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:layout_marginStart="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_medium"
-                app:fontFamily="@font/poppins_medium"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/black"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvCustomerAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:fontFamily="@font/poppins_bold"
-                app:fontFamily="@font/poppins_bold"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/Color008000"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toStartOf="@id/tvCustomerAccount"
+            app:layout_constraintStart_toEndOf="@id/ivPhoneIcon"
+            app:layout_constraintTop_toTopOf="@id/ivPhoneIcon" />
+
+        <!-- Account Amount -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCustomerAccount"
+            style="@style/TextAppearanceLabelMedium"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_location"
-                android:layout_gravity="center"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvCustomerAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:layout_marginStart="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_medium"
-                app:fontFamily="@font/poppins_medium"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/black"/>
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_arrow"/>
-        </LinearLayout>
+            android:textColor="@color/success"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivPhoneIcon" />
+
+        <!-- Location Icon -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivLocationIcon"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:contentDescription="@string/address"
+            android:src="@drawable/ic_location"
+            app:layout_constraintStart_toStartOf="@id/ivPhoneIcon"
+            app:layout_constraintTop_toBottomOf="@id/ivPhoneIcon"
+            app:tint="@color/text_secondary" />
+
+        <!-- Address -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCustomerAddress"
+            style="@style/TextAppearanceBodySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toStartOf="@id/ivArrow"
+            app:layout_constraintStart_toEndOf="@id/ivLocationIcon"
+            app:layout_constraintTop_toTopOf="@id/ivLocationIcon" />
+
+        <!-- Arrow Icon -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:contentDescription="@string/view"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivLocationIcon"
+            app:tint="@color/text_secondary" />
+
+        <!-- Account Number -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvAccountNumber"
-            android:layout_width="match_parent"
+            style="@style/TextAppearanceBodySmall"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
-            android:layout_marginStart="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            app:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"/>
-    </LinearLayout>
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/ivLocationIcon"
+            app:layout_constraintTop_toBottomOf="@id/ivLocationIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

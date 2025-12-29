@@ -20,6 +20,11 @@ import android.widget.LinearLayout
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
+import android.content.res.Configuration
 import com.dhananjayanidhi.R
 import com.dhananjayanidhi.databinding.SelectFileLayoutBinding
 import com.dhananjayanidhi.utils.interfacef.UploadImageInterface
@@ -28,9 +33,8 @@ import com.dhananjayanidhi.utils.loader.SimpleArcDialog
 import androidx.core.graphics.drawable.toDrawable
 
 abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, UploadImageInterface {
-    var mContext: Activity? = null
+    protected var mContext: Activity? = null
 
-    //    private var isCameraClick: Boolean = false
     private var REQUEST_CODE = Constants.PICK_IMAGE_CAMERA
     private var mUploadImageInterface: UploadImageInterface? = null
 
@@ -51,52 +55,142 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, UploadI
     }
 
     override fun onClick(p0: View?) {
-        CommonFunction.hideKeyboardFrom(mContext!!, p0!!)
+        p0?.let { view ->
+            mContext?.let { context ->
+                CommonFunction.hideKeyboardFrom(context, view)
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Force light mode - disable dark mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        
         mContext = this
         mUploadImageInterface = this
     }
+    
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // Force light mode even if system changes
+        if (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        // Ensure status bar is configured after edge-to-edge
+        // Use post to ensure it runs after layout
+        window?.decorView?.post {
+            configureStatusBar()
+        }
+    }
+    
+    /**
+     * Configure status bar with proper icon visibility.
+     * Automatically determines icon color based on background color luminance.
+     * Call this after enableEdgeToEdge() in activity's onCreate.
+     * 
+     * @param statusBarColor The color for status bar background (default: white)
+     */
+    protected fun configureStatusBar(statusBarColor: Int = getColor(R.color.white)) {
+        window?.let { window ->
+            // CRITICAL: Ensure status bar is visible and drawn first
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                // Clear any flags that might hide the status bar
+                window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+                
+                // Ensure system bar backgrounds are drawn (CRITICAL for edge-to-edge)
+                window.addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            }
+            
+            // Set status bar background color explicitly to white (opaque)
+            // Use Color.WHITE to ensure it's fully opaque, not transparent
+            window.statusBarColor = Color.WHITE
+            
+            // Configure status bar icon appearance using WindowInsetsController
+            val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+            
+            // For white background: use dark icons (isAppearanceLightStatusBars = false)
+            // This makes icons dark/black so they're visible on white background
+            // IMPORTANT: false = dark icons, true = light icons
+            windowInsetsController?.isAppearanceLightStatusBars = true
+            
+            // Force the window to update
+            window.decorView.requestLayout()
+        }
+    }
+    
+    /**
+     * Determines if a color is light (bright) or dark.
+     * Uses luminance calculation to determine appropriate icon color.
+     * 
+     * @param color The color to check
+     * @return true if color is light, false if dark
+     */
+    private fun isColorLight(color: Int): Boolean {
+        val red = Color.red(color)
+        val green = Color.green(color)
+        val blue = Color.blue(color)
+        
+        // Calculate relative luminance (perceived brightness)
+        // Formula: 0.299*R + 0.587*G + 0.114*B
+        val luminance = (0.299 * red + 0.587 * green + 0.114 * blue) / 255.0
+        
+        // If luminance > 0.5, color is considered light (use dark icons)
+        return luminance > 0.5
+    }
 
-    var mDialog: SimpleArcDialog? = null
+    private var mDialog: SimpleArcDialog? = null
 
     open fun showProgressDialog() {
-        if (mDialog == null) {
+        if (mDialog == null && mContext != null) {
             mDialog = SimpleArcDialog(mContext)
         }
-        mDialog!!.setConfiguration(ArcConfiguration(mContext))
-        mDialog!!.setCancelable(false)
-        mDialog!!.show()
+        mDialog?.let { dialog ->
+            mContext?.let { context ->
+                dialog.setConfiguration(ArcConfiguration(context))
+                dialog.setCancelable(false)
+                if (!dialog.isShowing) {
+                    dialog.show()
+                }
+            }
+        }
     }
 
     open fun hideProgressDialog() {
-        if (mDialog != null) {
-            mDialog!!.dismiss()
-        }
+        mDialog?.dismiss()
+        mDialog = null
     }
 
     override fun onDestroy() {
+        hideProgressDialog()
+        mContext = null
+        mUploadImageInterface = null
         super.onDestroy()
     }
 
     fun showPictureDialog() {
-        val dialog = Dialog(mContext!!, R.style.CustomAlertDialogStylePopup)
-        if (dialog.window != null) {
-            dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-            dialog.window!!.setGravity(Gravity.BOTTOM)
-        }
-        val binding: SelectFileLayoutBinding =
-            SelectFileLayoutBinding.inflate(LayoutInflater.from(mContext), null, false)
-        dialog.setContentView(binding.root)
-        if (dialog.window != null) {
-            dialog.window!!.setLayout(
+        val context = mContext ?: return
+        val dialog = Dialog(context, R.style.CustomAlertDialogStylePopup)
+        dialog.window?.apply {
+            requestFeature(Window.FEATURE_NO_TITLE)
+            setGravity(Gravity.BOTTOM)
+            setLayout(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            dialog.window!!.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+            setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
         }
+        val binding: SelectFileLayoutBinding =
+            SelectFileLayoutBinding.inflate(LayoutInflater.from(context), null, false)
+        dialog.setContentView(binding.root)
+        
         binding.tvCameraSelectFile.setOnClickListener {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             resultLauncher.launch(cameraIntent)
@@ -115,31 +209,34 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, UploadI
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                if (result.data != null) {
-                    val bitmap = result.data?.extras?.get("data") as Bitmap
-                    mUploadImageInterface!!.onUploadImage(bitmap)
+                val bitmap = result.data?.extras?.get("data") as? Bitmap
+                bitmap?.let {
+                    mUploadImageInterface?.onUploadImage(it)
                 }
             }
         }
 
     private val pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            if (uri != null) {
-                Log.d("PhotoPicker", "Selected URI: $uri")
-                val imageBitmap =
-                    CommonFunction.getRealPathFromGallery(
-                        RealFileUtils.newInstance(mContext!!)
-                        !!.getPath(uri)
-                    )
-                mUploadImageInterface!!.onUploadImage(imageBitmap!!)
-            } else {
+            uri?.let { selectedUri ->
+                Log.d("PhotoPicker", "Selected URI: $selectedUri")
+                mContext?.let { context ->
+                    RealFileUtils.newInstance(context)?.getPath(selectedUri)?.let { path ->
+                        CommonFunction.getRealPathFromGallery(path)?.let { imageBitmap ->
+                            mUploadImageInterface?.onUploadImage(imageBitmap)
+                        }
+                    }
+                }
+            } ?: run {
                 Log.d("PhotoPicker", "No media selected")
             }
         }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        if (currentFocus != null) {
-            mContext?.let { CommonFunction.hideKeyboardFrom(it, currentFocus!!) }
+        currentFocus?.let { view ->
+            mContext?.let { context ->
+                CommonFunction.hideKeyboardFrom(context, view)
+            }
         }
         return super.dispatchTouchEvent(ev)
     }

@@ -25,46 +25,29 @@ class LoanCustomerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.layoutBinding.tvNameCustomerNameLoan.text = datumLoanListModel[position].customerName
-        holder.layoutBinding.tvEmiAmountLoan.text =
-            String.format(
-                "%s %s %s",
-                "Emi: ",
-                context.getString(R.string.rs),
-                datumLoanListModel[position].emi
-            )
-        holder.layoutBinding.tvLoanAccountNo.text =
-            String.format(
-                "%s %s",
-                "A/C : ",
-                datumLoanListModel[position].accountNumber
-            )
-//        if (datumLoanListModel[position].loanStartDate != null) {
-//            holder.layoutBinding.tvLoanDate.text =
-//                String.format(
-//                    "%s %s",
-//                    "Loan Date: ",
-//                    CommonFunction.changeDateFormatFromAnother(datumLoanListModel[position].loanStartDate)
-//                )
-//        }
-//        holder.layoutBinding.tvPaidAmountLoan.text = String.format(
-//            "%s %s %s",
-//            "Paid Amount: ",
-//            context.getString(R.string.rs),
-//            datumLoanListModel[position].paidAmount
-//        )
-//        holder.layoutBinding.tvPendingOutstandingAmountLoan.text = String.format(
-//            "%s %s %s", "Pending/outstanding amount: ", context.getString(R.string.rs),
-//            datumLoanListModel[position].outstandingAmount
-//        )
+        if (position < 0 || position >= datumLoanListModel.size) return
+        
+        val loan = datumLoanListModel[position]
+        
+        holder.layoutBinding.tvNameCustomerNameLoan.text = loan.customerName ?: ""
+        holder.layoutBinding.tvEmiAmountLoan.text = String.format(
+            "%s %s %s",
+            context.getString(R.string.emi_prefix),
+            context.getString(R.string.rs),
+            loan.emi ?: "0"
+        )
+        holder.layoutBinding.tvLoanAccountNo.text = String.format(
+            "%s %s",
+            context.getString(R.string.account_prefix),
+            loan.accountNumber ?: ""
+        )
         holder.layoutBinding.llLoanCustomer.setOnClickListener {
-            loanClickInterface.onLoanClick(position)
+            if (position < datumLoanListModel.size) {
+                loanClickInterface.onLoanClick(position)
+            }
         }
-        if (datumLoanListModel[position].todayCollectionStatus == "yes"){
-            holder.layoutBinding.ivCheckCustomerLoan.visibility = View.VISIBLE
-        }else{
-            holder.layoutBinding.ivCheckCustomerLoan.visibility = View.GONE
-        }
+        holder.layoutBinding.ivCheckCustomerLoan.visibility = 
+            if (loan.todayCollectionStatus == "yes") View.VISIBLE else View.GONE
     }
 
     override fun getItemCount(): Int {

@@ -53,7 +53,7 @@ class CustomerEntryActivity : BaseActivity() {
         customerEntryBinding!!.appLayout.ivMenu.visibility = View.GONE
         customerEntryBinding!!.appLayout.ivBackArrow.visibility = View.VISIBLE
         customerEntryBinding!!.appLayout.ivSearch.visibility = View.GONE
-        customerEntryBinding!!.appLayout.tvTitle.text = getString(R.string.customer_profile)
+        customerEntryBinding!!.appLayout.tvTitle.text = getString(R.string.create_member)
         customerEntryBinding!!.appLayout.ivBackArrow.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }

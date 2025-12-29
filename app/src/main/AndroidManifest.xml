@@ -8,6 +8,7 @@
     <application
         android:name=".utils.AppController"
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/app_icon_logo"
@@ -24,10 +25,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.AccountOpenActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.SearchActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

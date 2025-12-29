@@ -2,6 +2,7 @@ package com.dhananjayanidhi.apiUtils
 
 object ApiUrlEndpoint {
     const val BASE_URL = "https://dhananjayanidhi.com/"
+//    const val BASE_URL = "http://staging.dhananjayanidhi.com/"
     const val SIGNUP_API = "api/send-otp"
     const val VERIFY_OTP_API = "api/verify-otp"
     const val LOGOUT_API = "api/logout"
