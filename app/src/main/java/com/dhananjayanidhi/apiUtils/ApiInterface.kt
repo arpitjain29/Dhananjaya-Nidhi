@@ -16,6 +16,10 @@ import com.dhananjayanidhi.models.loandetails.LoanDetailsModel
 import com.dhananjayanidhi.models.loanlist.LoanListModel
 import com.dhananjayanidhi.models.loansearch.LoanSearchModel
 import com.dhananjayanidhi.models.loansearch1.LoanSearch1Model
+import com.dhananjayanidhi.models.memberaddressinfo.MemberAddressInfoModel
+import com.dhananjayanidhi.models.memberdocumentinfo.MemberDocumentInfoModel
+import com.dhananjayanidhi.models.memberdraft.MemberDraftListModel
+import com.dhananjayanidhi.models.membernomineedetails.MemberNomineeDetailsModel
 import com.dhananjayanidhi.models.paymentcollection.PaymentCollectionModel
 import com.dhananjayanidhi.models.search.SearchModel
 import com.dhananjayanidhi.models.transaction.TransactionModel
@@ -124,4 +128,16 @@ interface ApiInterface {
 
     @POST(ApiUrlEndpoint.OPEN_ACCOUNT_API)
     fun openAccountApi(@Body accountOpenParams: AccountOpenParams):Call<AccountOpenModel?>?
+
+    @GET(ApiUrlEndpoint.MEMBER_DRAFT_LIST_API)
+    fun memberDraftListApi():Call<MemberDraftListModel?>?
+
+    @GET(ApiUrlEndpoint.MEMBER_ADDRESS_INFO_API)
+    fun memberAddressInfoApi(@Query("customer_id") customerId: String):Call<MemberAddressInfoModel?>?
+
+    @GET(ApiUrlEndpoint.MEMBER_DOCUMENT_INFO_API)
+    fun memberDocumentInfoApi(@Query("customer_id") customerId: String):Call<MemberDocumentInfoModel?>?
+
+    @GET(ApiUrlEndpoint.MEMBER_NOMINEE_DETAILS_API)
+    fun memberNomineeDetailsApi(@Query("customer_id") customerId: String):Call<MemberNomineeDetailsModel?>?
 }

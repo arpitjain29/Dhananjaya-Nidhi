@@ -1,5 +1,6 @@
 package com.dhananjayanidhi.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -23,6 +24,7 @@ import com.dhananjayanidhi.utils.AppController
 import com.dhananjayanidhi.utils.BaseActivity
 import com.dhananjayanidhi.utils.CommonFunction
 import com.dhananjayanidhi.utils.Constants
+import com.dhananjayanidhi.utils.MemberFlowManager
 import com.dhananjayanidhi.utils.DialogHelper
 import com.dhananjayanidhi.utils.ErrorHandler
 import retrofit2.Call
@@ -49,6 +51,7 @@ class HomeActivity : BaseActivity() {
         window?.decorView?.post {
             configureStatusBar()
         }
+        getDashboardApi()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 
@@ -126,7 +129,11 @@ class HomeActivity : BaseActivity() {
                 }
 
                 R.id.nav_create_member -> {
-                    startActivity(Intent(context, CustomerEntryActivity::class.java))
+                    startMemberCreationFlow(context)
+                }
+
+                R.id.nav_pending_members -> {
+                    startActivity(Intent(context, PendingMembersActivity::class.java))
                 }
             }
             if (item.itemId == R.id.nav_logout) {
@@ -172,7 +179,6 @@ class HomeActivity : BaseActivity() {
         homeBinding?.swipeRefreshLayoutHome?.setOnRefreshListener {
             getDashboardApi()
         }
-
         homeBinding?.ivSearchList?.setOnClickListener {
             val accountNumber = homeBinding?.etCustomerAccount?.text?.toString()?.trim() ?: ""
             if (TextUtils.isEmpty(accountNumber)) {
@@ -213,8 +219,27 @@ class HomeActivity : BaseActivity() {
                 }
             }
         })
+    }
+    
+    /**
+     * Start member creation flow with resume logic
+     * If a flow is in progress, redirects to the next pending step
+     * Otherwise, starts a new flow from CustomerEntryActivity
+     */
+    private fun startMemberCreationFlow(context: Context) {
+        if (MemberFlowManager.isFlowInProgress(context)) {
+            // Flow is in progress - resume from last completed step
+            val nextStep = MemberFlowManager.getNextPendingStep(context)
+            val customerId = MemberFlowManager.getCustomerId(context)
 
-        getDashboardApi()
+            // Navigate to CreateMemberActivity which will handle step navigation
+            startActivity(Intent(context, CreateMemberActivity::class.java))
+        } else {
+            // No flow in progress - start new flow
+            startActivity(Intent(context, CreateMemberActivity::class.java))
+        }
+
+
     }
 
 //    private fun updateProfileMenu() {
@@ -262,8 +287,7 @@ class HomeActivity : BaseActivity() {
                                     getString(R.string.rs),
                                     data.todayCollection ?: "0"
                                 )
-                                homeBinding?.tvCustomerDdsCounts?.text =
-                                    " ${data.customerCount ?: "0"})"
+                                homeBinding?.tvCustomerDdsCounts?.text = data.customerCount ?: "0"
 
                                 val pendingCollections = data.pendingCollections ?: "0"
                                 if (pendingCollections == "0") {

@@ -69,7 +69,8 @@ class CollectionListActivity : BaseActivity() {
             val mDay = calendar[Calendar.DAY_OF_MONTH]
 
             val datePickerDialog = DatePickerDialog(
-                this, { _, year, monthOfYear, dayOfMonth ->
+                this, R.style.DatePickerDialogTheme,
+                { _, year, monthOfYear, dayOfMonth ->
                     collectionListActivity?.tvStartDate?.text = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
                     selectedDate = year.toString() + "/" + (monthOfYear + 1) + "/" + dayOfMonth.toString()
                     println("date ---==="+dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)

@@ -33,4 +33,6 @@ class CustomerAddParams {
 
     @SerializedName("phone_number")
     var phoneNumber: String? = null
+    @SerializedName("customer_id")
+    var customerId: String? = null
 }

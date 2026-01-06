@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNameLoanEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/name">
@@ -27,6 +28,7 @@
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddressLoanEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/address">
@@ -38,6 +40,7 @@
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLoanAmountLoanEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/loan_amount">
@@ -49,6 +52,7 @@
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDurationLoanEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/duration">
@@ -60,6 +64,7 @@
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMobileNumberLoanEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/mobile_number">
@@ -68,7 +73,8 @@
                     android:id="@+id/etMobileNumber"
                     style="@style/Edittext"
                     android:hint="@string/enter_mobile_number"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:maxEms="10"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCollect"

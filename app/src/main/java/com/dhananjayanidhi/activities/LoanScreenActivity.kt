@@ -12,6 +12,9 @@ import com.dhananjayanidhi.R
 import com.dhananjayanidhi.adapter.LoanCustomerAdapter
 import com.dhananjayanidhi.apiUtils.ApiClient
 import com.dhananjayanidhi.databinding.ActivityLoanScreenBinding
+import com.dhananjayanidhi.models.loanlist.DatumLoanListModel
+import com.dhananjayanidhi.models.loanlist.LoanListModel
+import com.dhananjayanidhi.models.loansearch1.DatumLoanSearch1Model
 import com.dhananjayanidhi.models.loansearch1.LoanSearch1Model
 import com.dhananjayanidhi.parameters.SearchParams
 import com.dhananjayanidhi.utils.AppController
@@ -66,6 +69,115 @@ class LoanScreenActivity : BaseActivity() {
                 val searchParams = SearchParams()
                 searchParams.search = loanScreenBinding?.etCustomerName?.text.toString()
                 loanSearchApi(searchParams)
+            }
+        }
+        
+        // Load loan list on activity creation
+        loanListApi()
+    }
+
+    private fun loanListApi() {
+        if (isConnectingToInternet(mContext!!)) {
+            showProgressDialog()
+            val call1 = ApiClient.buildService(mContext).loanListApi()
+            call1?.enqueue(object : Callback<LoanListModel?> {
+                override fun onResponse(
+                    call: Call<LoanListModel?>,
+                    response: Response<LoanListModel?>
+                ) {
+                    hideProgressDialog()
+                    if (response.isSuccessful) {
+                        val loanListModel: LoanListModel? = response.body()
+                        if (loanListModel != null) {
+                            if (loanListModel.status == 200) {
+                                val loanData = loanListModel.data?.data
+                                if (loanData != null && loanData.isNotEmpty()) {
+                                    // Convert DatumLoanListModel to DatumLoanSearch1Model for adapter
+                                    val convertedList = convertToDatumLoanSearch1Model(loanData)
+                                    loanCustomerAdapter = LoanCustomerAdapter(
+                                        convertedList,
+                                        mContext!!,
+                                        object : LoanClickInterface {
+                                            override fun onLoanClick(position: Int) {
+                                                startActivity(
+                                                    Intent(mContext, LoanDetailsActivity::class.java).apply {
+                                                        putExtra(
+                                                            Constants.customerListId,
+                                                            loanData[position]?.customerId ?: ""
+                                                        )
+                                                        putExtra(
+                                                            Constants.accountListId,
+                                                            loanData[position]?.id ?: ""
+                                                        )
+                                                    }
+                                                )
+
+                                            }
+                                        })
+                                    loanScreenBinding?.rvLoanCustomer?.adapter = loanCustomerAdapter
+                                }
+                            } else {
+                                AppController.instance?.sessionManager?.logoutUser()
+                            }
+                        }
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        if (errorBody != null) {
+                            try {
+                                val errorJson = JSONObject(errorBody)
+                                val errorArray = errorJson.getJSONArray("error")
+                                val errorMessage = errorArray.getJSONObject(0).getString("message")
+                                CommonFunction.showToastSingle(mContext, errorMessage, 0)
+                                AppController.instance?.sessionManager?.logoutUser()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                AppController.instance?.sessionManager?.logoutUser()
+                                CommonFunction.showToastSingle(
+                                    mContext,
+                                    "An error occurred. Please try again.",
+                                    0
+                                )
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<LoanListModel?>, throwable: Throwable) {
+                    hideProgressDialog()
+                    throwable.printStackTrace()
+                    if (throwable is HttpException) {
+                        throwable.printStackTrace()
+                    }
+                }
+            })
+        } else {
+            CommonFunction.showToastSingle(
+                mContext,
+                resources.getString(R.string.net_connection), 0
+            )
+        }
+    }
+
+    private fun convertToDatumLoanSearch1Model(list: List<DatumLoanListModel>): List<DatumLoanSearch1Model> {
+        return list.map { loanList ->
+            DatumLoanSearch1Model().apply {
+                id = loanList.id
+                agentId = loanList.agentId
+                customerId = loanList.customerId
+                loanType = loanList.loanType
+                accountNumber = loanList.accountNumber
+                principalAmount = loanList.principalAmount
+                loanAmount = loanList.loanAmount
+                loanStartDate = loanList.loanStartDate
+                emi = loanList.emi
+                totalInterest = loanList.totalInterest
+                outstandingAmount = loanList.outstandingAmount
+                paidAmount = loanList.paidAmount
+                todayCollectionStatus = loanList.todayCollectionStatus
+                todayCollection = loanList.todayCollection
+                customerName = loanList.customerName
+                accountTypeName = loanList.accountTypeName
+                agentName = loanList.agentName
             }
         }
     }

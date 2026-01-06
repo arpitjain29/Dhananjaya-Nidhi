@@ -101,18 +101,18 @@ class LoanDetailsActivity : BaseActivity() {
                         if (loanDetailsModel != null) {
                             CommonFunction.showToastSingle(mContext, loanDetailsModel.message, 0)
                             if (loanDetailsModel.status == 200) {
-                                loanDetailsActivity?.tvNameLoanDetails?.text =
+                                loanDetailsActivity?.tvNameCustomerDetail?.text =
                                     loanDetailsModel.data?.account?.customerName
-                                loanDetailsActivity?.tvEmiLoanDetails?.text = String.format(
-                                    "%s %s %s",
-                                    "Emi: ",getString(R.string.rs),
+                                loanDetailsActivity?.tvAmountCustomerDetails?.text = String.format(
+                                    "%s %s",
+                                    getString(R.string.rs),
                                     loanDetailsModel.data?.account?.emi
                                 )
-                                loanDetailsActivity?.tvAccountNoLoanDetails?.text = String.format(
-                                    "%s %s",
-                                    "A/C : ",
+                                loanDetailsActivity?.tvAccountNumberDetail?.text =
                                     loanDetailsModel.data?.account?.accountNumber
-                                )
+
+                                
+
                                 if (loanDetailsModel.data?.account?.todayCollectionStatus == "yes") {
                                     loanDetailsActivity?.ivCheckCustomerLoanDetails?.visibility =
                                         View.VISIBLE

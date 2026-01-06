@@ -56,7 +56,7 @@
     <string name="dob">DOB</string>
     <string name="enter_dob">Enter Dob</string>
     <string name="gender">Gender</string>
-    <string name="enter_gender">Enter Gender</string>
+    <string name="enter_gender">Select Gender</string>
     <string name="father_name">Father Name</string>
     <string name="enter_father_name">Enter father name</string>
     <string name="mother_name">Mother Name</string>
@@ -81,6 +81,7 @@
     <string name="home">Home</string>
     <string name="customers">Customers</string>
     <string name="create_member">Create Member</string>
+    <string name="pending_members">Pending members</string>
     <string name="house_no">House no</string>
     <string name="enter_house_no">Enter house no</string>
     <string name="address">Address</string>
@@ -136,6 +137,9 @@
     <string name="enter_loan_amount">Enter loan amount</string>
     <string name="duration">Duration</string>
     <string name="enter_duration">Enter duration</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="please_enter_loan_amount">Please enter loan amount</string>
+    <string name="please_enter_duration">Please enter duration</string>
     <string name="available_balance">Available Balance</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>

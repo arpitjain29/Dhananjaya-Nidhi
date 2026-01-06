@@ -8,9 +8,6 @@
     android:orientation="vertical"
     tools:context=".activities.KycEntryActivity">
 
-    <include layout="@layout/app_bar_layout"
-        android:id="@+id/appLayout"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,6 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddharNumberKycEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/aadhar_number">
@@ -41,6 +39,14 @@
                     android:layout_margin="@dimen/_10sdp"
                     android:background="@drawable/bg_edit_rectengle"
                     android:orientation="vertical">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivUploadAadharCardFront"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                         android:scaleType="centerCrop"
+                        android:src="@drawable/app_icon_logo"
+                        android:visibility="gone"
+                        app:shapeAppearance="@style/CornerCut"/>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvUploadAadharCardFront"
                         android:layout_width="match_parent"
@@ -52,13 +58,6 @@
                         android:gravity="center"
                         android:textSize="@dimen/_14ssp"
                         android:textColor="@color/black"/>
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:visibility="gone"
-                        android:id="@+id/ivUploadAadharCardFront"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/app_icon_logo"
-                        app:shapeAppearance="@style/CornerCut"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/llUploadAadharCardBack"
@@ -68,6 +67,14 @@
                     android:layout_margin="@dimen/_10sdp"
                     android:background="@drawable/bg_edit_rectengle"
                     android:orientation="vertical">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivUploadAadharCardBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/app_icon_logo"
+                        app:shapeAppearance="@style/CornerCut"/>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvUploadAadharCardBack"
                         android:layout_width="match_parent"
@@ -79,17 +86,11 @@
                         android:gravity="center"
                         android:textSize="@dimen/_14ssp"
                         android:textColor="@color/black"/>
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:visibility="gone"
-                        android:id="@+id/ivUploadAadharCardBack"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/app_icon_logo"
-                        app:shapeAppearance="@style/CornerCut"/>
                 </RelativeLayout>
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPanCardKycEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/pan_card">
@@ -108,6 +109,14 @@
                 android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/bg_edit_rectengle"
                 android:orientation="vertical">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivPanCardImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/app_icon_logo"
+                    app:shapeAppearance="@style/CornerCut"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPanCardUpload"
                     android:layout_width="match_parent"
@@ -119,13 +128,6 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14ssp"
                     android:textColor="@color/black"/>
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:visibility="gone"
-                    android:id="@+id/ivPanCardImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/app_icon_logo"
-                    app:shapeAppearance="@style/CornerCut"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/llUploadCustomerImage"
@@ -134,6 +136,14 @@
                 android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/bg_edit_rectengle"
                 android:orientation="vertical">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivCustomerImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/app_icon_logo"
+                    app:shapeAppearance="@style/CornerCut"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvUploadCustomerImage"
                     android:layout_width="match_parent"
@@ -145,13 +155,6 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14ssp"
                     android:textColor="@color/black"/>
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:visibility="gone"
-                    android:id="@+id/ivCustomerImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/app_icon_logo"
-                    app:shapeAppearance="@style/CornerCut"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/llUploadSignature"
@@ -160,6 +163,14 @@
                 android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/bg_edit_rectengle"
                 android:orientation="vertical">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivSignatureImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/app_icon_logo"
+                    app:shapeAppearance="@style/CornerCut"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvUploadSignature"
                     android:layout_width="match_parent"
@@ -171,13 +182,6 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14ssp"
                     android:textColor="@color/black"/>
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:visibility="gone"
-                    android:id="@+id/ivSignatureImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/app_icon_logo"
-                    app:shapeAppearance="@style/CornerCut"/>
             </RelativeLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnUploadKycEntry"

@@ -25,4 +25,8 @@ object ApiUrlEndpoint {
     const val OPEN_ACCOUNT_API = "api/member/open-account"
     const val CUSTOMER_SEARCH_API = "api/customer-search"
     const val LOAN_SEARCH_API = "api/loan-search"
+    const val MEMBER_DRAFT_LIST_API = "api/member/draft-list"
+    const val MEMBER_ADDRESS_INFO_API = "api/member/addressinfo"
+    const val MEMBER_DOCUMENT_INFO_API = "api/member/documentinfo"
+    const val MEMBER_NOMINEE_DETAILS_API = "api/member/nomineedetails"
 }

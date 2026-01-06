@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.CustomerEntryActivity">
-
-    <include
-        android:id="@+id/appLayout"
-        layout="@layout/app_bar_layout" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,6 +11,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilFirstNameCustomerEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/first_name">
@@ -34,6 +24,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastNameCustomerEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/last_name">
@@ -46,6 +37,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMobileNumberDdsEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/mobile_number">
@@ -59,6 +51,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDobCustomerEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/dob">
@@ -73,18 +66,25 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilGenderCustomerEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
-                android:hint="@string/gender">
+                android:hint="@string/gender"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_dropdown_arrow"
+                app:endIconTint="@color/text_primary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etGenderCustomerEntry"
                     style="@style/Edittext"
                     android:hint="@string/enter_gender"
-                    android:inputType="text" />
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:clickable="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilFatherNameCustomerEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/father_name">
@@ -97,6 +97,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMotherNameCustomerEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/mother_name">
@@ -109,6 +110,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAnnualIncomeEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/annual_income">
@@ -121,6 +123,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilOccupationCustomerEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/occupation">
@@ -133,6 +136,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCasteCustomerEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/caste">
@@ -151,5 +155,3 @@
                 android:text="@string/submit" />
         </LinearLayout>
     </ScrollView>
-
-</LinearLayout>

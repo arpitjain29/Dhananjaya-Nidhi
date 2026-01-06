@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/surface"
+    android:paddingTop="@dimen/_20sdp"
+    android:paddingBottom="@dimen/_20sdp"
+    android:paddingStart="@dimen/_20sdp"
+    android:paddingEnd="@dimen/_20sdp">
+
+    <!-- Step 1: Customer -->
+    <View
+        android:id="@+id/viewStep1"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        android:background="@drawable/step_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/viewStep2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread" />
+
+    <!-- Step 2: Address -->
+    <View
+        android:id="@+id/viewStep2"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        android:background="@drawable/step_circle"
+        app:layout_constraintStart_toEndOf="@id/viewStep1"
+        app:layout_constraintEnd_toStartOf="@id/viewStep3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Step 3: Nominee -->
+    <View
+        android:id="@+id/viewStep3"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        android:background="@drawable/step_circle"
+        app:layout_constraintStart_toEndOf="@id/viewStep2"
+        app:layout_constraintEnd_toStartOf="@id/viewStep4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Step 4: KYC -->
+    <View
+        android:id="@+id/viewStep4"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        android:background="@drawable/step_circle"
+        app:layout_constraintStart_toEndOf="@id/viewStep3"
+        app:layout_constraintEnd_toStartOf="@id/viewStep5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Step 5: Account -->
+    <View
+        android:id="@+id/viewStep5"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        android:background="@drawable/step_circle"
+        app:layout_constraintStart_toEndOf="@id/viewStep4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Base line (full width, inactive) -->
+    <View
+        android:id="@+id/lineBase"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@drawable/step_line"
+        app:layout_constraintStart_toStartOf="@id/viewStep1"
+        app:layout_constraintEnd_toEndOf="@id/viewStep5"
+        app:layout_constraintTop_toTopOf="@id/viewStep1"
+        app:layout_constraintBottom_toBottomOf="@id/viewStep1" />
+
+    <!-- Progress line (active) -->
+    <View
+        android:id="@+id/lineProgress"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@drawable/step_line_active"
+        app:layout_constraintStart_toStartOf="@id/viewStep1"
+        app:layout_constraintEnd_toEndOf="@id/viewStep1"
+        app:layout_constraintTop_toTopOf="@id/lineBase"
+        app:layout_constraintBottom_toBottomOf="@id/lineBase" />
+
+    <!-- Labels Row -->
+    <LinearLayout
+        android:id="@+id/labelsContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        app:layout_constraintTop_toBottomOf="@id/viewStep1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStep1Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Customer"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/text_secondary"
+            android:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStep2Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Address"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/text_secondary"
+            android:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStep3Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nominee"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/text_secondary"
+            android:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStep4Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="KYC"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/text_secondary"
+            android:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStep5Label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Account"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/text_secondary"
+            android:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

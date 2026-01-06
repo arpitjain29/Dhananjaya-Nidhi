@@ -8,6 +8,7 @@
     tools:context=".activities.EmiEntryActivity">
     <include layout="@layout/app_bar_layout"
         android:id="@+id/appLayout"/>
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/TextInputLayoutAppearance"
         android:layout_margin="@dimen/_10sdp"

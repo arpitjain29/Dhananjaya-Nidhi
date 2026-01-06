@@ -15,6 +15,9 @@
     <item android:id="@+id/nav_create_member"
         android:icon="@drawable/ic_customer"
         android:title="@string/create_member"/>
+    <item android:id="@+id/nav_pending_members"
+        android:icon="@drawable/ic_customer"
+        android:title="@string/pending_members"/>
     <item android:id="@+id/nav_logout"
         android:icon="@drawable/ic_logout"
         android:title="@string/logout"/>

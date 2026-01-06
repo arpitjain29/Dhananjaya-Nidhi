@@ -87,6 +87,7 @@
         <item name="boxCornerRadiusBottomEnd">@dimen/_8sdp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/_8sdp</item>
         <item name="boxCornerRadiusTopEnd">@dimen/_8sdp</item>
+        <item name="errorIconDrawable">@null</item>
         <item name="boxCornerRadiusTopStart">@dimen/_8sdp</item>
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
@@ -127,14 +128,40 @@
         <item name="cornerFamilyTopRight">rounded</item>
         <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
-        <item name="cornerSizeTopLeft">20%</item>
-        <item name="cornerSizeTopRight">20%</item>
-        <item name="cornerSizeBottomLeft">20%</item>
-        <item name="cornerSizeBottomRight">20%</item>
+        <item name="cornerSizeTopLeft">12%</item>
+        <item name="cornerSizeTopRight">12%</item>
+        <item name="cornerSizeBottomLeft">12%</item>
+        <item name="cornerSizeBottomRight">12%</item>
     </style>
     <style name="circleImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- DatePickerDialog Theme -->
+    <style name="DatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_variant</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:colorAccent">@color/primary</item>
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="android:colorControlActivated">@color/primary</item>
+        <item name="buttonBarButtonStyle">@style/DatePickerButtonStyle</item>
+        <item name="android:buttonBarButtonStyle">@style/DatePickerButtonStyle</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
+    
+    <style name="DatePickerButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:minHeight">@dimen/_40sdp</item>
+        <item name="android:minWidth">@dimen/_80sdp</item>
+        <item name="android:paddingStart">@dimen/_16sdp</item>
+        <item name="android:paddingEnd">@dimen/_16sdp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
     </style>
 
     <!-- Reusable TextView Styles -->

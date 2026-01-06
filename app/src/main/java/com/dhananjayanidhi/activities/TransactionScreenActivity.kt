@@ -124,7 +124,8 @@ class TransactionScreenActivity : BaseActivity() {
                 val mDay = c[Calendar.DAY_OF_MONTH]
 
                 val datePickerDialog = DatePickerDialog(
-                    this, { _, year, monthOfYear, dayOfMonth ->
+                    this, R.style.DatePickerDialogTheme,
+                    { _, year, monthOfYear, dayOfMonth ->
                         binding.etDateFilter.setText(
                             dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
                         )

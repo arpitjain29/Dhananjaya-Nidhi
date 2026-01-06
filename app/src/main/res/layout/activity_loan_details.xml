@@ -10,23 +10,20 @@
 
     <include layout="@layout/app_bar_layout"
         android:id="@+id/appLayout"/>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cvLoanDetails"
         android:layout_below="@+id/appLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_5sdp"
         android:background="@color/white"
+        app:cardElevation="@dimen/_5sdp"
         android:layout_margin="@dimen/_10sdp">
-
         <LinearLayout
-            android:id="@+id/llLoanCustomer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/_5sdp">
+            android:padding="@dimen/_10sdp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,16 +34,17 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_customer"/>
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvNameLoanDetails"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvNameCustomerDetail"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text=""
                     android:layout_weight="1"
+                    android:text=""
                     android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/poppins_bold"
                     app:fontFamily="@font/poppins_bold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14ssp"/>
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"/>
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivCheckCustomerLoanDetails"
                     android:visibility="gone"
@@ -55,62 +53,221 @@
                     android:src="@drawable/ic_check_circle"
                     android:layout_gravity="center"/>
             </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+<!--                <com.google.android.material.imageview.ShapeableImageView-->
+<!--                    android:layout_width="@dimen/_15sdp"-->
+<!--                    android:layout_height="@dimen/_15sdp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:src="@drawable/ic_call"/>-->
+<!--                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                    android:id="@+id/tvMobileNumberCustomerDetails"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text=""-->
+<!--                    android:layout_marginStart="@dimen/_10sdp"-->
+<!--                    android:fontFamily="@font/poppins_regular"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    android:textSize="@dimen/_14sdp"-->
+<!--                    android:textColor="@color/black"/>-->
+<!--&lt;!&ndash;                <androidx.appcompat.widget.AppCompatTextView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/tvAmountCustomerDetails"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:text=""&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:fontFamily="@font/poppins_bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                    app:fontFamily="@font/poppins_bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textSize="@dimen/_14sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textColor="@color/Color008000"/>&ndash;&gt;-->
+<!--            </LinearLayout>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+<!--                <com.google.android.material.imageview.ShapeableImageView-->
+<!--                    android:layout_width="@dimen/_20sdp"-->
+<!--                    android:layout_height="@dimen/_20sdp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:src="@drawable/ic_location"/>-->
+<!--                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                    android:id="@+id/tvAddressCustomerDetails"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text=""-->
+<!--                    android:layout_marginStart="@dimen/_10sdp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:fontFamily="@font/poppins_semibold"-->
+<!--                    app:fontFamily="@font/poppins_semibold"-->
+<!--                    android:textSize="@dimen/_14sdp"-->
+<!--                    android:textColor="@color/black"/>-->
+<!--            </LinearLayout>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_account_number"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAccountNumberDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_gravity="center"
+                    android:gravity="start"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_regular"
+                    app:fontFamily="@font/poppins_regular"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_rupee"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAmountCustomerDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="start"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text=""
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/Color008000"
+                    android:fontFamily="@font/poppins_medium"
+                    app:fontFamily="@font/poppins_medium"/>
+            </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAccountNoLoanDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:fontFamily="@font/poppins_semibold"
-                app:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvEmiLoanDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:fontFamily="@font/poppins_semibold"
-                app:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/Color008000"
-                android:textSize="@dimen/_14ssp"/>
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/tvDueDateLoanDetails"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text=""-->
-<!--                android:fontFamily="@font/poppins_medium"-->
-<!--                app:fontFamily="@font/poppins_medium"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/_14ssp"/>-->
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/tvPaidAmountLoanDetails"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text=""-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                app:fontFamily="@font/poppins_regular"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/_14ssp"/>-->
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/tvPendingOutstandingAmountLoanDetails"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text=""-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                app:fontFamily="@font/poppins_regular"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/_14ssp"/>-->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/cvLoanDetails"-->
+<!--        android:layout_below="@+id/appLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:cardCornerRadius="@dimen/_10sdp"-->
+<!--        app:cardElevation="@dimen/_5sdp"-->
+<!--        android:background="@color/white"-->
+<!--        android:layout_margin="@dimen/_10sdp">-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/llLoanCustomer"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="@dimen/_5sdp">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+<!--                <com.google.android.material.imageview.ShapeableImageView-->
+<!--                    android:layout_width="@dimen/_15sdp"-->
+<!--                    android:layout_height="@dimen/_15sdp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:src="@drawable/ic_customer"/>-->
+<!--                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                    android:id="@+id/tvNameLoanDetails"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text=""-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_marginStart="@dimen/_10sdp"-->
+<!--                    android:fontFamily="@font/poppins_bold"-->
+<!--                    app:fontFamily="@font/poppins_bold"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="@dimen/_14ssp"/>-->
+<!--                <com.google.android.material.imageview.ShapeableImageView-->
+<!--                    android:id="@+id/ivCheckCustomerLoanDetails"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:layout_width="@dimen/_25sdp"-->
+<!--                    android:layout_height="@dimen/_25sdp"-->
+<!--                    android:src="@drawable/ic_check_circle"-->
+<!--                    android:layout_gravity="center"/>-->
+<!--            </LinearLayout>-->
+
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tvAccountNoLoanDetails"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text=""-->
+<!--                android:fontFamily="@font/poppins_semibold"-->
+<!--                app:fontFamily="@font/poppins_semibold"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="@dimen/_14ssp"/>-->
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tvEmiLoanDetails"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text=""-->
+<!--                android:fontFamily="@font/poppins_semibold"-->
+<!--                app:fontFamily="@font/poppins_semibold"-->
+<!--                android:textColor="@color/Color008000"-->
+<!--                android:textSize="@dimen/_14ssp"/>-->
+<!--&lt;!&ndash;            <androidx.appcompat.widget.AppCompatTextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/tvDueDateLoanDetails"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text=""&ndash;&gt;-->
+<!--&lt;!&ndash;                android:fontFamily="@font/poppins_medium"&ndash;&gt;-->
+<!--&lt;!&ndash;                app:fontFamily="@font/poppins_medium"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="@dimen/_14ssp"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <androidx.appcompat.widget.AppCompatTextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/tvPaidAmountLoanDetails"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text=""&ndash;&gt;-->
+<!--&lt;!&ndash;                android:fontFamily="@font/poppins_regular"&ndash;&gt;-->
+<!--&lt;!&ndash;                app:fontFamily="@font/poppins_regular"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="@dimen/_14ssp"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <androidx.appcompat.widget.AppCompatTextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/tvPendingOutstandingAmountLoanDetails"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text=""&ndash;&gt;-->
+<!--&lt;!&ndash;                android:fontFamily="@font/poppins_regular"&ndash;&gt;-->
+<!--&lt;!&ndash;                app:fontFamily="@font/poppins_regular"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="@dimen/_14ssp"/>&ndash;&gt;-->
+<!--        </LinearLayout>-->
+<!--    </androidx.cardview.widget.CardView>-->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_below="@+id/cvLoanDetails"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatTextView
+         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/transaction"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_bold"
+        app:fontFamily="@font/poppins_bold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"/>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/cvLoanDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rvLoanDetails"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+
+</LinearLayout>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabViewClickLoanDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -122,5 +279,5 @@
         android:text="@string/collect"
         android:fontFamily="@font/poppins_regular"
         android:textSize="@dimen/_14ssp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 </RelativeLayout>

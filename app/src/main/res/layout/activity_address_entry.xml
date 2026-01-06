@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.AddressEntryActivity">
-
-    <include layout="@layout/app_bar_layout"
-        android:id="@+id/appLayout"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,6 +18,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp" />
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilHouseNoAddressEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/house_no">
@@ -40,6 +30,7 @@
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddressEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/address">
@@ -51,6 +42,7 @@
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLandmarkAddressEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/landmark">
@@ -62,6 +54,7 @@
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCityAddressEntry"
                 style="@style/TextInputLayoutAppearance"
                 android:layout_margin="@dimen/_10sdp"
                 android:hint="@string/city">
@@ -73,14 +66,16 @@
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayoutAppearance"
-            android:layout_margin="@dimen/_10sdp"
-            android:hint="@string/pincode">
+                android:id="@+id/tilPincodeAddressEntry"
+                style="@style/TextInputLayoutAppearance"
+                android:layout_margin="@dimen/_10sdp"
+                android:hint="@string/pincode">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPincodeAddressEntry"
                 style="@style/Edittext"
                 android:hint="@string/enter_pincode"
+                android:maxLength="6"
                 android:inputType="number"/>
         </com.google.android.material.textfield.TextInputLayout>
             <androidx.appcompat.widget.AppCompatCheckBox
@@ -167,4 +162,3 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
