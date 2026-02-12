@@ -143,7 +143,7 @@ class CreateMemberActivity : BaseActivity() {
             is CustomerEntryActivity -> MemberFlowManager.FlowStep.CUSTOMER
             is AddressEntryActivity -> MemberFlowManager.FlowStep.ADDRESS
             is NomineeDetailsActivity -> MemberFlowManager.FlowStep.NOMINEE
-            is KycEntryActivity -> MemberFlowManager.FlowStep.KYC
+            is KycEntryFragment -> MemberFlowManager.FlowStep.KYC
             is AccountOpenActivity -> MemberFlowManager.FlowStep.ACCOUNT
             else -> MemberFlowManager.FlowStep.CUSTOMER
         }
@@ -168,7 +168,7 @@ class CreateMemberActivity : BaseActivity() {
             }
             MemberFlowManager.FlowStep.ADDRESS -> AddressEntryActivity()
             MemberFlowManager.FlowStep.NOMINEE -> NomineeDetailsActivity()
-            MemberFlowManager.FlowStep.KYC -> KycEntryActivity()
+            MemberFlowManager.FlowStep.KYC -> KycEntryFragment()
             MemberFlowManager.FlowStep.ACCOUNT -> AccountOpenActivity()
         }
         

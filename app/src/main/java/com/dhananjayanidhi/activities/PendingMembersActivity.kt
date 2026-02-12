@@ -134,13 +134,14 @@ class PendingMembersActivity : BaseActivity() {
                     uniqueFilteredList,
                     mContext!!,
                     object : CustomerClickInterface {
-                        override fun onCustomerClick(position: Int) {
-                            if (position < uniqueFilteredList.size) {
-                                val member = uniqueFilteredList[position]
+                        override fun onCustomerClick(customerId: String?, accountId: String?) {
+                            // Find the member with matching customerId
+                            val member = uniqueFilteredList.find { it.customerId == customerId }
+                            member?.let {
                                 // Navigate to CreateMemberActivity with customer data
                                 val intent = Intent(mContext, CreateMemberActivity::class.java)
-                                intent.putExtra("customer_id", member.id?.toString() ?: "")
-                                intent.putExtra("customer_data", member)
+                                intent.putExtra("customer_id", it.id?.toString() ?: "")
+                                intent.putExtra("customer_data", it)
                                 startActivity(intent)
                             }
                         }

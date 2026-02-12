@@ -50,7 +50,7 @@ class PendingMembersAdapter(
         )
         holder.layoutBinding.llCustomerLayout.setOnClickListener {
             if (position < memberList.size) {
-                memberClickInterface.onCustomerClick(position)
+                memberClickInterface.onCustomerClick(member.customerId, null)
             }
         }
         holder.layoutBinding.ivCheckCustomer.visibility = View.GONE

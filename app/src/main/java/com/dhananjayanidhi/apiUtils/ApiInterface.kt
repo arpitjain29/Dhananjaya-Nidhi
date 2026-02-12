@@ -21,6 +21,8 @@ import com.dhananjayanidhi.models.memberdocumentinfo.MemberDocumentInfoModel
 import com.dhananjayanidhi.models.memberdraft.MemberDraftListModel
 import com.dhananjayanidhi.models.membernomineedetails.MemberNomineeDetailsModel
 import com.dhananjayanidhi.models.paymentcollection.PaymentCollectionModel
+import com.dhananjayanidhi.models.agentpayout.AgentMonthlyPayoutModel
+import com.dhananjayanidhi.models.monthlycollection.MonthlyCollectionModel
 import com.dhananjayanidhi.models.search.SearchModel
 import com.dhananjayanidhi.models.transaction.TransactionModel
 import com.dhananjayanidhi.models.usermodel.UserLoginModel
@@ -29,6 +31,8 @@ import com.dhananjayanidhi.parameters.AddressEntryParams
 import com.dhananjayanidhi.parameters.CustomerAddParams
 import com.dhananjayanidhi.parameters.CustomerDetailsParams
 import com.dhananjayanidhi.parameters.CustomerSearchParams
+import com.dhananjayanidhi.parameters.LoanEnquiryParams
+import com.dhananjayanidhi.parameters.NomineeEntryParams
 import com.dhananjayanidhi.parameters.OtpParams
 import com.dhananjayanidhi.parameters.PaymentCollectionParams
 import com.dhananjayanidhi.parameters.SearchParams
@@ -56,11 +60,11 @@ interface ApiInterface {
     @POST(ApiUrlEndpoint.LOGOUT_API)
     fun logoutApi(): Call<CommonModel?>?
 
-    @GET(ApiUrlEndpoint.CUSTOMER_LIST_API)
-    fun customerListApi(): Call<CustomerListModel?>?
+//    @GET(ApiUrlEndpoint.CUSTOMER_LIST_API)
+//    fun customerListApi(): Call<CustomerListModel?>?
 
-    @GET(ApiUrlEndpoint.CUSTOMER_LIST_API_V1)
-    fun customerListV1Api(): Call<CustomerListV1Model?>?
+    @GET(ApiUrlEndpoint.CUSTOMER_LIST_API)
+    fun customerListV1Api(): Call<CustomerListModel?>?
 
     @GET
     fun getCustomerList(@Url url: String): Call<CustomerListV1Model>
@@ -78,8 +82,10 @@ interface ApiInterface {
     fun customerDetailsApi(@Body customerDetailsParams: CustomerDetailsParams): Call<CustomerDetailModel?>?
 
     @GET(ApiUrlEndpoint.CUSTOMER_DETAILS_V1_API)
-    fun customerDetailsV1Api(@Query("customer_id") customerId:String,
-                             @Query("account_id") accountId:String): Call<CustomerDetailModel?>?
+    fun customerDetailsV1Api(
+        @Query("customer_id") customerId: String,
+        @Query("account_id") accountId: String
+    ): Call<CustomerDetailModel?>?
 
     @POST(ApiUrlEndpoint.PAYMENT_COLLECTION_API)
     fun addCustomerAmountApi(@Body paymentCollectionParams: PaymentCollectionParams): Call<PaymentCollectionModel?>?
@@ -88,32 +94,37 @@ interface ApiInterface {
     fun loanAmountAddApi(@Body paymentCollectionParams: PaymentCollectionParams): Call<LoanAmountModel?>?
 
     @GET(ApiUrlEndpoint.DASHBOARD_API)
-    fun dashboardApi():Call<DashboardModel?>?
+    fun dashboardApi(): Call<DashboardModel?>?
 
     @GET(ApiUrlEndpoint.TRANSACTIONS_API)
-    fun transactionApi(@Query("account_number") accountNumber:String,
-                       @Query("date") date:String):Call<TransactionModel?>?
+    fun transactionApi(
+        @Query("account_number") accountNumber: String,
+        @Query("date") date: String
+    ): Call<TransactionModel?>?
 
     @POST(ApiUrlEndpoint.SEARCH_CUSTOMER_API)
-    fun searchCustomerApi(@Body customerSearchParams: CustomerSearchParams):Call<SearchModel?>?
+    fun searchCustomerApi(@Body customerSearchParams: CustomerSearchParams): Call<SearchModel?>?
 
     @POST(ApiUrlEndpoint.SEARCH_CUSTOMER_V1_API)
-    fun searchCustomerV1Api(@Body customerSearchParams: CustomerSearchParams):Call<JsonObject>
+    fun searchCustomerV1Api(@Body customerSearchParams: CustomerSearchParams): Call<JsonObject>
 
     @POST(ApiUrlEndpoint.CUSTOMER_SEARCH_API)
-    fun searchCustomerNameApi(@Body searchParams: SearchParams):Call<CustomerSearchModel>
+    fun searchCustomerNameApi(@Body searchParams: SearchParams): Call<CustomerSearchModel>
 
     @POST(ApiUrlEndpoint.LOAN_SEARCH_API)
-    fun searchLoanNameApi(@Body searchParams: SearchParams):Call<LoanSearch1Model>
+    fun searchLoanNameApi(@Body searchParams: SearchParams): Call<LoanSearch1Model>
 
     @POST(ApiUrlEndpoint.MEMBER_PERSONAL_INFO_API)
-    fun addCustomerApi(@Body customerAddParams: CustomerAddParams):Call<CustomerAddModel?>?
+    fun addCustomerApi(@Body customerAddParams: CustomerAddParams): Call<CustomerAddModel?>?
 
     @GET(ApiUrlEndpoint.DEPOSIT_SCHEME_API)
-    fun depositSchemeApi():Call<DepositSchemeModel?>?
+    fun depositSchemeApi(): Call<DepositSchemeModel?>?
 
     @POST(ApiUrlEndpoint.ADDRESS_INFO_API)
-    fun addressInfoApi(@Body addressEntryParams: AddressEntryParams):Call<AddressEntryModel?>?
+    fun addressInfoApi(@Body addressEntryParams: AddressEntryParams): Call<AddressEntryModel?>?
+
+    @POST(ApiUrlEndpoint.NOMINEE_DETAILS_API)
+    fun nomineeDetailsApi(@Body nomineeEntryParams: NomineeEntryParams): Call<CommonModel?>?
 
     @Multipart
     @POST(ApiUrlEndpoint.DOCUMENT_UPDATE_API)
@@ -124,20 +135,29 @@ interface ApiInterface {
         @Part customerImage: MultipartBody.Part?,
         @Part signatureImage: MultipartBody.Part?,
         @PartMap partMap: Map<String, @JvmSuppressWildcards RequestBody>
-    ):Call<KycEntryModel?>?
+    ): Call<KycEntryModel?>?
 
     @POST(ApiUrlEndpoint.OPEN_ACCOUNT_API)
-    fun openAccountApi(@Body accountOpenParams: AccountOpenParams):Call<AccountOpenModel?>?
+    fun openAccountApi(@Body accountOpenParams: AccountOpenParams): Call<AccountOpenModel?>?
 
     @GET(ApiUrlEndpoint.MEMBER_DRAFT_LIST_API)
-    fun memberDraftListApi():Call<MemberDraftListModel?>?
+    fun memberDraftListApi(): Call<MemberDraftListModel?>?
 
     @GET(ApiUrlEndpoint.MEMBER_ADDRESS_INFO_API)
-    fun memberAddressInfoApi(@Query("customer_id") customerId: String):Call<MemberAddressInfoModel?>?
+    fun memberAddressInfoApi(@Query("customer_id") customerId: String): Call<MemberAddressInfoModel?>?
 
     @GET(ApiUrlEndpoint.MEMBER_DOCUMENT_INFO_API)
-    fun memberDocumentInfoApi(@Query("customer_id") customerId: String):Call<MemberDocumentInfoModel?>?
+    fun memberDocumentInfoApi(@Query("customer_id") customerId: String): Call<MemberDocumentInfoModel?>?
 
     @GET(ApiUrlEndpoint.MEMBER_NOMINEE_DETAILS_API)
-    fun memberNomineeDetailsApi(@Query("customer_id") customerId: String):Call<MemberNomineeDetailsModel?>?
+    fun memberNomineeDetailsApi(@Query("customer_id") customerId: String): Call<MemberNomineeDetailsModel?>?
+
+    @POST(ApiUrlEndpoint.LOAN_ENQUIRY_API)
+    fun loanEnquiryApi(@Body loanEnquiryParams: LoanEnquiryParams): Call<CommonModel?>?
+
+    @GET(ApiUrlEndpoint.AGENT_MONTHLY_PAYOUT_SUMMARY_API)
+    fun agentMonthlyPayoutSummaryApi(): Call<AgentMonthlyPayoutModel?>?
+
+    @GET(ApiUrlEndpoint.MONTHLY_COLLECTION_API)
+    fun monthlyCollectionApi(): Call<MonthlyCollectionModel?>?
 }

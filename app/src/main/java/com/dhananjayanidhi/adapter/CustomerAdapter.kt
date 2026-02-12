@@ -13,7 +13,7 @@ import com.dhananjayanidhi.models.customersearch.DatumCustomerSearchModel
 import com.dhananjayanidhi.utils.interfacef.CustomerClickInterface
 
 class CustomerAdapter(
-    private val datumCustomerList: List<DatumCustomerSearchModel>,
+    private val datumCustomerList: List<DatumCustomerListV1Model>,
     private val context: Activity,
     private val customerClickInterface: CustomerClickInterface,
 ) : RecyclerView.Adapter<CustomerAdapter.ViewHolder>() {
@@ -46,7 +46,7 @@ class CustomerAdapter(
         )
         holder.layoutBinding.llCustomerLayout.setOnClickListener {
             if (position < datumCustomerList.size) {
-                customerClickInterface.onCustomerClick(position)
+                customerClickInterface.onCustomerClick(customer.customerId, customer.accountId)
             }
         }
         holder.layoutBinding.ivCheckCustomer.visibility = 

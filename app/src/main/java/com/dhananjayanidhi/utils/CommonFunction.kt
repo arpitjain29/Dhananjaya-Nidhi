@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
@@ -16,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -227,4 +229,18 @@ object CommonFunction {
         return drawable
     }
 
+    fun getImageUri(context: Context, bitmap: Bitmap): Uri {
+        val file = persistImage(bitmap, context)
+        return FileProvider.getUriForFile(
+            context,
+            context.packageName + ".provider",
+            file
+        )
+    }
+
+    fun getOutputUri(context: Context): Uri {
+        val filesDir: File = context.cacheDir
+        val imageFile = File(filesDir, "cropped_" + System.currentTimeMillis().toString() + ".jpg")
+        return Uri.fromFile(imageFile)
+    }
 }

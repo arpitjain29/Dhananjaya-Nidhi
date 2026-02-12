@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.KycEntryActivity">
+    tools:context=".activities.KycEntryFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,69 +24,87 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAddharNumberKycEntry"
                     style="@style/Edittext"
+                    android:maxLength="12"
                     android:hint="@string/enter_aadhar_number"
-                    android:inputType="text"/>
+                    android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <RelativeLayout
-                    android:id="@+id/llUploadAadharCardFront"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="@dimen/_100sdp"
+                    android:orientation="vertical"
                     android:layout_margin="@dimen/_10sdp"
-                    android:background="@drawable/bg_edit_rectengle"
-                    android:orientation="vertical">
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/ivUploadAadharCardFront"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                         android:scaleType="centerCrop"
-                        android:src="@drawable/app_icon_logo"
-                        android:visibility="gone"
-                        app:shapeAppearance="@style/CornerCut"/>
+                    android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvUploadAadharCardFront"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/upload_aadhar_card_front"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/aadhar_card_front"
                         android:fontFamily="@font/poppins_regular"
                         app:fontFamily="@font/poppins_regular"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="@dimen/_14ssp"
+                        android:textSize="@dimen/_10ssp"
                         android:textColor="@color/black"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/llUploadAadharCardBack"
-                    android:layout_width="match_parent"
+                    <RelativeLayout
+                        android:id="@+id/llUploadAadharCardFront"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_100sdp"
+                        android:background="@drawable/bg_edit_rectengle"
+                        android:orientation="vertical">
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/ivUploadAadharCardFront"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/app_icon_logo"
+                            android:visibility="gone"
+                            app:shapeAppearance="@style/CornerCut"/>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/tvUploadAadharCardFront"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_plus"
+                            app:contentPadding="@dimen/_30sdp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="@dimen/_100sdp"
+                    android:orientation="vertical"
                     android:layout_margin="@dimen/_10sdp"
-                    android:background="@drawable/bg_edit_rectengle"
-                    android:orientation="vertical">
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/ivUploadAadharCardBack"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/app_icon_logo"
-                        app:shapeAppearance="@style/CornerCut"/>
+                    android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvUploadAadharCardBack"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/upload_aadhar_card_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/aadhar_card_back"
                         android:fontFamily="@font/poppins_regular"
                         app:fontFamily="@font/poppins_regular"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="@dimen/_14ssp"
+                        android:textSize="@dimen/_10ssp"
                         android:textColor="@color/black"/>
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/llUploadAadharCardBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_100sdp"
+                        android:background="@drawable/bg_edit_rectengle"
+                        android:orientation="vertical">
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/ivUploadAadharCardBack"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/app_icon_logo"
+                            app:shapeAppearance="@style/CornerCut"/>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/tvUploadAadharCardBack"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_plus"
+                            app:contentPadding="@dimen/_30sdp"/>
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -97,11 +115,20 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPanCardKycEntry"
+                    android:maxLength="10"
                     style="@style/Edittext"
                     android:hint="@string/enter_pan_card"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
-
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_pan_card"
+                android:fontFamily="@font/poppins_regular"
+                app:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textColor="@color/black"/>
             <RelativeLayout
                 android:id="@+id/llUploadPanCard"
                 android:layout_width="match_parent"
@@ -117,18 +144,22 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/app_icon_logo"
                     app:shapeAppearance="@style/CornerCut"/>
-                <androidx.appcompat.widget.AppCompatTextView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/tvPanCardUpload"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/upload_pan_card"
-                    android:fontFamily="@font/poppins_regular"
-                    app:fontFamily="@font/poppins_regular"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="@dimen/_14ssp"
-                    android:textColor="@color/black"/>
+                    android:src="@drawable/ic_plus"
+                    app:contentPadding="@dimen/_30sdp"/>
             </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_customer_picture"
+                android:fontFamily="@font/poppins_regular"
+                app:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textColor="@color/black"/>
             <RelativeLayout
                 android:id="@+id/llUploadCustomerImage"
                 android:layout_width="match_parent"
@@ -144,18 +175,22 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/app_icon_logo"
                     app:shapeAppearance="@style/CornerCut"/>
-                <androidx.appcompat.widget.AppCompatTextView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/tvUploadCustomerImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/upload_customer_picture"
-                    android:fontFamily="@font/poppins_regular"
-                    app:fontFamily="@font/poppins_regular"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="@dimen/_14ssp"
-                    android:textColor="@color/black"/>
+                    android:src="@drawable/ic_plus"
+                    app:contentPadding="@dimen/_30sdp"/>
             </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_signature"
+                android:fontFamily="@font/poppins_regular"
+                app:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textColor="@color/black"/>
             <RelativeLayout
                 android:id="@+id/llUploadSignature"
                 android:layout_width="match_parent"
@@ -171,17 +206,12 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/app_icon_logo"
                     app:shapeAppearance="@style/CornerCut"/>
-                <androidx.appcompat.widget.AppCompatTextView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/tvUploadSignature"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/upload_signature"
-                    android:fontFamily="@font/poppins_regular"
-                    app:fontFamily="@font/poppins_regular"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="@dimen/_14ssp"
-                    android:textColor="@color/black"/>
+                    android:src="@drawable/ic_plus"
+                    app:contentPadding="@dimen/_30sdp"/>
             </RelativeLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnUploadKycEntry"

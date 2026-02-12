@@ -23,9 +23,10 @@ class CustomerSearchAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.layoutBinding.tvSearchName.text = datumCustomerSearchModel[position].customerName
+        val customer = datumCustomerSearchModel[position]
+        holder.layoutBinding.tvSearchName.text = customer.customerName
         holder.layoutBinding.tvSearchName.setOnClickListener {
-            customerClickInterface.onCustomerClick(position)
+            customerClickInterface.onCustomerClick(customer.customerId, customer.accountId)
         }
     }
 

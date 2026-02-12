@@ -1,13 +1,13 @@
 package com.dhananjayanidhi.apiUtils
 
 object ApiUrlEndpoint {
-    const val BASE_URL = "https://dhananjayanidhi.com/"
+    const val BASE_URL = "http://dhananjayanidhi.com/"
 //    const val BASE_URL = "http://staging.dhananjayanidhi.com/"
     const val SIGNUP_API = "api/send-otp"
     const val VERIFY_OTP_API = "api/verify-otp"
     const val LOGOUT_API = "api/logout"
     const val CUSTOMER_LIST_API = "api/customer_list"
-    const val CUSTOMER_LIST_API_V1 = "api/customer_list/v1"
+//    const val CUSTOMER_LIST_API_V1 = "api/customer_list/v1"
     const val CUSTOMER_DETAILS_API = "api/customer_details"
     const val LOAN_LIST_API = "api/loan_account_list"
     const val LOAN_DETAILS_API = "api/loan_details"
@@ -21,6 +21,7 @@ object ApiUrlEndpoint {
     const val DEPOSIT_SCHEME_API = "api/deposit-scheme"
     const val MEMBER_PERSONAL_INFO_API = "api/member/personal-info"
     const val ADDRESS_INFO_API = "api/member/address-info"
+    const val NOMINEE_DETAILS_API = "api/member/nominee-details"
     const val DOCUMENT_UPDATE_API = "api/member/document-update"
     const val OPEN_ACCOUNT_API = "api/member/open-account"
     const val CUSTOMER_SEARCH_API = "api/customer-search"
@@ -29,4 +30,7 @@ object ApiUrlEndpoint {
     const val MEMBER_ADDRESS_INFO_API = "api/member/addressinfo"
     const val MEMBER_DOCUMENT_INFO_API = "api/member/documentinfo"
     const val MEMBER_NOMINEE_DETAILS_API = "api/member/nomineedetails"
+    const val LOAN_ENQUIRY_API = "api/loan_enquiry"
+    const val AGENT_MONTHLY_PAYOUT_SUMMARY_API = "api/agent-payouts/monthly-summary"
+    const val MONTHLY_COLLECTION_API = "api/monthly-collection"
 }

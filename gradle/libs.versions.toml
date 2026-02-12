@@ -16,6 +16,7 @@ sspAndroid = "1.1.1"
 #ucrop = "2.2.10"
 glide = "5.0.0-rc01"
 swiperefreshlayout = "1.1.0"
+ucrop = "2.2.11"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +35,7 @@ ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid
 #ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

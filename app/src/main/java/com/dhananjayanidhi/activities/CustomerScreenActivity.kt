@@ -9,9 +9,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dhananjayanidhi.R
-import com.dhananjayanidhi.adapter.CustomerAdapter
+import com.dhananjayanidhi.adapter.CustomerListV1Adapter
 import com.dhananjayanidhi.apiUtils.ApiClient
 import com.dhananjayanidhi.databinding.ActivityCustomerScreenBinding
+import com.dhananjayanidhi.models.customerlist.CustomerListModel
+import com.dhananjayanidhi.models.customerlist.DatumCustomerListModel
+import com.dhananjayanidhi.models.customerlistv1.CustomerListV1Model
+import com.dhananjayanidhi.models.customerlistv1.DatumCustomerListV1Model
 import com.dhananjayanidhi.models.customersearch.CustomerSearchModel
 import com.dhananjayanidhi.parameters.SearchParams
 import com.dhananjayanidhi.utils.AppController
@@ -27,7 +31,8 @@ import retrofit2.Response
 
 class CustomerScreenActivity : BaseActivity() {
     private var customerScreenBinding: ActivityCustomerScreenBinding? = null
-    private var customerAdapter: CustomerAdapter? = null
+    private var customerListV1Adapter: CustomerListV1Adapter? = null
+    private var customerList = mutableListOf<DatumCustomerListModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,57 +64,83 @@ class CustomerScreenActivity : BaseActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        customerScreenBinding?.ivSearchList?.setOnClickListener {
-            if (TextUtils.isEmpty(customerScreenBinding?.etCustomerName?.text.toString().trim())) {
-                customerScreenBinding?.etCustomerName?.error =
-                    getString(R.string.enter_name)
-            } else {
-                val searchParams = SearchParams()
-                searchParams.search = customerScreenBinding?.etCustomerName?.text.toString()
-                customerSearchApi(searchParams)
+        getCustomerListV1()
+// ADD THIS: Real-time search as user types
+        customerScreenBinding?.etCustomerName?.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().lowercase().trim()
+                filterList(query)
             }
+
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
+    //        customerScreenBinding?.ivSearchList?.setOnClickListener {
+//            if (TextUtils.isEmpty(customerScreenBinding?.etCustomerName?.text.toString().trim())) {
+//                customerScreenBinding?.etCustomerName?.error =
+//                    getString(R.string.enter_name)
+//            } else {
+//                val searchParams = SearchParams()
+//                searchParams.search = customerScreenBinding?.etCustomerName?.text.toString()
+//                customerSearchApi(searchParams)
+//            }
+//        }
+    }
+    private fun filterList(query: String) {
+        val filteredList = mutableListOf<DatumCustomerListModel>()
+
+        for (item in customerList) {
+            // Search by Name or Mobile Number (adjust fields based on your model)
+            if (item.customerName?.lowercase()?.contains(query) == true ||
+                item.mobileNumber?.contains(query) == true) {
+                filteredList.add(item)
+            }
+        }
+
+        // Update the adapter with the filtered list
+        if (customerListV1Adapter != null) {
+            customerListV1Adapter?.updateList(filteredList)
         }
     }
 
-    private fun customerSearchApi(searchParams: SearchParams) {
+    private fun getCustomerListV1() {
         if (isConnectingToInternet(mContext!!)) {
             showProgressDialog()
-            val call1 = ApiClient.buildService(mContext).searchCustomerNameApi(searchParams)
-            call1.enqueue(object : Callback<CustomerSearchModel> {
+            val call = ApiClient.buildService(mContext).customerListV1Api()
+            call?.enqueue(object : Callback<CustomerListModel?> {
                 override fun onResponse(
-                    call: Call<CustomerSearchModel>,
-                    response: Response<CustomerSearchModel>
+                    call: Call<CustomerListModel?>,
+                    response: Response<CustomerListModel?>
                 ) {
                     hideProgressDialog()
                     if (response.isSuccessful) {
-                        val customerSearchModel: CustomerSearchModel? = response.body()
-                        if (customerSearchModel != null) {
-                            if (customerSearchModel.status == 200) {
-                                customerAdapter = customerSearchModel.data?.let {
-                                    CustomerAdapter(
-                                        it,
-                                        mContext!!, object : CustomerClickInterface {
-                                            override fun onCustomerClick(position: Int) {
-                                                startActivity(
-                                                    Intent(
-                                                        mContext,
-                                                        CustomerDetailsScreenActivity::class.java
-                                                    ).putExtra(
-                                                        Constants.customerListId,
-                                                        customerSearchModel.data!![position].customerId
-                                                    ).putExtra(Constants.searchText, "")
-                                                        .putExtra(
-                                                            Constants.accountListId,
-                                                            customerSearchModel.data!![position].accountId
-                                                        )
+                        val customerListV1Model = response.body()
+                        if (customerListV1Model?.status == 200) {
+                            customerList.clear()
+                            customerListV1Model.data?.let { customerList.addAll(it) }
+                            customerListV1Adapter = CustomerListV1Adapter(
+                                customerList,
+                                mContext!!, object : CustomerClickInterface {
+                                    override fun onCustomerClick(customerId: String?, accountId: String?) {
+                                        startActivity(
+                                            Intent(
+                                                mContext,
+                                                CustomerDetailsScreenActivity::class.java
+                                            ).putExtra(
+                                                Constants.customerListId,
+                                                customerId
+                                            ).putExtra(Constants.searchText, "")
+                                                .putExtra(
+                                                    Constants.accountListId,
+                                                    accountId
                                                 )
-                                            }
-                                        })
-                                }
-                                customerScreenBinding?.rvCustomer?.adapter = customerAdapter
-                            } else {
-                                AppController.instance?.sessionManager?.logoutUser()
-                            }
+                                        )
+                                    }
+                                })
+                            customerScreenBinding?.rvCustomer?.adapter = customerListV1Adapter
+                        } else {
+                            AppController.instance?.sessionManager?.logoutUser()
                         }
                     } else {
                         val errorBody = response.errorBody()?.string()
@@ -133,12 +164,9 @@ class CustomerScreenActivity : BaseActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<CustomerSearchModel>, throwable: Throwable) {
+                override fun onFailure(call: Call<CustomerListModel?>, t: Throwable) {
                     hideProgressDialog()
-                    throwable.printStackTrace()
-                    if (throwable is HttpException) {
-                        throwable.printStackTrace()
-                    }
+                    t.printStackTrace()
                 }
             })
         } else {
@@ -148,4 +176,5 @@ class CustomerScreenActivity : BaseActivity() {
             )
         }
     }
+
 }

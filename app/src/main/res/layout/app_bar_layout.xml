@@ -104,6 +104,22 @@
                         app:layout_constraintBottom_toBottomOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+       <!-- Kyc Icon -->
+                <TextView
+                    android:id="@+id/clReKYCIcon"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/search"
+                    android:text="Re - KYC"
+                    style="@style/TextAppearanceTitleMedium"
+                    android:textColor="@color/secondary"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

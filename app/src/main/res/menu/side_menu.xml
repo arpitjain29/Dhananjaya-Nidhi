@@ -11,14 +11,27 @@
         android:title="@string/loan"/>
     <item android:id="@+id/nav_customers"
         android:icon="@drawable/ic_customer"
-        android:title="@string/customers"/>
+        android:title="@string/members"/>
     <item android:id="@+id/nav_create_member"
         android:icon="@drawable/ic_customer"
         android:title="@string/create_member"/>
-    <item android:id="@+id/nav_pending_members"
+    <item
+        android:id="@+id/nav_pending_members"
         android:icon="@drawable/ic_customer"
-        android:title="@string/pending_members"/>
-    <item android:id="@+id/nav_logout"
+        android:title="@string/pending_members" />
+
+    <item
+        android:id="@+id/nav_monthly_payout"
+        android:icon="@drawable/ic_transaction"
+        android:title="@string/monthly_payout" />
+
+    <item
+        android:id="@+id/nav_monthly_collection"
+        android:icon="@drawable/ic_transaction"
+        android:title="@string/monthly_collection" />
+
+    <item
+        android:id="@+id/nav_logout"
         android:icon="@drawable/ic_logout"
-        android:title="@string/logout"/>
+        android:title="@string/logout" />
 </menu>

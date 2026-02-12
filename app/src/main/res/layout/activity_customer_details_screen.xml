@@ -160,6 +160,8 @@
         android:id="@+id/rvCustomerDetail"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
+
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabViewClick"
         android:layout_width="wrap_content"
@@ -172,6 +174,6 @@
         android:text="@string/collect"
         android:fontFamily="@font/poppins_regular"
         android:textSize="@dimen/_14ssp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

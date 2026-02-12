@@ -82,6 +82,8 @@
     <string name="customers">Customers</string>
     <string name="create_member">Create Member</string>
     <string name="pending_members">Pending members</string>
+    <string name="monthly_payout">Monthly payout</string>
+    <string name="monthly_collection">Monthly Collection</string>
     <string name="house_no">House no</string>
     <string name="enter_house_no">Enter house no</string>
     <string name="address">Address</string>
@@ -181,4 +183,12 @@
     <string name="loan_date_prefix">Loan Date:</string>
     <string name="paid_amount_prefix">Paid Amount:</string>
     <string name="pending_outstanding_amount_prefix">Pending/outstanding amount:</string>
+    <string name="members">Members</string>
+    <string name="aadhar_card_front">Aadhar Front</string>
+    <string name="aadhar_card_back">Aadhar Back</string>
+    <string name="monthly_collection_format">Total month collection: ₹%1$d</string>
+    <string name="monthly_payout_format">Total payout: ₹%1$d</string>
+    <string name="tab_date_wise_collection">Date Wise collection</string>
+    <string name="tab_customer_wise_collection">Customer wise collection</string>
+    <string name="rupee_amount_format">₹%1$d</string>
 </resources>

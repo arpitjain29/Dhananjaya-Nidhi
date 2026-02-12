@@ -6,12 +6,20 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dhananjayanidhi.R
+import com.dhananjayanidhi.apiUtils.ApiClient
 import com.dhananjayanidhi.databinding.ActivityLoanEntryBinding
+import com.dhananjayanidhi.models.CommonModel
+import com.dhananjayanidhi.parameters.LoanEnquiryParams
 import com.dhananjayanidhi.utils.BaseActivity
+import com.google.android.material.textfield.TextInputLayout
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoanEntryActivity : BaseActivity() {
     private var loanEntryActivity: ActivityLoanEntryBinding? = null
@@ -39,7 +47,7 @@ class LoanEntryActivity : BaseActivity() {
         loanEntryActivity!!.appLayout.ivMenu.visibility = View.GONE
         loanEntryActivity!!.appLayout.ivBackArrow.visibility = View.VISIBLE
         loanEntryActivity!!.appLayout.ivSearch.visibility = View.GONE
-        loanEntryActivity!!.appLayout.tvTitle.text = getString(R.string.loan_entry)
+        loanEntryActivity!!.appLayout.tvTitle.text = getString(R.string.loan_enquiry)
         loanEntryActivity!!.appLayout.ivBackArrow.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
@@ -101,10 +109,62 @@ class LoanEntryActivity : BaseActivity() {
         }
 
         if (!hasError) {
-            // TODO: Add API call here when available
-            // submitLoanEntry(name, address, loanAmount, duration, mobileNumber)
+            submitLoanEnquiry(name, address, mobileNumber, loanAmount, duration, "Personal Loan")
         }
     }
+
+    private fun submitLoanEnquiry(
+        customerName: String,
+        address: String,
+        mobileNumber: String,
+        loanAmount: String,
+        loanDuration: String,
+        loanPurpose: String
+    ) {
+        mContext?.let {
+            if (isConnectingToInternet(it)) {
+                showProgressDialog()
+                val params = LoanEnquiryParams(
+                    customer_name = customerName,
+                    address = address,
+                    mobile_number = mobileNumber,
+                    loan_amount = loanAmount,
+                    loan_duration = loanDuration,
+                    loan_purpose = loanPurpose
+                )
+
+                ApiClient.buildService(this).loanEnquiryApi(params)?.enqueue(object : Callback<CommonModel?> {
+                    override fun onResponse(call: Call<CommonModel?>, response: Response<CommonModel?>) {
+                        hideProgressDialog()
+                        if (response.isSuccessful) {
+                            response.body()?.let {
+                                Toast.makeText(this@LoanEntryActivity, it.message, Toast.LENGTH_SHORT).show()
+                                clearForm()
+                            } ?: run {
+                                Toast.makeText(this@LoanEntryActivity, "Somethings went wrong", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            Toast.makeText(this@LoanEntryActivity, "Somethings went wrong", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonModel?>, t: Throwable) {
+                        hideProgressDialog()
+                        Toast.makeText(this@LoanEntryActivity, t.message, Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
+    }
+
+    private fun clearForm() {
+        loanEntryActivity?.etNameLoanEntry?.text?.clear()
+        loanEntryActivity?.etAddressLoanEntry?.text?.clear()
+        loanEntryActivity?.etLoanAmountLoanEntry?.text?.clear()
+        loanEntryActivity?.etDurationLoanEntry?.text?.clear()
+        loanEntryActivity?.etMobileNumber?.text?.clear()
+    }
+
 
     private fun clearAllErrors() {
         loanEntryActivity?.tilNameLoanEntry?.apply {
@@ -131,7 +191,7 @@ class LoanEntryActivity : BaseActivity() {
 
     private fun setupTextWatchers() {
         // Create a simple TextWatcher that clears error for the associated TextInputLayout
-        fun createErrorClearingWatcher(til: com.google.android.material.textfield.TextInputLayout?) =
+        fun createErrorClearingWatcher(til: TextInputLayout?) =
             object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

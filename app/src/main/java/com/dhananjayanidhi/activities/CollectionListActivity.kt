@@ -115,9 +115,9 @@ class CollectionListActivity : BaseActivity() {
                                         transactionModel.data?.data?.let {
                                             TransactionAdapter(
                                                 it,mContext!!,object : CustomerClickInterface{
-                                                    override fun onCustomerClick(position: Int) {
-                                                        println("customer id ========== "+transactionModel.data?.data!![position].customerId)
-                                                        println("account id ========== "+transactionModel.data?.data!![position].accountId)
+                                                    override fun onCustomerClick(customerId: String?, accountId: String?) {
+                                                        println("customer id ========== $customerId")
+                                                        println("account id ========== $accountId")
                                                         startActivity(
                                                             Intent(
                                                                 mContext,
@@ -125,8 +125,8 @@ class CollectionListActivity : BaseActivity() {
                                                             ).putExtra(
                                                                 Constants.searchText, ""
                                                             ).putExtra(
-                                                                    Constants.customerListId,transactionModel.data?.data!![position].customerId
-                                                            ).putExtra(Constants.accountListId, transactionModel.data?.data!![position].accountId)
+                                                                    Constants.customerListId, customerId
+                                                            ).putExtra(Constants.accountListId, accountId)
 //                                                                .putExtra(Constants.todayCollection,"")
                                                         )
                                                     }

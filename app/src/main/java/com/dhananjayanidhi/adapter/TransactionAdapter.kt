@@ -57,7 +57,7 @@ class TransactionAdapter(
         setStatusBadge(holder.layoutBinding.tvStatusTransaction, status)
         holder.layoutBinding.llCustomerLayout.setOnClickListener {
             if (position < datumTransactionModel.size) {
-                customerClickInterface.onCustomerClick(position)
+                customerClickInterface.onCustomerClick(transaction.customerId, transaction.accountId)
             }
         }
     }

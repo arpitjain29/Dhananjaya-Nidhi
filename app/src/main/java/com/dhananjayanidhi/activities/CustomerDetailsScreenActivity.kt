@@ -14,7 +14,6 @@ import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import com.dhananjayanidhi.R
 import com.dhananjayanidhi.adapter.CustomerDetailsAdapter
 import com.dhananjayanidhi.apiUtils.ApiClient
@@ -23,7 +22,6 @@ import com.dhananjayanidhi.databinding.EnterAmountLayoutBinding
 import com.dhananjayanidhi.models.customerdetail.CustomerDetailModel
 import com.dhananjayanidhi.models.paymentcollection.PaymentCollectionModel
 import com.dhananjayanidhi.parameters.CustomerDetailsParams
-import com.dhananjayanidhi.parameters.CustomerSearchParams
 import com.dhananjayanidhi.parameters.PaymentCollectionParams
 import com.dhananjayanidhi.utils.AppController
 import com.dhananjayanidhi.utils.BaseActivity
@@ -35,7 +33,6 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 import androidx.core.graphics.drawable.toDrawable
-import com.dhananjayanidhi.databinding.MsgPopupBinding
 
 class CustomerDetailsScreenActivity : BaseActivity() {
     private var customerDetailsScreenBinding: ActivityCustomerDetailsScreenBinding? = null
@@ -73,9 +70,16 @@ class CustomerDetailsScreenActivity : BaseActivity() {
         customerDetailsScreenBinding!!.appLayout.tvTitle.text = getString(R.string.customer_detail)
         customerDetailsScreenBinding!!.appLayout.ivBackArrow.visibility = View.VISIBLE
         customerDetailsScreenBinding!!.appLayout.ivSearch.visibility = View.GONE
+        customerDetailsScreenBinding!!.appLayout.clReKYCIcon.visibility = View.VISIBLE
 
         customerDetailsScreenBinding!!.appLayout.ivBackArrow.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
+        }
+        customerDetailsScreenBinding!!.appLayout.clReKYCIcon.setOnClickListener {
+            startActivity(
+                Intent(this, KycEntryActivity::class.java)
+                    .putExtra(Constants.customerListId, customerId)
+            )
         }
 
 //        if (customerId == "" && accountId == "") {
@@ -263,217 +267,22 @@ class CustomerDetailsScreenActivity : BaseActivity() {
                                     paymentCollectionModel.message,
                                     0
                                 )
-                                val customerDetailsParams = CustomerDetailsParams()
-                                customerDetailsParams.customerId = customerId
-                                customerDetailsParams.accountId = accountId
-                                customerDetailsApi(customerDetailsParams)
-                                customerDetailsAdapter?.notifyDataSetChanged()
-                                startActivity(Intent(mContext,HomeActivity::class.java))
-                                finish()
-                            } else if (paymentCollectionModel.status == 202) {
-                                showDialog(paymentCollectionModel.message)
-                            } else {
-                                showDialog(paymentCollectionModel.message)
-                            }
-                        }
-                    } else {
-                        val errorBody = response.errorBody()?.string()
-                        if (errorBody != null) {
-                            try {
-                                val errorJson = JSONObject(errorBody)
-                                val errorArray = errorJson.getJSONArray("error")
-                                val errorMessage = errorArray.getJSONObject(0).getString("message")
-                                CommonFunction.showToastSingle(mContext, errorMessage, 0)
-                                AppController.instance?.sessionManager?.logoutUser()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                                AppController.instance?.sessionManager?.logoutUser()
-                                CommonFunction.showToastSingle(
-                                    mContext,
-                                    "An error occurred. Please try again.",
-                                    0
-                                )
+
+                                AppController.instance?.sessionManager?.checkLogin()
+
+//                                val customerDetailsParams = CustomerDetailsParams()
+//                                customerDetailsParams.customerId = customerId
+//                                customerDetailsParams.accountId = accountId
+//                                customerDetailsApi(customerDetailsParams)
                             }
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<PaymentCollectionModel?>, throwable: Throwable) {
+                override fun onFailure(call: Call<PaymentCollectionModel?>, t: Throwable) {
                     hideProgressDialog()
-                    throwable.printStackTrace()
-                    if (throwable is HttpException) {
-                        throwable.printStackTrace()
-                    }
                 }
             })
-        } else {
-            CommonFunction.showToastSingle(
-                mContext,
-                resources.getString(R.string.net_connection), 0
-            )
         }
-    }
-
-//    private fun customerSearchApi(customerSearchParams: CustomerSearchParams) {
-//        if (isConnectingToInternet(mContext!!)) {
-//            showProgressDialog()
-//            val call1 = ApiClient.buildService(mContext).searchCustomerApi(customerSearchParams)
-//            call1?.enqueue(object : Callback<SearchModel?> {
-//                override fun onResponse(
-//                    call: Call<SearchModel?>,
-//                    response: Response<SearchModel?>
-//                ) {
-//                    hideProgressDialog()
-//                    if (response.isSuccessful) {
-//                        val searchAccountModel: SearchModel? = response.body()
-//                        if (searchAccountModel != null) {
-//                            if (searchAccountModel.success == true) {
-//                                println("details list ====== " + searchAccountModel.data!!.customerName)
-//                                customerDetailsScreenBinding!!.tvNameCustomerDetail.text =
-//                                    searchAccountModel.data?.customerName
-//                                customerDetailsScreenBinding!!.tvAmountCustomerDetails.text =
-//                                    String.format(
-//                                        "%s %s",
-//                                        getString(R.string.rs),
-//                                        searchAccountModel.data?.collectionAmount
-//                                    )
-//                                customerDetailsScreenBinding!!.tvAddressCustomerDetails.text =
-//                                    searchAccountModel.data?.cutomerAddress?.fullAddress
-//                                customerDetailsScreenBinding!!.tvMobileNumberCustomerDetails.text =
-//                                    searchAccountModel.data?.mobileNumber
-//                                customerDetailsScreenBinding!!.tvAccountNumberDetail.text =
-//                                    String.format(
-//                                        "%s %s", "A/C = ",
-//                                        searchAccountModel.data?.account?.accountNumber
-//                                    )
-//
-//                                customerDetailsScreenBinding!!.fabViewClick.setOnClickListener {
-//                                    val dialog =
-//                                        Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
-//                                    if (dialog.window != null) {
-//                                        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-//                                        dialog.window!!.setGravity(Gravity.CENTER)
-//                                    }
-//                                    if (dialog.window != null) {
-//                                        dialog.window!!.setLayout(
-//                                            LinearLayout.LayoutParams.MATCH_PARENT,
-//                                            LinearLayout.LayoutParams.WRAP_CONTENT
-//                                        )
-//                                        dialog.window!!.setBackgroundDrawable(
-//                                            Color.TRANSPARENT.toDrawable()
-//                                        )
-//                                    }
-//                                    dialog.setCancelable(true)
-//                                    val binding: EnterAmountLayoutBinding =
-//                                        EnterAmountLayoutBinding.inflate(
-//                                            LayoutInflater.from(
-//                                                mContext
-//                                            ), null, false
-//                                        )
-//                                    dialog.setContentView(binding.root)
-//                                    binding.btnCollect.setOnClickListener {
-//                                        if (TextUtils.isEmpty(
-//                                                binding.etAmountCustomer.text.toString().trim()
-//                                            )
-//                                        ) {
-//                                            binding.etAmountCustomer.error =
-//                                                getString(R.string.please_enter_amount)
-//                                        } else {
-//                                            dialog.dismiss()
-//                                            val paymentCollectionParams =
-//                                                PaymentCollectionParams()
-//                                            paymentCollectionParams.customerId =
-//                                                searchAccountModel.data?.customerId
-//                                            paymentCollectionParams.accountId =
-//                                                searchAccountModel.data?.accountId
-//                                            paymentCollectionParams.amount =
-//                                                binding.etAmountCustomer.text.toString().trim()
-//                                            customerAddAmountApi(paymentCollectionParams)
-//                                        }
-//                                    }
-//                                    dialog.show()
-//                                }
-//                                val customerDetailsSearchAdapter = mContext?.let {
-//                                    searchAccountModel.data!!
-//                                        .ddsAccountTransactions?.let { it1 ->
-//                                            CustomerDetailsSearchAdapter(
-//                                                it1, it
-//                                            )
-//                                        }
-//                                }
-//                                customerDetailsScreenBinding!!.rvCustomerDetail.adapter =
-//                                    customerDetailsSearchAdapter
-//                            } else {
-//                                showDialog(searchAccountModel.message)
-//                            }
-//                        }
-//                    } else {
-//                        val errorBody = response.errorBody()?.string()
-//                        if (errorBody != null) {
-//                            try {
-//                                val errorJson = JSONObject(errorBody)
-//                                val errorArray = errorJson.getJSONArray("error")
-//                                val errorMessage = errorArray.getJSONObject(0).getString("message")
-//                                CommonFunction.showToastSingle(mContext, errorMessage, 0)
-//                                AppController.instance?.sessionManager?.logoutUser()
-//                            } catch (e: Exception) {
-//                                e.printStackTrace()
-//                                AppController.instance?.sessionManager?.logoutUser()
-//                                CommonFunction.showToastSingle(
-//                                    mContext,
-//                                    "An error occurred. Please try again.",
-//                                    0
-//                                )
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<SearchModel?>, throwable: Throwable) {
-//                    hideProgressDialog()
-//                    throwable.printStackTrace()
-//                    if (throwable is HttpException) {
-//                        throwable.printStackTrace()
-//                    }
-//                }
-//            })
-//        } else {
-//            CommonFunction.showToastSingle(
-//                mContext,
-//                resources.getString(R.string.net_connection), 0
-//            )
-//        }
-//    }
-
-    fun showDialog(msg: String?) {
-        val dialog = Dialog(mContext!!, R.style.CustomAlertDialogStyle_space)
-        if (dialog.window != null) {
-            dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-            dialog.window!!.setGravity(Gravity.CENTER)
-        }
-        if (dialog.window != null) {
-            dialog.window!!.setLayout(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            dialog.window!!.setBackgroundDrawable(
-                Color.TRANSPARENT.toDrawable()
-            )
-        }
-        dialog.setCancelable(true)
-        val binding: MsgPopupBinding = MsgPopupBinding.inflate(
-            LayoutInflater.from(
-                mContext
-            ), null, false
-        )
-        dialog.setContentView(binding.root)
-        binding.tvMessageTextPopup.text = msg
-
-        binding.tvYesTextPopup.setOnClickListener {
-            dialog.dismiss()
-            startActivity(Intent(mContext,HomeActivity::class.java))
-            finish()
-        }
-        dialog.show()
     }
 }

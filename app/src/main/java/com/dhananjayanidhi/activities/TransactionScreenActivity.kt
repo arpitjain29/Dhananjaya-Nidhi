@@ -214,7 +214,7 @@ class TransactionScreenActivity : BaseActivity() {
                                         transactionModel.data?.data?.let {
                                             TransactionAdapter(
                                                 it,mContext!!,object : CustomerClickInterface {
-                                                    override fun onCustomerClick(position: Int) {}
+                                                    override fun onCustomerClick(customerId: String?, accountId: String?) {}
                                                 })
                                         }
                                     transactionScreenBinding!!.rvTransactionList.adapter = transactionAdapter

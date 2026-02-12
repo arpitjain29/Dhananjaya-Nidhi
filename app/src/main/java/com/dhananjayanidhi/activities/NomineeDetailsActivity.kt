@@ -11,10 +11,16 @@ import android.view.ViewGroup
 import com.dhananjayanidhi.R
 import com.dhananjayanidhi.apiUtils.ApiClient
 import com.dhananjayanidhi.databinding.ActivityNomineeDetailsBinding
+import com.dhananjayanidhi.models.CommonModel
+import com.dhananjayanidhi.models.addressentry.AddressEntryModel
 import com.dhananjayanidhi.models.membernomineedetails.MemberNomineeDetailsModel
+import com.dhananjayanidhi.parameters.AddressEntryParams
+import com.dhananjayanidhi.parameters.NomineeEntryParams
+import com.dhananjayanidhi.utils.AppController
 import com.dhananjayanidhi.utils.BaseFragment
 import com.dhananjayanidhi.utils.CommonFunction
 import com.dhananjayanidhi.utils.MemberFlowManager
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +30,8 @@ class NomineeDetailsActivity : BaseFragment() {
     private var nomineeDetailsBinding: ActivityNomineeDetailsBinding? = null
     private var addCustomerId: String? = null
     private var selectNomineeDob: String? = null
-    
+    private var isSubmitting = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,11 +94,13 @@ class NomineeDetailsActivity : BaseFragment() {
 
         nomineeDetailsBinding!!.btnSubmitNomineeEntry.setOnClickListener {
             // Validate all fields (local validation since no API exists)
-            val name = nomineeDetailsBinding!!.etNameNomineeEntry.text.toString().trim()
-            val relation = nomineeDetailsBinding!!.etRelationNomineeEntry.text.toString().trim()
-            val dob = selectNomineeDob
-            val aadharNumber = nomineeDetailsBinding!!.etAddharNumberNomineeEntry.text.toString().trim()
-            val aadharCopy = nomineeDetailsBinding!!.etAddharCopyNomineeEntry.text.toString().trim()
+            val nomineeEntryParams : NomineeEntryParams = NomineeEntryParams()
+            nomineeEntryParams.nomineeName = nomineeDetailsBinding!!.etNameNomineeEntry.text.toString().trim()
+            nomineeEntryParams.relation = nomineeDetailsBinding!!.etRelationNomineeEntry.text.toString().trim()
+            nomineeEntryParams.dob = selectNomineeDob
+            nomineeEntryParams.customerId = addCustomerId
+           nomineeEntryParams.aadharNumber= nomineeDetailsBinding!!.etAddharNumberNomineeEntry.text.toString().trim()
+//            val aadharCopy = nomineeDetailsBinding!!.etAddharCopyNomineeEntry.text.toString().trim()
             
             // Clear all previous errors
             nomineeDetailsBinding!!.tilNameNomineeEntry.apply {
@@ -110,65 +119,60 @@ class NomineeDetailsActivity : BaseFragment() {
                 error = null
                 isErrorEnabled = false
             }
-            nomineeDetailsBinding!!.tilAddharCopyNomineeEntry.apply {
-                error = null
-                isErrorEnabled = false
-            }
+//            nomineeDetailsBinding!!.tilAddharCopyNomineeEntry.apply {
+//                error = null
+//                isErrorEnabled = false
+//            }
             
             var hasError = false
             
-            if (TextUtils.isEmpty(name)) {
+            if (TextUtils.isEmpty(nomineeEntryParams.nomineeName)) {
                 nomineeDetailsBinding!!.tilNameNomineeEntry.apply {
                     isErrorEnabled = true
                     error = "Please enter nominee name"
                 }
                 hasError = true
             }
-            if (TextUtils.isEmpty(relation)) {
+            if (TextUtils.isEmpty(nomineeEntryParams.relation)) {
                 nomineeDetailsBinding!!.tilRelationNomineeEntry.apply {
                     isErrorEnabled = true
                     error = "Please enter relation"
                 }
                 hasError = true
             }
-            if (TextUtils.isEmpty(dob)) {
+            if (TextUtils.isEmpty(nomineeEntryParams.dob)) {
                 nomineeDetailsBinding!!.tilDobNomineeEntry.apply {
                     isErrorEnabled = true
                     error = "Please enter date of birth"
                 }
                 hasError = true
             }
-            if (TextUtils.isEmpty(aadharNumber)) {
+            if (TextUtils.isEmpty(nomineeEntryParams.aadharNumber)) {
                 nomineeDetailsBinding!!.tilAddharNumberNomineeEntry.apply {
                     isErrorEnabled = true
                     error = "Please enter Aadhar number"
                 }
                 hasError = true
             }
-            if (!TextUtils.isEmpty(aadharNumber) && aadharNumber.length != 12) {
+            if (!TextUtils.isEmpty(nomineeEntryParams.aadharNumber) && nomineeEntryParams.aadharNumber?.length != 12) {
                 nomineeDetailsBinding!!.tilAddharNumberNomineeEntry.apply {
                     isErrorEnabled = true
                     error = "Aadhar number must be 12 digits"
                 }
                 hasError = true
             }
-            if (TextUtils.isEmpty(aadharCopy)) {
-                nomineeDetailsBinding!!.tilAddharCopyNomineeEntry.apply {
-                    isErrorEnabled = true
-                    error = "Please enter Aadhar copy"
-                }
-                hasError = true
-            }
+//            if (TextUtils.isEmpty(aadharCopy)) {
+//                nomineeDetailsBinding!!.tilAddharCopyNomineeEntry.apply {
+//                    isErrorEnabled = true
+//                    error = "Please enter Aadhar copy"
+//                }
+//                hasError = true
+//            }
             
             if (!hasError) {
-                // All validations passed - mark step as completed and proceed
-                MemberFlowManager.markStepCompleted(requireContext(), MemberFlowManager.FlowStep.NOMINEE)
-                
-                // Update stepper in parent activity
-                (activity as? CreateMemberActivity)?.updateStepper()
-                
-                CommonFunction.showToastSingle(requireContext(), "Nominee details saved successfully", 0)
-                navigateToNextStep()
+                isSubmitting = true
+                nomineeDetailsBinding!!.btnSubmitNomineeEntry.isEnabled = false
+                nomineeDetailsApi(nomineeEntryParams)
             }
         }
     }
@@ -192,9 +196,9 @@ class NomineeDetailsActivity : BaseFragment() {
         nomineeDetailsBinding?.etAddharNumberNomineeEntry?.addTextChangedListener(
             createErrorClearingWatcher(nomineeDetailsBinding?.tilAddharNumberNomineeEntry)
         )
-        nomineeDetailsBinding?.etAddharCopyNomineeEntry?.addTextChangedListener(
-            createErrorClearingWatcher(nomineeDetailsBinding?.tilAddharCopyNomineeEntry)
-        )
+//        nomineeDetailsBinding?.etAddharCopyNomineeEntry?.addTextChangedListener(
+//            createErrorClearingWatcher(nomineeDetailsBinding?.tilAddharCopyNomineeEntry)
+//        )
     }
     
     private fun loadNomineeDetails() {
@@ -246,9 +250,9 @@ class NomineeDetailsActivity : BaseFragment() {
                                 }
                                 
                                 // Set Aadhar copy (if available)
-                                nomineeData.aadharNumber?.let {
-                                    nomineeDetailsBinding?.etAddharCopyNomineeEntry?.setText(it)
-                                }
+//                                nomineeData.aadharNumber?.let {
+//                                    nomineeDetailsBinding?.etAddharCopyNomineeEntry?.setText(it)
+//                                }
                             }
                         }
                     }
@@ -259,6 +263,83 @@ class NomineeDetailsActivity : BaseFragment() {
                     throwable.printStackTrace()
                 }
             })
+        }
+    }
+    private fun nomineeDetailsApi(nomineeEntryParams: NomineeEntryParams) {
+        if (isConnectingToInternet(requireContext())) {
+            showProgressDialog()
+            val call1 = ApiClient.buildService(activity).nomineeDetailsApi(nomineeEntryParams)
+            call1?.enqueue(object : Callback<CommonModel?> {
+                override fun onResponse(
+                    call: Call<CommonModel?>,
+                    response: Response<CommonModel?>
+                ) {
+                    hideProgressDialog()
+                    isSubmitting = false
+                    nomineeDetailsBinding!!.btnSubmitNomineeEntry.isEnabled = true
+
+                    if (response.isSuccessful) {
+                        val addressEntryModel: CommonModel? = response.body()
+                        if (addressEntryModel != null) {
+                            if (addressEntryModel.success == true) {
+                                // Mark step as completed
+                                MemberFlowManager.markStepCompleted(requireContext(),
+                                    MemberFlowManager.FlowStep.NOMINEE)
+
+                                // Update stepper in parent activity
+                                (activity as? CreateMemberActivity)?.updateStepper()
+
+                                // Show success message
+                                CommonFunction.showToastSingle(requireContext(),
+                                    "Nominee details saved successfully", 0)
+
+                                // Navigate to next step
+                                navigateToNextStep()
+                            } else {
+                                val errorMsg = addressEntryModel.message ?: "Failed to save address details"
+                                CommonFunction.showToastSingle(requireContext(), errorMsg, 0)
+                            }
+                        }
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        if (errorBody != null) {
+                            try {
+                                val errorJson = JSONObject(errorBody)
+                                val errorArray = errorJson.getJSONArray("error")
+                                val errorMessage = errorArray.getJSONObject(0).getString("message")
+                                CommonFunction.showToastSingle(requireContext(), errorMessage, 0)
+                                AppController.instance?.sessionManager?.logoutUser()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                AppController.instance?.sessionManager?.logoutUser()
+                                CommonFunction.showToastSingle(
+                                    requireContext(),
+                                    "An error occurred. Please try again.",
+                                    0
+                                )
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<CommonModel?>, throwable: Throwable) {
+                    hideProgressDialog()
+                    isSubmitting = false
+                    nomineeDetailsBinding!!.btnSubmitNomineeEntry.isEnabled = true
+
+                    throwable.printStackTrace()
+                    CommonFunction.showToastSingle(
+                        requireContext(),
+                        "Network error. Please check your connection and try again.",
+                        0
+                    )
+                }
+            })
+        } else {
+            CommonFunction.showToastSingle(
+                requireContext(),
+                resources.getString(R.string.net_connection), 0
+            )
         }
     }
 

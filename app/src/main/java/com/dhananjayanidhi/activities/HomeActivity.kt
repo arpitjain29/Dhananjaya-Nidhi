@@ -132,8 +132,22 @@ class HomeActivity : BaseActivity() {
                     startMemberCreationFlow(context)
                 }
 
+                R.id.nav_customers -> {
+                    mContext?.let { context ->
+                        startActivity(Intent(context, CustomerScreenActivity::class.java))
+                    }
+                }
+
                 R.id.nav_pending_members -> {
                     startActivity(Intent(context, PendingMembersActivity::class.java))
+                }
+
+                R.id.nav_monthly_payout -> {
+                    startActivity(Intent(context, MonthlyPayoutActivity::class.java))
+                }
+
+                R.id.nav_monthly_collection -> {
+                    startActivity(Intent(context, MonthlyCollectionActivity::class.java))
                 }
             }
             if (item.itemId == R.id.nav_logout) {

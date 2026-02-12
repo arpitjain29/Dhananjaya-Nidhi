@@ -29,7 +29,7 @@ class DatumTransactionModel {
     var depositDate: String? = null
 
     @SerializedName("id")
-    var id: Long? = null
+    var id: String? = null
 
     @SerializedName("status")
     var status: String? = null

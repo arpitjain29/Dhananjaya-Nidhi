@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.ssp.android)
     implementation(libs.sdp.android)
 
-//    implementation(libs.ucrop)
+    implementation(libs.ucrop)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)

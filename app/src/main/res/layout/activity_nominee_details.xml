@@ -64,21 +64,22 @@
                     android:id="@+id/etAddharNumberNomineeEntry"
                     style="@style/Edittext"
                     android:hint="Enter addhar number"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:maxLength="12"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilAddharCopyNomineeEntry"
-                style="@style/TextInputLayoutAppearance"
-                android:layout_margin="@dimen/_10sdp"
-                android:hint="Addhar copy">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/tilAddharCopyNomineeEntry"-->
+<!--                style="@style/TextInputLayoutAppearance"-->
+<!--                android:layout_margin="@dimen/_10sdp"-->
+<!--                android:hint="Addhar copy">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAddharCopyNomineeEntry"
-                    style="@style/Edittext"
-                    android:hint="Enter addhar copy"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/etAddharCopyNomineeEntry"-->
+<!--                    style="@style/Edittext"-->
+<!--                    android:hint="Enter addhar copy"-->
+<!--                    android:inputType="text"/>-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSubmitNomineeEntry"
