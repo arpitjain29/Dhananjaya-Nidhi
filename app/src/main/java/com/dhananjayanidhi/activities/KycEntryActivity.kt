@@ -206,31 +206,11 @@ class KycEntryActivity : BaseActivity() {
         }
 
         kycEntryBinding?.llKycLayout?.llUploadCustomerImage?.setOnClickListener {
-            selectValueImage = "4"
-            val imageFile = File(mContext!!.cacheDir, "camera_${System.currentTimeMillis()}.jpg")
-            cameraImageUri = FileProvider.getUriForFile(
-                mContext!!,
-                "${mContext!!.packageName}.provider",
-                imageFile
-            )
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri)
-            }
-            resultCustomerImageLauncher.launch(cameraIntent)
+            selectPictureDialog("4")
         }
 
         kycEntryBinding?.llKycLayout?.llUploadSignature?.setOnClickListener {
-            selectValueImage = "5"
-            val imageFile = File(mContext!!.cacheDir, "camera_${System.currentTimeMillis()}.jpg")
-            cameraImageUri = FileProvider.getUriForFile(
-                mContext!!,
-                "${mContext!!.packageName}.provider",
-                imageFile
-            )
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri)
-            }
-            resultImageLauncher.launch(cameraIntent)
+            selectPictureDialog("5")
         }
     }
 
@@ -675,7 +655,6 @@ class KycEntryActivity : BaseActivity() {
     private fun startCrop(sourceUri: Uri) {
         val destinationUri = CommonFunction.getOutputUri(mContext!!)
         val uCrop = UCrop.of(sourceUri, destinationUri)
-            .withAspectRatio(1f, 1f)
             .withMaxResultSize(1000, 1000)
 
         cropResultLauncher.launch(uCrop.getIntent(mContext!!))

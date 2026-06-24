@@ -272,7 +272,6 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, UploadI
         mContext?.let { context ->
             val destinationUri = CommonFunction.getOutputUri(context)
             val uCrop = UCrop.of(sourceUri, destinationUri)
-                .withAspectRatio(1f, 1f)
                 .withMaxResultSize(1000, 1000)
 
             cropResultLauncher.launch(uCrop.getIntent(context))

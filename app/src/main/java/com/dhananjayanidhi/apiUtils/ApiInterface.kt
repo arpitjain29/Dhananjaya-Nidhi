@@ -64,7 +64,7 @@ interface ApiInterface {
 //    fun customerListApi(): Call<CustomerListModel?>?
 
     @GET(ApiUrlEndpoint.CUSTOMER_LIST_API)
-    fun customerListV1Api(): Call<CustomerListModel?>?
+    fun customerListV1Api(        @Query("search") search: String, ): Call<CustomerListModel?>?
 
     @GET
     fun getCustomerList(@Url url: String): Call<CustomerListV1Model>

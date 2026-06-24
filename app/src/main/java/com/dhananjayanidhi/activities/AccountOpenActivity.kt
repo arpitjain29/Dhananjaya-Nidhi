@@ -81,8 +81,8 @@ class AccountOpenActivity: BaseFragment() {
             val accountOpenParams = AccountOpenParams()
             accountOpenParams.customerId = getCustomerId
             accountOpenParams.schemeId = selectDepositAmount
-            accountOpenParams.accountNumber =
-                accountOpenBinding?.etAccountNumberOpen?.text.toString().trim()
+//            accountOpenParams.accountNumber =
+//                accountOpenBinding?.etAccountNumberOpen?.text.toString().trim()
             accountOpenParams.memberFees = getMemberFees
             accountOpenParams.depositAmount =
                 accountOpenBinding?.etDepositAmountOpen?.text.toString().trim()
@@ -90,10 +90,10 @@ class AccountOpenActivity: BaseFragment() {
                 accountOpenBinding?.etDdsAmountOpen?.text.toString().trim()
 
             // Clear all previous errors
-            accountOpenBinding?.tilAccountNumberOpen?.apply {
-                error = null
-                isErrorEnabled = false
-            }
+//            accountOpenBinding?.tilAccountNumberOpen?.apply {
+//                error = null
+//                isErrorEnabled = false
+//            }
             accountOpenBinding?.tilMemberFeesOpen?.apply {
                 error = null
                 isErrorEnabled = false
@@ -109,19 +109,19 @@ class AccountOpenActivity: BaseFragment() {
             
             var hasError = false
             
-            if (TextUtils.isEmpty(accountOpenParams.accountNumber)) {
-                accountOpenBinding?.tilAccountNumberOpen?.apply {
-                    isErrorEnabled = true
-                    error = getString(R.string.please_enter_account_no)
-                }
-                hasError = true
-            } else if (accountOpenParams.accountNumber!!.length < 8 || accountOpenParams.accountNumber!!.length > 20) {
-                accountOpenBinding?.tilAccountNumberOpen?.apply {
-                    isErrorEnabled = true
-                    error = "Account number must be between 8 and 20 characters"
-                }
-                hasError = true
-            }
+//            if (TextUtils.isEmpty(accountOpenParams.accountNumber)) {
+//                accountOpenBinding?.tilAccountNumberOpen?.apply {
+//                    isErrorEnabled = true
+//                    error = getString(R.string.please_enter_account_no)
+//                }
+//                hasError = true
+//            } else if (accountOpenParams.accountNumber!!.length < 8 || accountOpenParams.accountNumber!!.length > 20) {
+//                accountOpenBinding?.tilAccountNumberOpen?.apply {
+//                    isErrorEnabled = true
+//                    error = "Account number must be between 8 and 20 characters"
+//                }
+//                hasError = true
+//            }
             if (TextUtils.isEmpty(accountOpenParams.memberFees)) {
                 accountOpenBinding?.tilMemberFeesOpen?.apply {
                     isErrorEnabled = true
@@ -163,9 +163,9 @@ class AccountOpenActivity: BaseFragment() {
             }
         }
         
-        accountOpenBinding?.etAccountNumberOpen?.addTextChangedListener(
-            createErrorClearingWatcher(accountOpenBinding?.tilAccountNumberOpen)
-        )
+//        accountOpenBinding?.etAccountNumberOpen?.addTextChangedListener(
+//            createErrorClearingWatcher(accountOpenBinding?.tilAccountNumberOpen)
+//        )
         accountOpenBinding?.etDepositAmountOpen?.addTextChangedListener(
             createErrorClearingWatcher(accountOpenBinding?.tilDepositAmountOpen)
         )

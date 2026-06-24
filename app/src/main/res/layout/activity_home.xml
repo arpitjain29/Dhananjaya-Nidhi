@@ -93,7 +93,7 @@
                         style="@style/TextInputLayoutAppearance"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="@string/customer_account"
+                        android:hint="@string/customer"
                         app:layout_constraintEnd_toStartOf="@id/ivSearchList"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -103,7 +103,7 @@
                             android:id="@+id/etCustomerAccount"
                             style="@style/Edittext"
                             android:hint="@string/enter_customer_account"
-                            android:inputType="number"
+                            android:inputType="text"
                             android:importantForAutofill="yes" />
                     </com.google.android.material.textfield.TextInputLayout>
 

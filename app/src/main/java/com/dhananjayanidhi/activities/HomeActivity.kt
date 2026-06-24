@@ -195,6 +195,7 @@ class HomeActivity : BaseActivity() {
         }
         homeBinding?.ivSearchList?.setOnClickListener {
             val accountNumber = homeBinding?.etCustomerAccount?.text?.toString()?.trim() ?: ""
+            /*
             if (TextUtils.isEmpty(accountNumber)) {
                 homeBinding?.etCustomerAccount?.error =
                     getString(R.string.please_enter_account_number)
@@ -203,6 +204,10 @@ class HomeActivity : BaseActivity() {
                     this.accountNumber = accountNumber
                 }
                 searchApi(customerSearchParams)
+            }*/
+            mContext?.let { context ->
+                startActivity(Intent(context, CustomerScreenActivity::class.java).putExtra(Constants.searchText,accountNumber))
+
             }
         }
 

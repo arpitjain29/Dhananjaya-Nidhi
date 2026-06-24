@@ -64,7 +64,8 @@ class CustomerScreenActivity : BaseActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        getCustomerListV1()
+        getCustomerListV1(if (intent.hasExtra(Constants.searchText))
+            intent.getStringExtra(Constants.searchText)?:"" else "")
 // ADD THIS: Real-time search as user types
         customerScreenBinding?.etCustomerName?.addTextChangedListener(object : android.text.TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -104,10 +105,10 @@ class CustomerScreenActivity : BaseActivity() {
         }
     }
 
-    private fun getCustomerListV1() {
+    private fun getCustomerListV1(search : String) {
         if (isConnectingToInternet(mContext!!)) {
             showProgressDialog()
-            val call = ApiClient.buildService(mContext).customerListV1Api()
+            val call = ApiClient.buildService(mContext).customerListV1Api(search)
             call?.enqueue(object : Callback<CustomerListModel?> {
                 override fun onResponse(
                     call: Call<CustomerListModel?>,
